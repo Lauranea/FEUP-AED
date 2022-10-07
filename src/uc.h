@@ -5,13 +5,15 @@
 #include <string>
 #include <iostream>
 #include "read.h"
+#include <algorithm>
 
 using namespace std;
 
 class uc
 {
     public:
-        vector<string> getUC(string uccode);
+        void get_classes(string uccode);
+        void get_students(string uccode, int order);
 
 };
 
