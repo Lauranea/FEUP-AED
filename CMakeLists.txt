@@ -1,10 +1,14 @@
 project(schedule)
 
-set(SOURCE src/main.cpp)
-
-# include(src/CMakeLists.txt)
-
 include_directories(src)
+
+set(SOURCE
+src/main.cpp
+src/read.cpp
+src/read.h
+src/uc.cpp
+src/uc.h
+)
 
 add_executable(${PROJECT_NAME} ${SOURCE})
 
