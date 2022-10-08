@@ -13,7 +13,7 @@ using namespace std;
 class Class
 {
     public:
-        void get_students(string classcode, int order);
+        void get_students(string classcode);
 
 };
 

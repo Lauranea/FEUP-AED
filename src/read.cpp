@@ -20,6 +20,7 @@ vector<classes_per_uc> Read::read_classes_per_uc()
         getline(line, buf, ',');
         p.UcCode = buf;
         getline(line, buf, '\r');
+        p.ClassCode = buf;
         v.push_back(p);
     }
 

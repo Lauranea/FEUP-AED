@@ -2,8 +2,11 @@
 
 using namespace std;
 
-void Class::get_students(string classcode, int order)
+void Class::get_students(string classcode)
 {
+    string order;
+    cout << "---\nOrder:\n\n1 - Alphabetically\n2 - Numerically" << endl << endl;
+    cin >> order;
     cout << "---\nAll Students that have the Class " << classcode << ":" << endl << endl;
     Read read;
     vector<students_classes> tmp1 = read.read_students_classes();
@@ -16,14 +19,20 @@ void Class::get_students(string classcode, int order)
         }
     }
 
-    if (order == 1)
+    if (order == "1")
     {
         sort(p.begin(), p.end(), sortAlphabetically);
     }
-    else
+    else if (order == "2")
     {
         sort(p.begin(), p.end(), sortNumerically);
     }
+    else
+    {
+        cout << "---\nInvalid choice." << endl;
+        return;
+    }
+
     for (int i = 0; i < p.size(); i++)
     {
         cout << p.at(i).first << " - " << p.at(i).second << endl;

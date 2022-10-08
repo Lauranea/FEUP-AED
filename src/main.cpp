@@ -13,32 +13,24 @@ int main(int argc, char** argv)
     cin >> r;
     if (r == "1")
     {
-        cout << "---\nFrom:\n\n1 - UC\n2 - Class" << endl << endl;
+        cout << "---\n1 - Get Classes\n2 - Get Students" << endl << endl;
         cin >> r;
-        if (r == "1")
+        if (r == "1") // Get Classes
         {
-            Uc uc;
-            cout << "---\nUC Code (ex: L.EIC001):" << endl << endl;
-            string code;
-            cin >> code;
-            if (code.substr(0,5) != "L.EIC")
-            {
-                cout << "---\nInvalid UC Code." << endl;
-                return 0;
-            }
-            cout << "---\n1 - Get Classes\n2a - Get Students (Alphabetic order)\n2b - Get Students (Numeric order)" << endl << endl;
+            cout << "---\nFrom:\n\n1 - UC" << endl << endl;
             cin >> r;
             if (r == "1")
             {
+                Uc uc;
+                cout << "---\nUC Code (ex: L.EIC001):" << endl << endl;
+                string code;
+                cin >> code;
+                if (code.substr(0,5) != "L.EIC")
+                {
+                    cout << "---\nInvalid UC Code." << endl;
+                    return 0;
+                }
                 uc.get_classes(code);
-            }
-            else if (r == "2a")
-            {
-                uc.get_students(code, 1);
-            }
-            else if (r == "2b")
-            {
-                uc.get_students(code, 2);
             }
             else
             {
@@ -46,26 +38,35 @@ int main(int argc, char** argv)
                 return 0;
             }
         }
-        else if (r == "2")
+        else if (r == "2") // Get Students
         {
-            Class class_;
-            cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
-            string code;
-            cin >> code;
-            if (code.substr(1,4) != "LEIC")
-            {
-                cout << "---\nInvalid Class Code." << endl;
-                return 0;
-            }
-            cout << "---\n1a - Get Students (Alphabetic order)\n1b - Get Students (Numeric order)" << endl << endl;
+            cout << "---\nFrom:\n\n1 - UC\n2 - Class" << endl << endl;
             cin >> r;
-            if (r == "1a")
+            if (r == "1")
             {
-                class_.get_students(code, 1);
+                Uc uc;
+                cout << "---\nUC Code (ex: L.EIC001):" << endl << endl;
+                string code;
+                cin >> code;
+                if (code.substr(0,5) != "L.EIC")
+                {
+                    cout << "---\nInvalid UC Code." << endl;
+                    return 0;
+                }
+                uc.get_students(code);
             }
-            else if (r == "1b")
+            else if (r == "2")
             {
-                class_.get_students(code, 2);
+                Class class_;
+                cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
+                string code;
+                cin >> code;
+                if (code.substr(0,5) != "L.EIC")
+                {
+                    cout << "---\nInvalid UC Code." << endl;
+                    return 0;
+                }
+                class_.get_students(code);
             }
             else
             {

@@ -14,7 +14,7 @@ class Uc
 {
     public:
         void get_classes(string uccode);
-        void get_students(string uccode, int order);
+        void get_students(string uccode);
 
 };
 

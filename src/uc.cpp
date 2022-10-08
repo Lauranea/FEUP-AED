@@ -17,11 +17,13 @@ void Uc::get_classes(string uccode)
     }
 }
 
-void Uc::get_students(string uccode, int order)
+void Uc::get_students(string uccode)
 {
     Read read;
     vector<students_classes> tmp1 = read.read_students_classes();
-
+    string order;
+    cout << "---\nOrder:\n\n1 - Alphabetically\n2 - Numerically" << endl << endl;
+    cin >> order;
     cout << "---\nAll Students that have the UC " << uccode << ":" << endl << endl;
     vector<pair<string, string>> p;
     for (int i = 0; i < tmp1.size(); i++)
@@ -32,13 +34,18 @@ void Uc::get_students(string uccode, int order)
         }
     }
 
-    if (order == 1)
+    if (order == "1")
     {
         sort(p.begin(), p.end(), sortAlphabetically);
     }
-    else
+    else if (order == "2")
     {
         sort(p.begin(), p.end(), sortNumerically);
+    }
+    else
+    {
+        cout << "---\nInvalid choice." << endl;
+        return;
     }
 
     for (int i = 0; i < p.size(); i++)
