@@ -4,12 +4,18 @@ include_directories(src)
 
 set(SOURCE
 src/main.cpp
-src/read.cpp
-src/read.h
-src/uc.cpp
-src/uc.h
+src/Read.cpp
+src/Read.h
+src/Uc.cpp
+src/Uc.h
+src/Class.cpp
+src/Class.h
+src/Sort.cpp
+src/Sort.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE})
+
+add_definitions("-g")
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

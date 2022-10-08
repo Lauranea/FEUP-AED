@@ -1,6 +1,6 @@
-#include "read.h"
+#include "Read.h"
 
-vector<classes_per_uc> read::read_classes_per_uc()
+vector<classes_per_uc> Read::read_classes_per_uc()
 {
     vector<classes_per_uc> v;
     ifstream fi;
@@ -19,21 +19,20 @@ vector<classes_per_uc> read::read_classes_per_uc()
         classes_per_uc p;
         getline(line, buf, ',');
         p.UcCode = buf;
-        getline(line, buf, ',');
-        p.ClassCode = buf;
+        getline(line, buf, '\r');
         v.push_back(p);
     }
 
     // for (auto a : v)
     // {
-    //     cout << a.first << " " << a.second << endl;
+    //     cout << "'" << a.UcCode << "' '" << a.ClassCode << "'" << endl;
     // }
 
     fi.close();
     return v;
 }
 
-vector<classes> read::read_classes()
+vector<classes> Read::read_classes()
 {
     vector<classes> v;
     ifstream fi;
@@ -60,7 +59,7 @@ vector<classes> read::read_classes()
         p.StartHour = buf;
         getline(line, buf, ',');
         p.Duration = buf;
-        getline(line, buf, ',');
+        getline(line, buf, '\r');
         p.Type = buf;
         v.push_back(p);
     }
@@ -74,7 +73,7 @@ vector<classes> read::read_classes()
     return v;
 }
 
-vector<students_classes> read::read_students_classes()
+vector<students_classes> Read::read_students_classes()
 {
     vector<students_classes> v;
     ifstream fi;
@@ -97,14 +96,14 @@ vector<students_classes> read::read_students_classes()
         p.StudentName = buf;
         getline(line, buf, ',');
         p.UcCode = buf;
-        getline(line, buf, ',');
+        getline(line, buf, '\r');
         p.ClassCode = buf;
         v.push_back(p);
     }
 
     // for (auto a : v)
     // {
-    //     cout << a.StudentCode << " " << a.StudentName << " " << a.UcCode << " " << a.ClassCode << endl;
+    //     cout << "'" << a.StudentCode << "' '" << a.StudentName << "' '" << a.UcCode << "' '" << a.ClassCode << "'" << endl;
     // }
 
     fi.close();

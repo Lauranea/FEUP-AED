@@ -1,5 +1,5 @@
-#ifndef _UC_H_
-#define _UC_H_
+#ifndef _CLASS_H_
+#define _CLASS_H_
 
 #include <vector>
 #include <string>
@@ -10,11 +10,10 @@
 
 using namespace std;
 
-class Uc
+class Class
 {
     public:
-        void get_classes(string uccode);
-        void get_students(string uccode, int order);
+        void get_students(string classcode, int order);
 
 };
 

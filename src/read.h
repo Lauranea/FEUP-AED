@@ -33,7 +33,7 @@ struct students_classes
     string ClassCode;
 };
 
-class read
+class Read
 {
     public:
         vector<classes_per_uc> read_classes_per_uc();
