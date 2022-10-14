@@ -33,6 +33,11 @@ struct students_classes
     string ClassCode;
 };
 
+struct schedule_struct
+{
+     
+};
+
 class Read
 {
     public:

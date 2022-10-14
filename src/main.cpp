@@ -2,6 +2,7 @@
 
 #include "Uc.h"
 #include "Class.h"
+#include "Student.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ int main(int argc, char** argv)
     cin >> r;
     if (r == "1")
     {
-        cout << "---\n1 - Get Classes\n2 - Get Students" << endl << endl;
+        cout << "---\n1 - Get Classes\n2 - Get Students\n3 - Get Schedule" << endl << endl;
         cin >> r;
         if (r == "1") // Get Classes
         {
@@ -61,12 +62,35 @@ int main(int argc, char** argv)
                 cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
                 string code;
                 cin >> code;
-                if (code.substr(0,5) != "L.EIC")
+                if (code.substr(1,4) != "LEIC")
                 {
                     cout << "---\nInvalid UC Code." << endl;
                     return 0;
                 }
                 class_.get_students(code);
+            }
+            else
+            {
+                cout << "---\nInvalid choice." << endl;
+                return 0;
+            }
+        }
+        else if (r == "3") // Get Schedule
+        {
+            cout << "---\nFrom:\n\n1 - Class" << endl << endl;
+            cin >> r;
+            if (r == "1")
+            {
+                Student student;
+                cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
+                string code;
+                cin >> code;
+                if (code.substr(1,4) != "LEIC")
+                {
+                    cout << "---\nInvalid Class Code." << endl;
+                    return 0;
+                }
+                student.get_schedule(code);
             }
             else
             {
