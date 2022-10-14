@@ -95,7 +95,7 @@ int main(int argc, char** argv)
             else if (r == "2")
             {
                 Student student;
-                cout << "---\nStudent Name / Code (ex: Cristiano Ronaldo / 202107007):" << endl << endl;
+                cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
                 string code;
                 cin >> code;
                 student.get_schedule(code);
