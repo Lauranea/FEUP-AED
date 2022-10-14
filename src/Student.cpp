@@ -9,22 +9,33 @@ vector<pair<string, int>> c =
 
 vector<string> b(vector<vector<string>> p, string d)
 {
-    vector<string> a;
-    a.push_back("           ");
-    a.push_back("-----------");
+    vector<string> a = 
+    {
+        "           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------","           ","-----------"
+    };
+
     for (int i = 0; i < p.size(); i++)
     {
         if (p.at(i).at(1) == d)
         {
-            if (p.at(i).at(2) == "8")
+            for (int j = 0; j < c.size(); j++)
             {
-                a.at(0) = p.at(i).at(0);
-                a.at(1) = p.at(i).at(4);
+                if (p.at(i).at(2) == c.at(j).first)
+                {
+                    a.at(c.at(j).second) = " " + p.at(i).at(0) + "  ";
+                    if (p.at(i).at(4).length() == 1)
+                    {
+                        a.at(c.at(j).second + 1) = " " + p.at(i).at(4) + "         ";
+                    }
+                    else
+                    {
+                        a.at(c.at(j).second + 1) = " " + p.at(i).at(4) + "        ";
+                    }
+                }
             }
-            break;
         }
     }
-
+    return a;
 }
 
 void Student::get_schedule(string classcode)
@@ -41,56 +52,60 @@ void Student::get_schedule(string classcode)
         }
     }
 
-    for (int i = 0; i < p.size(); i++)
-    {
-        cout << "///////////////| Monday    | Tuesday   | Wednesday | Thursday  | Friday   |" << endl;
-        cout << "---------------|-----------|-----------|-----------|-----------|----------|" << endl;
-        cout << " 08:00 - 08:30 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 08:30 - 09:00 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 09:00 - 09:30 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 09:30 - 10:00 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 10:00 - 10:30 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 10:30 - 11:00 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 11:00 - 11:30 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 11:30 - 12:00 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 12:00 - 12:30 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 12:30 - 13:00 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 13:00 - 13:30 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 13:30 - 14:00 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 14:00 - 14:30 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 14:30 - 15:00 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 15:00 - 15:30 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 15:30 - 16:00 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 16:00 - 16:30 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 16:30 - 17:00 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 17:00 - 17:30 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 17:30 - 18:00 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 18:00 - 18:30 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 18:30 - 19:00 |" << endl;
-        cout << "---------------|" << endl;
-        cout << " 19:00 - 19:30 |" << endl;
-        cout << "---------------|" << endl;
+    vector<string> Monday = b(p, "Monday");
+    vector<string> Tuesday = b(p, "Tuesday");
+    vector<string> Wednesday = b(p, "Wednesday");
+    vector<string> Thursday = b(p, "Thursday");
+    vector<string> Friday = b(p, "Friday");
 
-    }
+    cout << "///////////////| Monday    | Tuesday   | Wednesday | Thursday  | Friday   |" << endl;
+    cout << "---------------|-----------|-----------|-----------|-----------|----------|" << endl;
+    cout << " 08:00 - 08:30 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(1) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 08:30 - 09:00 |" << Monday.at(2) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(3) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 09:00 - 09:30 |" << Monday.at(4) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(5) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 09:30 - 10:00 |" << Monday.at(6) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 10:00 - 10:30 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 10:30 - 11:00 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 11:00 - 11:30 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 11:30 - 12:00 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 12:00 - 12:30 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 12:30 - 13:00 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 13:00 - 13:30 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 13:30 - 14:00 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 14:00 - 14:30 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 14:30 - 15:00 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 15:00 - 15:30 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 15:30 - 16:00 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 16:00 - 16:30 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 16:30 - 17:00 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 17:00 - 17:30 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 17:30 - 18:00 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 18:00 - 18:30 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 18:30 - 19:00 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << " 19:00 - 19:30 |" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+    cout << "---------------|" << Monday.at(0) << "|" << Tuesday.at(0) << "|" << Wednesday.at(0) << "|" << Thursday.at(0) << "|" << Friday.at(0) << "|" << endl;
+
+    
 }
