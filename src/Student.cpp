@@ -1,12 +1,30 @@
 #include "Student.h"
 
 
-vector<string> byDay(vector<vector<string>> p)
+vector<pair<string, int>> c =
 {
+    {"8", 0},
+    {"8.5", 2}
+};
+
+vector<string> b(vector<vector<string>> p, string d)
+{
+    vector<string> a;
+    a.push_back("           ");
+    a.push_back("-----------");
     for (int i = 0; i < p.size(); i++)
     {
-        
+        if (p.at(i).at(1) == d)
+        {
+            if (p.at(i).at(2) == "8")
+            {
+                a.at(0) = p.at(i).at(0);
+                a.at(1) = p.at(i).at(4);
+            }
+            break;
+        }
     }
+
 }
 
 void Student::get_schedule(string classcode)
