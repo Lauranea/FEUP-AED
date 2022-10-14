@@ -168,7 +168,10 @@ vector<vector<string>> Read::b(vector<vector<string>> p)
         {
             if (p.at(i).at(2) == c.at(j).first)
             {
-                a.at(d[p.at(i).at(1)]).at(c.at(j).second) = "-----------";
+                if (a.at(d[p.at(i).at(1)]).at(c.at(j).second) == "           ")
+                {
+                    a.at(d[p.at(i).at(1)]).at(c.at(j).second) = "-----------";
+                }
                 if (p.at(i).at(3) == "1") // duration 1 hour
                 {
                     if (p.at(i).at(0).length() == 5)
