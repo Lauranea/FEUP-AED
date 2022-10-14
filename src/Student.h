@@ -8,6 +8,7 @@
 #include "Read.h"
 #include <algorithm>
 #include "Sort.h"
+#include <map>
 
 using namespace std;
 
