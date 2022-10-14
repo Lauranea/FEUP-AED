@@ -8,14 +8,13 @@
 #include "Read.h"
 #include <algorithm>
 #include "Sort.h"
-#include <map>
 
 using namespace std;
 
 class Student
 {
     public:
-        void get_schedule(string classcode);
+        void get_schedule(string studentcode);
 };
 
 #endif

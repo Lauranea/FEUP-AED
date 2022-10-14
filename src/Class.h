@@ -14,6 +14,7 @@ class Class
 {
     public:
         void get_students(string classcode);
+        void get_schedule(string classcode);
 
 };
 

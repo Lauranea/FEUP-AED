@@ -77,11 +77,11 @@ int main(int argc, char** argv)
         }
         else if (r == "3") // Get Schedule
         {
-            cout << "---\nFrom:\n\n1 - Class" << endl << endl;
+            cout << "---\nFrom:\n\n1 - Class\n2 - Student" << endl << endl;
             cin >> r;
             if (r == "1")
             {
-                Student student;
+                Class class_;
                 cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
                 string code;
                 cin >> code;
@@ -90,6 +90,14 @@ int main(int argc, char** argv)
                     cout << "---\nInvalid Class Code." << endl;
                     return 0;
                 }
+                class_.get_schedule(code);
+            }
+            else if (r == "2")
+            {
+                Student student;
+                cout << "---\nStudent Name / Code (ex: Cristiano Ronaldo / 202107007):" << endl << endl;
+                string code;
+                cin >> code;
                 student.get_schedule(code);
             }
             else

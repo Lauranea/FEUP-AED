@@ -1,148 +1,37 @@
 #include "Student.h"
 
-
-vector<pair<string, int>> c =
-{
-    {"8", 0},
-    {"8.5", 2},
-    {"9", 4},
-    {"9.5", 6},
-    {"10", 8},
-    {"10.5", 10},
-    {"11", 12},
-    {"11.5", 14},
-    {"12", 16},
-    {"12.5", 18},
-    {"13", 20},
-    {"13.5", 22},
-    {"14", 24},
-    {"14.5", 26},
-    {"15", 28},
-    {"15.5", 30},
-    {"16", 32},
-    {"16.5", 34},
-    {"17", 36},
-    {"17.5", 38},
-    {"18", 40},
-    {"18.5", 42},
-    {"19", 44},
-    {"19.5", 46}
-};
-
-map<string, int> d =
-{
-    {"Monday", 0},
-    {"Tuesday", 1},
-    {"Wednesday", 2},
-    {"Thursday", 3},
-    {"Friday", 4}
-};
-
-vector<vector<string>> b(vector<vector<string>> p)
-{
-    vector<vector<string>> a = 
-    {
-        {"           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           "},
-        {"           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           "},
-        {"           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           "},
-        {"           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           "},
-        {"           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           ","           "}
-    };
-
-    for (int i = 0; i < p.size(); i++)
-    {
-        for (int j = 0; j < c.size(); j++)
-        {
-            if (p.at(i).at(2) == c.at(j).first)
-            {
-                a.at(d[p.at(i).at(1)]).at(c.at(j).second) = "-----------";
-                if (p.at(i).at(3) == "1") // duration 1 hour
-                {
-                    if (p.at(i).at(0).length() == 5)
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 1) = " " + p.at(i).at(0) + "     ";
-                    }
-                    else
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 1) = " " + p.at(i).at(0) + "  ";
-                    }
-                    if (p.at(i).at(4).length() == 1)
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 2) = " " + p.at(i).at(4) + "         ";
-                    }
-                    else
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 2) = " " + p.at(i).at(4) + "        ";
-                    }
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 4) = "-----------";
-                }
-                else if (p.at(i).at(3) == "1.5") // duration 1 hour and 30 minutes
-                {
-                    if (p.at(i).at(0).length() == 5)
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 2) = " " + p.at(i).at(0) + "     ";
-                    }
-                    else
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 2) = " " + p.at(i).at(0) + "  ";
-                    }
-                    if (p.at(i).at(4).length() == 1)
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 3) = " " + p.at(i).at(4) + "         ";
-                    }
-                    else
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 3) = " " + p.at(i).at(4) + "        ";
-                    }
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 6) = "-----------";
-                }
-                else // duration 2 hours
-                {
-                    if (p.at(i).at(0).length() == 5)
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 3) = " " + p.at(i).at(0) + "     ";
-                    }
-                    else
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 3) = " " + p.at(i).at(0) + "  ";
-                    }
-                    if (p.at(i).at(4).length() == 1)
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 4) = " " + p.at(i).at(4) + "         ";
-                    }
-                    else
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 4) = " " + p.at(i).at(4) + "        ";
-                    }
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 8) = "-----------";
-                }
-            }
-        }
-        
-    }
-    return a;
-}
-
-void Student::get_schedule(string classcode)
+void Student::get_schedule(string studentcode)
 {
     Read read;
-    vector<classes> tmp = read.read_classes();
-    cout << "---\nSchedule from class " << classcode << ":" << endl << endl;
+    vector<students_classes> tmp1 = read.read_students_classes();
+    vector<classes> tmp2 = read.read_classes();
+    cout << "---\nSchedule from Student " << studentcode << ":" << endl << endl;
     vector<vector<string>> p;
-    for (int i = 0; i < tmp.size(); i++)
+    map<string, string> pp;
+    for (int i = 0; i < tmp1.size(); i++)
     {
-        if (tmp.at(i).ClassCode == classcode)
+        if (tmp1.at(i).StudentCode == studentcode || tmp1.at(i).StudentName == studentcode)
         {
-            p.push_back({tmp.at(i).UcCode, tmp.at(i).Weekday, tmp.at(i).StartHour, tmp.at(i).Duration, tmp.at(i).Type});
+            pp[tmp1.at(i).UcCode] = tmp1.at(i).ClassCode;
+        }
+    }
+    for (int i = 0; i < tmp2.size(); i++)
+    {
+        if (tmp2.at(i).ClassCode == pp[tmp2.at(i).UcCode])
+        {
+            p.push_back({tmp2.at(i).UcCode, tmp2.at(i).Weekday, tmp2.at(i).StartHour, tmp2.at(i).Duration, tmp2.at(i).Type});
         }
     }
 
-    vector<vector<string>> l = b(p);
+    vector<vector<string>> l = read.b(p);
+
     vector<string> Monday = l.at(0);
     vector<string> Tuesday = l.at(1);
     vector<string> Wednesday = l.at(2);
     vector<string> Thursday = l.at(3);
     vector<string> Friday = l.at(4);
+
+    // Epic programming start here 
 
     cout << "///////////////| Monday    | Tuesday   | Wednesday | Thursday  | Friday    |" << endl;
     cout << "---------------|-----------|-----------|-----------|-----------|-----------|" << endl;
@@ -192,6 +81,4 @@ void Student::get_schedule(string classcode)
     cout << "---------------|" << Monday.at(44) << "|" << Tuesday.at(44) << "|" << Wednesday.at(44) << "|" << Thursday.at(44) << "|" << Friday.at(44) << "|" << endl;
     cout << " 19:00 - 19:30 |" << Monday.at(45) << "|" << Tuesday.at(45) << "|" << Wednesday.at(45) << "|" << Thursday.at(45) << "|" << Friday.at(45) << "|" << endl;
     cout << "---------------|" << Monday.at(46) << "|" << Tuesday.at(46) << "|" << Wednesday.at(46) << "|" << Thursday.at(46) << "|" << Friday.at(46) << "|" << endl;
-
-    
 }

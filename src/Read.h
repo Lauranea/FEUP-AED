@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <map>
 
 using namespace std;
 
@@ -33,10 +34,7 @@ struct students_classes
     string ClassCode;
 };
 
-struct schedule_struct
-{
-     
-};
+
 
 class Read
 {
@@ -44,6 +42,7 @@ class Read
         vector<classes_per_uc> read_classes_per_uc();
         vector<classes> read_classes();
         vector<students_classes> read_students_classes();
+        vector<vector<string>> b(vector<vector<string>> p);
         
 };
 
