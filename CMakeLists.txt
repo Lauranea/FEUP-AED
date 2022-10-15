@@ -6,6 +6,8 @@ set(SOURCE
 src/main.cpp
 src/Read.cpp
 src/Read.h
+src/Write.cpp
+src/Write.h
 src/Uc.cpp
 src/Uc.h
 src/Class.cpp

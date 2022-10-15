@@ -82,3 +82,30 @@ void Student::get_schedule(string studentcode)
     cout << " 19:00 - 19:30 |" << Monday.at(45) << "|" << Tuesday.at(45) << "|" << Wednesday.at(45) << "|" << Thursday.at(45) << "|" << Friday.at(45) << "|" << endl;
     cout << "---------------|" << Monday.at(46) << "|" << Tuesday.at(46) << "|" << Wednesday.at(46) << "|" << Thursday.at(46) << "|" << Friday.at(46) << "|" << endl;
 }
+
+void Student::remove_class(string studentcode, string classcode)
+{
+    Write write;
+    if (write.remove_class(studentcode, classcode))
+    {
+        cout << "\nRemoved student " << studentcode << " from Class " << classcode << endl;
+    }
+    else
+    {
+        cout << "\nFailed to remove student " << studentcode << " from Class " << classcode << endl;
+    }
+}
+
+void Student::remove_uc(string studentcode, string uccode)
+{
+    Write write;
+    if (write.remove_uc(studentcode, uccode))
+    {
+        cout << "\nRemoved student " << studentcode << " from UC " << uccode << endl;
+        
+    }
+    else
+    {
+        cout << "\nFailed to remove student " << studentcode << " from UC " << uccode << endl;
+    }
+}

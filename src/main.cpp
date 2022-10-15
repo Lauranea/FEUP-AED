@@ -114,11 +114,54 @@ int main(int argc, char** argv)
     }
     else if (r == "2")
     {
-
+        cout << "---\n1 - Remove Student\n2 - Add Student\n3 - Change Student" << endl << endl;
+        cin >> r;
+        if (r == "1")
+        {
+            Student student;
+            cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
+            string code;
+            cin >> code;
+            cout << "---\nFrom:\n\n1 - Class\n2 - UC" << endl << endl;
+            cin >> r;
+            if (r == "1")
+            {
+                cout << "---\nClass  Code (ex: 1LEIC01):" << endl << endl;
+                cin >> r;
+                if (r.substr(1,4) != "LEIC")
+                {
+                    cout << "---\nInvalid Class Code." << endl;
+                    return 0;
+                }
+                student.remove_class(code, r);
+            }
+            else if (r == "2")
+            {
+                cout << "---\nUc  Code (ex: L.EIC001):" << endl << endl;
+                cin >> r;
+                if (r.substr(0,5) != "L.EIC")
+                {
+                    cout << "---\nInvalid Uc Code." << endl;
+                    return 0;
+                }
+                student.remove_uc(code, r);
+            }
+            else
+            {
+                cout << "---\nInvalid choice." << endl;
+                return 0;
+            }
+        }
+        else
+        {
+            cout << "---\nInvalid choice." << endl;
+            return 0;
+        }
     }
     else
     {
         cout << "---\nInvalid choice." << endl;
+        return 0;
     }
 
     return 0;
