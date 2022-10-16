@@ -126,6 +126,7 @@ void Student::add_to(string studentcode, string uccode, string classcode)
     }
 }
 
+
 void Student::ocupation(bool cres)
 {
     Read read;
