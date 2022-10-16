@@ -159,11 +159,6 @@ bool validname(string name)
 
 bool Write::add_to(string studentcode, string uccode, string classcode)
 {
-    if (!is_balanced(uccode, classcode))
-    {
-        return false;
-    }
-
     ifstream fi;
     ofstream fo;
     fi.open("../students_classes.csv");
