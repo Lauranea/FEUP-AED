@@ -1,6 +1,8 @@
 #include "Student.h"
 
 #define RESET   "\033[0m"
+#define BOLDWHITE   "\033[1m\033[37m"
+#define RED     "\033[31m"
 
 void Student::get_schedule(string studentcode)
 {
@@ -94,7 +96,7 @@ void Student::remove_class(string studentcode, string classcode)
     }
     else
     {
-        cout << RESET << "\nFailed to remove student " << studentcode << " from Class " << classcode << endl;
+        cout << RED << "\nFailed to remove student " << studentcode << " from Class " << classcode << endl;
     }
 }
 
@@ -108,29 +110,34 @@ void Student::remove_uc(string studentcode, string uccode)
     }
     else
     {
-        cout << RESET << "\nFailed to remove student " << studentcode << " from UC " << uccode << endl;
+        cout << RED << "\nFailed to remove student " << studentcode << " from UC " << uccode << endl;
     }
 }
 
 void Student::add_to(string studentcode, string uccode, string classcode)
 {
     Write write;
-    if (write.add_to(studentcode, uccode, classcode))
+    if (write.is_balanced(uccode, classcode))
     {
-        cout << RESET << "\nAdded student " << studentcode << " to UC " << uccode  << " to Class " << classcode << endl;
-        
+        if (write.add_to(studentcode, uccode, classcode))
+        {
+            cout << RESET << "\nAdded student " << studentcode << " to UC " << uccode  << " to Class " << classcode << endl;
+        }
+        else
+        {
+            cout << RED << "\nFailed to add student " << studentcode << " to UC " << uccode  << " to Class " << classcode << endl;
+        }
     }
     else
     {
-        cout << RESET << "\nAdded student " << studentcode << " to UC " << uccode  << " to Class " << classcode << endl;
+        cout << RED << "\nWith this change, the Classes would not be balanced " << endl;
     }
 }
-
 
 void Student::ocupation(bool cres)
 {
     Read read;
-    vector<pair<string, pair<string, int>>> p = read.ocupation();
+    vector<pair<string, vector<pair<string, int>>>> p = read.ocupation();
     if (cres)
     {
         sort(p.begin(), p.end(), sortCrescenteUc);
@@ -142,6 +149,11 @@ void Student::ocupation(bool cres)
 
     for (int i = 0; i < p.size(); i++)
     {
-        cout << RESET << "'" << p[i].first << "' '" << p[i].second.first << "'  " << p[i].second.second << endl;
+        sort(p[i].second.begin(), p[i].second.end());
+        cout << BOLDWHITE << endl << p[i].first << RESET << endl;
+        for (int j = 0; j < p[i].second.size(); j++)
+        {
+            cout << p[i].second[j].first << " - " << p[i].second[j].second << endl;
+        }
     }
 }

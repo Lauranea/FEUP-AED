@@ -1,4 +1,5 @@
 #include "Write.h"
+#include "Read.h"
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -96,45 +97,36 @@ bool Write::remove_uc(string studentcode, string uccode)
 }
 
 
-
-
-bool Write::is_not_balanced(string uccode1, string classcode1, string uccode2, string classcode2)
+bool Write::is_balanced(string uccode, string classcode)
 {
-    ifstream fi;
-    fi.open("../students_classes.csv");
-    if (!fi.is_open())
-    {
-        cout << "\nCould not open file" << endl;
-        return false;
-    }
-
-    bool rt = false;
+    Read read;
+    vector<pair<string, vector<pair<string, int>>>> p = read.ocupation();
     
-    string buffer;
-    getline(fi, buffer, '\n');
-    while (getline(fi, buffer, '\n'))
+    for (int i = 0; i < p.size(); i++)
     {
-        stringstream line(buffer);
-        string buf;
-        string stu1;
-        string stu2;
-        getline(line, stu1, ',');
-        getline(line, stu2, ',');
-        getline(line, buf, ',');
-        // if ((stu1 != studentcode && stu2 != studentcode) || buf != uccode)
-        // {
-        //     fo << buffer;
-        // }
-        // else
-        // {
-        //     rt = true;
-        // }
-        getline(line, buf, '\r');
+        if (p[i].first == uccode)
+        {
+            int min = INT_MAX;
+            int cur = 0;
+            for (int j = 0; j < p[i].second.size(); j++)
+            {
+                if (p[i].second[j].second < min)
+                {
+                    min = p[i].second[j].second;
+                }
+                if (p[i].second[j].first == classcode)
+                {
+                    cur = p[i].second[j].second;
+                }
+            }
+            if (cur + 1 - min >= 4)
+            {
+                return false;
+            }
+            break;
+        }
     }
-
-    fi.close();
-
-    return rt;
+    return true;
 }
 
 bool validcode(string code)
@@ -167,6 +159,11 @@ bool validname(string name)
 
 bool Write::add_to(string studentcode, string uccode, string classcode)
 {
+    if (!is_balanced(uccode, classcode))
+    {
+        return false;
+    }
+
     ifstream fi;
     ofstream fo;
     fi.open("../students_classes.csv");
