@@ -129,7 +129,7 @@ void Student::add_to(string studentcode, string uccode, string classcode)
 void Student::ocupation(bool cres)
 {
     Read read;
-    vector<pair<pair<string, string>, int>> p = read.ocupation();
+    vector<pair<string, pair<string, int>>> p = read.ocupation();
     if (cres)
     {
         sort(p.begin(), p.end(), sortCrescenteUc);
@@ -141,6 +141,6 @@ void Student::ocupation(bool cres)
 
     for (int i = 0; i < p.size(); i++)
     {
-        cout << RESET << "'" << p[i].first.first << "' '" << p[i].first.second << "'  " << p[i].second << endl;
+        cout << RESET << "'" << p[i].first << "' '" << p[i].second.first << "'  " << p[i].second.second << endl;
     }
 }

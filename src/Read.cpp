@@ -152,24 +152,24 @@ vector<students_classes> Read::read_students_classes()
 
 
 
-vector<pair<pair<string, string>, int>> Read::ocupation()
+vector<pair<string, pair<string, int>>> Read::ocupation()
 {
     vector<students_classes> p = read_students_classes();
-    vector<pair<pair<string, string>, int>> q;
+    vector<pair<string, pair<string, int>>> q;
     for (int i = 0; i < p.size(); i++)
     {
         bool a = true;
         for (int j = 0; j < q.size(); j++)
         {
-            if (p[i].UcCode == q[j].first.first && p[i].ClassCode == q[j].first.second)
+            if (p[i].UcCode == q[j].first && p[i].ClassCode == q[j].second.first)
             {
-                q[j].second++;
+                q[j].second.second++;
                 a = false;
             }
         }
         if (a)
         {
-            q.push_back({{p[i].UcCode, p[i].ClassCode}, 1});
+            q.push_back({p[i].UcCode, {p[i].ClassCode, 1}});
         }
     }
 

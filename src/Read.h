@@ -19,7 +19,7 @@ class Read
         vector<classes> read_classes();
         vector<students_classes> read_students_classes();
         vector<vector<string>> b(vector<vector<string>> p);
-        vector<pair<pair<string, string>, int>> ocupation();
+        vector<pair<string, pair<string, int>>> ocupation();
 };
 
 #endif
