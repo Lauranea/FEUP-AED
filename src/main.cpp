@@ -4,13 +4,17 @@
 #include "Class.h"
 #include "Student.h"
 
+#define RESET   "\033[0m"
+#define BOLDWHITE   "\033[1m\033[37m"
+#define RED     "\033[31m"
+
 using namespace std;
 
 int main(int argc, char** argv)
 {
     string r;
 
-    cout << "1 - View\n2 - Edit" << endl << endl;
+    cout << BOLDWHITE << "1 - View\n2 - Edit" << endl << endl;
     cin >> r;
     if (r == "1") // View
     {
@@ -28,14 +32,14 @@ int main(int argc, char** argv)
                 cin >> code;
                 if (code.substr(0,5) != "L.EIC")
                 {
-                    cout << "---\nInvalid UC Code." << endl;
+                    cout << RED << "---\nInvalid UC Code." << endl;
                     return 0;
                 }
                 uc.get_classes(code);
             }
             else
             {
-                cout << "---\nInvalid choice." << endl;
+                cout << RED << "---\nInvalid choice." << endl;
                 return 0;
             }
         }
@@ -51,7 +55,7 @@ int main(int argc, char** argv)
                 cin >> code;
                 if (code.substr(0,5) != "L.EIC")
                 {
-                    cout << "---\nInvalid UC Code." << endl;
+                    cout << RED << "---\nInvalid UC Code." << endl;
                     return 0;
                 }
                 uc.get_students(code);
@@ -64,14 +68,14 @@ int main(int argc, char** argv)
                 cin >> code;
                 if (code.substr(1,4) != "LEIC")
                 {
-                    cout << "---\nInvalid UC Code." << endl;
+                    cout << RED << "---\nInvalid UC Code." << endl;
                     return 0;
                 }
                 class_.get_students(code);
             }
             else
             {
-                cout << "---\nInvalid choice." << endl;
+                cout << RED << "---\nInvalid choice." << endl;
                 return 0;
             }
         }
@@ -87,7 +91,7 @@ int main(int argc, char** argv)
                 cin >> code;
                 if (code.substr(1,4) != "LEIC")
                 {
-                    cout << "---\nInvalid Class Code." << endl;
+                    cout << RED << "---\nInvalid Class Code." << endl;
                     return 0;
                 }
                 class_.get_schedule(code);
@@ -102,18 +106,28 @@ int main(int argc, char** argv)
             }
             else
             {
-                cout << "---\nInvalid choice." << endl;
+                cout << RED << "---\nInvalid choice." << endl;
                 return 0;
             }
         }
         else if (r == "4") // Get Ocupation
         {
+            string order;
+            cout << "---\nUC Order:\n\n1 - Ascending\n2 - Descending" << endl << endl;
+            cin >> order;
             Student student;
-            student.ocupation(true);
+            if (order == "1")
+            {
+                student.ocupation(true);
+            }
+            else
+            {
+                student.ocupation(false);
+            }
         }
         else
         {
-            cout << "---\nInvalid choice." << endl;
+            cout << RED << "---\nInvalid choice." << endl;
             return 0;
         }
     }
@@ -135,7 +149,7 @@ int main(int argc, char** argv)
                 cin >> r;
                 if (r.substr(1,4) != "LEIC")
                 {
-                    cout << "---\nInvalid Class Code." << endl;
+                    cout << RED << "---\nInvalid Class Code." << endl;
                     return 0;
                 }
                 student.remove_class(code, r);
@@ -146,26 +160,49 @@ int main(int argc, char** argv)
                 cin >> r;
                 if (r.substr(0,5) != "L.EIC")
                 {
-                    cout << "---\nInvalid Uc Code." << endl;
+                    cout << RED << "---\nInvalid Uc Code." << endl;
                     return 0;
                 }
                 student.remove_uc(code, r);
             }
             else
             {
-                cout << "---\nInvalid choice." << endl;
+                cout << RED << "---\nInvalid choice." << endl;
                 return 0;
             }
         }
+        else if (r == "2") // Add student
+        {
+            Student student;
+            cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
+            string code;
+            cin >> code;
+            cout << "---\nTo UC (ex: L.EIC001):" << endl << endl;
+            cin >> r;
+            if (r.substr(0,5) != "L.EIC")
+            {
+                cout << RED << "---\nInvalid Uc Code." << endl;
+                return 0;
+            }
+            string rr;
+            cout << "---\nTo Class (ex: 1LEIC01):" << endl << endl;
+            cin >> rr;
+            if (r.substr(1,4) != "LEIC")
+            {
+                cout << RED << "---\nInvalid Class Code." << endl;
+                return 0;
+            }
+            student.add_to(code, r, rr);
+        }
         else
         {
-            cout << "---\nInvalid choice." << endl;
+            cout << RED << "---\nInvalid choice." << endl;
             return 0;
         }
     }
     else
     {
-        cout << "---\nInvalid choice." << endl;
+        cout << RED << "---\nInvalid choice." << endl;
         return 0;
     }
 

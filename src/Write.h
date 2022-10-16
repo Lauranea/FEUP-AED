@@ -16,6 +16,8 @@ class Write
     public:
         bool remove_class(string studentcode, string classcode);
         bool remove_uc(string studentcode, string uccode);
+        bool add_to(string studentcode, string uccode, string classcode);
+        bool is_not_balanced(string uccode1, string classcode1, string uccode2, string classcode2);
 };
 
 #endif

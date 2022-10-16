@@ -18,6 +18,7 @@ class Student
         void get_schedule(string studentcode);
         void remove_class(string studentcode, string classcode);
         void remove_uc(string studentcode, string classcode);
+        void add_to(string studentcode, string uccode, string classcode);
         void ocupation(bool alpha);
 
 };

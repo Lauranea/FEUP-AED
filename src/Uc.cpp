@@ -1,5 +1,7 @@
 #include "Uc.h"
 
+#define RESET   "\033[0m"
+
 using namespace std;
 
 void Uc::get_classes(string uccode)
@@ -7,7 +9,7 @@ void Uc::get_classes(string uccode)
     Read read;
     vector<classes_per_uc> tmp1 = read.read_classes_per_uc();
 
-    cout << "---\nAll Classes that have the UC " << uccode << ":" << endl << endl;
+    cout << RESET << "---\nAll Classes that have the UC " << uccode << ":" << endl << endl;
     for (int i = 0; i < tmp1.size(); i++)
     {
         if (tmp1.at(i).UcCode == uccode)
@@ -24,7 +26,7 @@ void Uc::get_students(string uccode)
     string order;
     cout << "---\nOrder:\n\n1 - Alphabetically\n2 - Numerically" << endl << endl;
     cin >> order;
-    cout << "---\nAll Students that have the UC " << uccode << ":" << endl << endl;
+    cout << RESET << "---\nAll Students that have the UC " << uccode << ":" << endl << endl;
     vector<pair<string, string>> p;
     for (int i = 0; i < tmp1.size(); i++)
     {
@@ -50,6 +52,6 @@ void Uc::get_students(string uccode)
 
     for (int i = 0; i < p.size(); i++)
     {
-        cout << p.at(i).first << " - " << p.at(i).second << endl;
+        cout << RESET << p.at(i).first << " - " << p.at(i).second << endl;
     }
 }

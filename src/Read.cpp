@@ -1,5 +1,7 @@
 #include "Read.h"
 
+#define RESET   "\033[0m"
+
 vector<pair<string, int>> c =
 {
     {"8", 0},
@@ -175,7 +177,7 @@ vector<pair<pair<string, string>, int>> Read::ocupation()
     // {
     //     cout << "'" << q[i].first.first << "' '" << q[i].first.second << "'  " << q[i].second << endl;
     // }
-    
+
     return q;
 }
 

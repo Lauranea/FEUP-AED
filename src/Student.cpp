@@ -1,11 +1,13 @@
 #include "Student.h"
 
+#define RESET   "\033[0m"
+
 void Student::get_schedule(string studentcode)
 {
     Read read;
     vector<students_classes> tmp1 = read.read_students_classes();
     vector<classes> tmp2 = read.read_classes();
-    cout << "---\nSchedule from Student " << studentcode << ":" << endl << endl;
+    cout << RESET << "---\nSchedule from Student " << studentcode << ":" << endl << endl;
     vector<vector<string>> p;
     map<string, string> pp;
     for (int i = 0; i < tmp1.size(); i++)
@@ -88,11 +90,11 @@ void Student::remove_class(string studentcode, string classcode)
     Write write;
     if (write.remove_class(studentcode, classcode))
     {
-        cout << "\nRemoved student " << studentcode << " from Class " << classcode << endl;
+        cout << RESET << "\nRemoved student " << studentcode << " from Class " << classcode << endl;
     }
     else
     {
-        cout << "\nFailed to remove student " << studentcode << " from Class " << classcode << endl;
+        cout << RESET << "\nFailed to remove student " << studentcode << " from Class " << classcode << endl;
     }
 }
 
@@ -101,14 +103,29 @@ void Student::remove_uc(string studentcode, string uccode)
     Write write;
     if (write.remove_uc(studentcode, uccode))
     {
-        cout << "\nRemoved student " << studentcode << " from UC " << uccode << endl;
+        cout << RESET << "\nRemoved student " << studentcode << " from UC " << uccode << endl;
         
     }
     else
     {
-        cout << "\nFailed to remove student " << studentcode << " from UC " << uccode << endl;
+        cout << RESET << "\nFailed to remove student " << studentcode << " from UC " << uccode << endl;
     }
 }
+
+void Student::add_to(string studentcode, string uccode, string classcode)
+{
+    Write write;
+    if (write.add_to(studentcode, uccode, uccode))
+    {
+        cout << RESET << "\nAdded student " << studentcode << " to UC " << uccode  << " to Class " << classcode << endl;
+        
+    }
+    else
+    {
+        cout << RESET << "\nAdded student " << studentcode << " to UC " << uccode  << " to Class " << classcode << endl;
+    }
+}
+
 void Student::ocupation(bool cres)
 {
     Read read;
@@ -124,6 +141,6 @@ void Student::ocupation(bool cres)
 
     for (int i = 0; i < p.size(); i++)
     {
-        cout << "'" << p[i].first.first << "' '" << p[i].first.second << "'  " << p[i].second << endl;
+        cout << RESET << "'" << p[i].first.first << "' '" << p[i].first.second << "'  " << p[i].second << endl;
     }
 }

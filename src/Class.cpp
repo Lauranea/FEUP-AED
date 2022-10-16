@@ -1,5 +1,7 @@
 #include "Class.h"
 
+#define RESET   "\033[0m"
+
 using namespace std;
 
 void Class::get_students(string classcode)
@@ -7,7 +9,7 @@ void Class::get_students(string classcode)
     string order;
     cout << "---\nOrder:\n\n1 - Alphabetically\n2 - Numerically" << endl << endl;
     cin >> order;
-    cout << "---\nAll Students that have the Class " << classcode << ":" << endl << endl;
+    cout << RESET << "---\nAll Students that have the Class " << classcode << ":" << endl << endl;
     Read read;
     vector<students_classes> tmp1 = read.read_students_classes();
     vector<pair<string, string>> p;
@@ -43,7 +45,7 @@ void Class::get_schedule(string classcode)
 {
     Read read;
     vector<classes> tmp = read.read_classes();
-    cout << "---\nSchedule from class " << classcode << ":" << endl << endl;
+    cout << RESET << "---\nSchedule from class " << classcode << ":" << endl << endl;
     vector<vector<string>> p;
     for (int i = 0; i < tmp.size(); i++)
     {
