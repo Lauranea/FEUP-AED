@@ -109,3 +109,21 @@ void Student::remove_uc(string studentcode, string uccode)
         cout << "\nFailed to remove student " << studentcode << " from UC " << uccode << endl;
     }
 }
+void Student::ocupation(bool cres)
+{
+    Read read;
+    vector<pair<pair<string, string>, int>> p = read.ocupation();
+    if (cres)
+    {
+        sort(p.begin(), p.end(), sortCrescenteUc);
+    }
+    else
+    {
+        sort(p.begin(), p.end(), sortDecrescenteUc);
+    }
+
+    for (int i = 0; i < p.size(); i++)
+    {
+        cout << "'" << p[i].first.first << "' '" << p[i].first.second << "'  " << p[i].second << endl;
+    }
+}

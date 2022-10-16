@@ -12,9 +12,9 @@ int main(int argc, char** argv)
 
     cout << "1 - View\n2 - Edit" << endl << endl;
     cin >> r;
-    if (r == "1")
+    if (r == "1") // View
     {
-        cout << "---\n1 - Get Classes\n2 - Get Students\n3 - Get Schedule" << endl << endl;
+        cout << "---\n1 - Get Classes\n2 - Get Students\n3 - Get Schedule\n4 - Get ocupation" << endl << endl;
         cin >> r;
         if (r == "1") // Get Classes
         {
@@ -106,17 +106,22 @@ int main(int argc, char** argv)
                 return 0;
             }
         }
+        else if (r == "4") // Get Ocupation
+        {
+            Student student;
+            student.ocupation(true);
+        }
         else
         {
             cout << "---\nInvalid choice." << endl;
             return 0;
         }
     }
-    else if (r == "2")
+    else if (r == "2") // Edit
     {
         cout << "---\n1 - Remove Student\n2 - Add Student\n3 - Change Student" << endl << endl;
         cin >> r;
-        if (r == "1")
+        if (r == "1") // Remove student
         {
             Student student;
             cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;

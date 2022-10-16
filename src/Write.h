@@ -15,7 +15,7 @@ class Write
 {
     public:
         bool remove_class(string studentcode, string classcode);
-        bool remove_uc(string studentcode, string classcode);
+        bool remove_uc(string studentcode, string uccode);
 };
 
 #endif

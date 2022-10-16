@@ -48,8 +48,8 @@ vector<classes_per_uc> Read::read_classes_per_uc()
     }
     
     string buffer;
-    getline(fi, buffer);
-    while (getline(fi, buffer))
+    getline(fi, buffer, '\n');
+    while (getline(fi, buffer, '\n'))
     {
         stringstream line(buffer);
         string buf;
@@ -122,8 +122,8 @@ vector<students_classes> Read::read_students_classes()
     }
     
     string buffer;
-    getline(fi, buffer);
-    while (getline(fi, buffer))
+    getline(fi, buffer, '\n');
+    while (getline(fi, buffer, '\n'))
     {
         stringstream line(buffer);
         string buf;
@@ -146,6 +146,37 @@ vector<students_classes> Read::read_students_classes()
 
     fi.close();
     return v;
+}
+
+
+
+vector<pair<pair<string, string>, int>> Read::ocupation()
+{
+    vector<students_classes> p = read_students_classes();
+    vector<pair<pair<string, string>, int>> q;
+    for (int i = 0; i < p.size(); i++)
+    {
+        bool a = true;
+        for (int j = 0; j < q.size(); j++)
+        {
+            if (p[i].UcCode == q[j].first.first && p[i].ClassCode == q[j].first.second)
+            {
+                q[j].second++;
+                a = false;
+            }
+        }
+        if (a)
+        {
+            q.push_back({{p[i].UcCode, p[i].ClassCode}, 1});
+        }
+    }
+
+    // for (int i = 0; i < q.size(); i++)
+    // {
+    //     cout << "'" << q[i].first.first << "' '" << q[i].first.second << "'  " << q[i].second << endl;
+    // }
+    
+    return q;
 }
 
 
