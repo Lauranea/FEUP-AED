@@ -187,7 +187,7 @@ int main(int argc, char** argv)
             string rr;
             cout << "---\nTo Class (ex: 1LEIC01):" << endl << endl;
             cin >> rr;
-            if (r.substr(1,4) != "LEIC")
+            if (rr.substr(1,4) != "LEIC")
             {
                 cout << RED << "---\nInvalid Class Code." << endl;
                 return 0;

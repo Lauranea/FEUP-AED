@@ -1,6 +1,7 @@
 #include "Write.h"
 
 #define RESET   "\033[0m"
+#define RED     "\033[31m"
 
 bool Write::remove_class(string studentcode, string classcode)
 {
@@ -136,6 +137,33 @@ bool Write::is_not_balanced(string uccode1, string classcode1, string uccode2, s
     return rt;
 }
 
+bool validcode(string code)
+{
+    if(code.size() != 9)
+    {
+        return false;
+    }
+    for(char i : code)
+    {
+        if((i >= 65 && i <= 90)||(i <= 122 && i >= 97))
+        {
+        return false;
+        }
+    }
+    return true;
+}
+
+bool validname(string name)
+{
+    for(char i : name)
+    {
+        if((i <= 65 || i >= 122)||(i > 97 && i < 90))
+        {
+        return false;
+        }
+    }
+    return true;
+}
 
 bool Write::add_to(string studentcode, string uccode, string classcode)
 {
@@ -163,15 +191,58 @@ bool Write::add_to(string studentcode, string uccode, string classcode)
         getline(line, stu1, ',');
         getline(line, stu2, ',');
         getline(line, buf, ',');
-        if ((stu1 != studentcode && stu2 != studentcode) || buf != uccode)
+        if (stu1 != studentcode && stu2 != studentcode)
         {
             fo << buffer;
         }
         else
         {
+            if(rt == false)
+            {
+                string added = stu1 + "," + stu2 + "," + uccode + "," + classcode;
+                fo << added << endl;
+            }
+            string added = stu1 + "," + stu2 + "," + uccode + "," + classcode;
+            fo << buffer;
             rt = true;
         }
         getline(line, buf, '\r');
+    }
+    if(rt == false)
+    {
+        string studentcode2;
+        bool studentcoder;
+        if(studentcode[0] >= 65)
+        {
+            cout << "---\nStudent Code (ex: 202045037):" << endl << endl;
+            studentcoder = 0;
+        }
+        else
+        {
+            cout << "---\nStudent Name (ex: Ronaldo):" << endl << endl;
+            studentcoder = 1;
+        }
+        cin >> studentcode2;
+        while(studentcode2 == "" || (studentcode2[0] >= 65 && studentcoder == 0) || (studentcode2[0] < 65 && studentcoder == 1) || (validcode(studentcode2) == 0 && studentcoder == 0) || (validname(studentcode2) == 0 && studentcoder == 1))
+        {
+            if(studentcoder == 1)
+            {
+                cout << RED << "---\nInvalid Name." << endl << "Please select a new one" << endl;
+            }
+            else
+            {
+                cout << RED << "---\nInvalid Code." << endl << "Please select a new one" << endl;
+            }
+            cin >> studentcode2;
+        }
+        if(studentcoder == 1)
+        {
+            fo << studentcode << "," << studentcode2 + "," << uccode << "," << classcode << endl;
+        }
+        else
+        {
+            fo << studentcode2 << "," << studentcode + "," << uccode << "," << classcode << endl;
+        }
     }
 
     fi.close();

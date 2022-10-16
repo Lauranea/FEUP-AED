@@ -115,7 +115,7 @@ void Student::remove_uc(string studentcode, string uccode)
 void Student::add_to(string studentcode, string uccode, string classcode)
 {
     Write write;
-    if (write.add_to(studentcode, uccode, uccode))
+    if (write.add_to(studentcode, uccode, classcode))
     {
         cout << RESET << "\nAdded student " << studentcode << " to UC " << uccode  << " to Class " << classcode << endl;
         
