@@ -17,7 +17,19 @@ void Class::get_students(string classcode)
     {
         if (tmp1.at(i).ClassCode == classcode)
         {
-            p.push_back({tmp1.at(i).StudentName,  tmp1.at(i).StudentCode});
+            bool a = true;
+            for (int j = 0; j < p.size(); j++)
+            {
+                if (tmp1.at(i).StudentCode == p.at(j).second)
+                {
+                    a = false;
+                    break;
+                }
+            }
+            if (a)
+            {
+                p.push_back({tmp1.at(i).StudentName,  tmp1.at(i).StudentCode});
+            }
         }
     }
 
