@@ -235,12 +235,12 @@ int main(int argc, char** argv)
             }
             if(student.change_uc_class(code, olduc, newuc, oldclass, newclass))
             {
-                cout << GREEN << "---\n" << code << "changed from" << olduc << " : " << oldclass << " to " << newuc << " : "<< newclass << RESET << endl;
+                cout << GREEN << "---\n" << code << " changed from " << olduc << " : " << oldclass << " to " << newuc << " : "<< newclass << RESET << endl;
                 return 0;
             }
             else
             {
-                cout << RED << "---\n" << code << "was unable to change from" << olduc << " : " << oldclass << " to " << newuc << " : "<< newclass << RESET << endl;
+                cout << RED << "---\n" << code << " was unable to change from " << olduc << " : " << oldclass << " to " << newuc << " : "<< newclass << RESET << endl;
             }
         }
         else
