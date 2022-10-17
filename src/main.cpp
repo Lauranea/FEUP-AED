@@ -7,6 +7,7 @@
 #define RESET   "\033[0m"
 #define BOLDWHITE   "\033[1m\033[37m"
 #define RED     "\033[31m"
+#define GREEN "\033[32m"
 
 using namespace std;
 
@@ -179,20 +180,68 @@ int main(int argc, char** argv)
             cin >> code;
             cout << "---\nTo UC (ex: L.EIC001):" << endl << endl;
             cin >> r;
-            if (r.substr(0,5) != "L.EIC")
+            while (r.substr(0,5) != "L.EIC")
             {
                 cout << RED << "---\nInvalid Uc Code." << endl;
-                return 0;
+                cin >> r;
             }
             string rr;
             cout << "---\nTo Class (ex: 1LEIC01):" << endl << endl;
             cin >> rr;
-            if (rr.substr(1,4) != "LEIC")
+            while (rr.substr(1,4) != "LEIC")
             {
                 cout << RED << "---\nInvalid Class Code." << endl;
-                return 0;
+                cin >> rr;
             }
             student.add_to(code, r, rr);
+        }
+        else if (r == "3") // Change Student
+        {
+            Student student;
+            cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
+            string code;
+            string olduc;
+            cin >> code;
+            cout << "---\nUC (ex: L.EIC001):" << endl << endl;
+            cin >> olduc;
+            while (olduc.substr(0,5) != "L.EIC")
+            {
+                cout << RED << "---\nInvalid Uc Code." << RESET <<endl;
+                cin >> olduc;
+            }
+            string oldclass;
+            cout << "---\nClass (ex: 1LEIC01):" << endl << endl;
+            cin >> oldclass;
+            while (oldclass.substr(1,4) != "LEIC")
+            {
+                cout << RED << "---\nInvalid Class Code." << RESET << endl;
+                cin >> oldclass;
+            }
+            string newuc;
+            cout << "---\nDesired UC (ex: L.EIC001):" << endl << endl;
+            cin >> newuc;
+            while (newuc.substr(0,5) != "L.EIC")
+            {
+                cout << RED << "---\nInvalid Uc Code." << RESET << endl;
+                cin >> newuc;
+            }
+            string newclass;
+            cout << "---\nDesired Class (ex: 1LEIC01):" << endl << endl;
+            cin >> newclass;
+            while (newclass.substr(1,4) != "LEIC")
+            {
+                cout << RED << "---\nInvalid Class Code." << RESET << endl;
+                cin >> newclass;
+            }
+            if(student.change_uc_class(code, olduc, newuc, oldclass, newclass))
+            {
+                cout << GREEN << "---\n" << code << "changed from" << olduc << " : " << oldclass << " to " << newuc << " : "<< newclass << RESET << endl;
+                return 0;
+            }
+            else
+            {
+                cout << RED << "---\n" << code << "was unable to change from" << olduc << " : " << oldclass << " to " << newuc << " : "<< newclass << RESET << endl;
+            }
         }
         else
         {

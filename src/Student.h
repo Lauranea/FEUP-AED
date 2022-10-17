@@ -20,7 +20,7 @@ class Student
         void remove_uc(string studentcode, string classcode);
         void add_to(string studentcode, string uccode, string classcode);
         void ocupation(bool alpha);
-
+        bool change_uc_class(string studentcode, string uccodeold, string uccodenew, string classcodeold, string classcodenew);
 };
 
 #endif

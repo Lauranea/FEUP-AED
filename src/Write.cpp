@@ -1,5 +1,6 @@
 #include "Write.h"
 #include "Read.h"
+#include <climits>
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -200,7 +201,7 @@ bool Write::add_to(string studentcode, string uccode, string classcode)
         }
         getline(line, buf, '\r');
     }
-    if(rt == false)
+    if(!rt)
     {
         string studentcode2;
         bool studentcoder;
@@ -217,17 +218,17 @@ bool Write::add_to(string studentcode, string uccode, string classcode)
         cin >> studentcode2;
         while(studentcode2 == "" || (studentcode2[0] >= 65 && studentcoder == 0) || (studentcode2[0] < 65 && studentcoder == 1) || (validcode(studentcode2) == 0 && studentcoder == 0) || (validname(studentcode2) == 0 && studentcoder == 1))
         {
-            if(studentcoder == 1)
+            if(studentcoder)
             {
-                cout << RED << "---\nInvalid Name." << endl << "Please select a new one" << endl;
+                cout << RED << "---\nInvalid Name." << RESET << endl << "Please select a new one" << endl;
             }
             else
             {
-                cout << RED << "---\nInvalid Code." << endl << "Please select a new one" << endl;
+                cout << RED << "---\nInvalid Code." << RESET << endl << "Please select a new one" << endl;
             }
             cin >> studentcode2;
         }
-        if(studentcoder == 1)
+        if(studentcoder)
         {
             fo << studentcode << "," << studentcode2 + "," << uccode << "," << classcode << endl;
         }
@@ -244,4 +245,15 @@ bool Write::add_to(string studentcode, string uccode, string classcode)
     rename("../students_classeso.csv", "../students_classes.csv");
 
     return rt;
+}
+
+bool Write::change_uc_class(string studentcode, string uccodeold, string uccodenew, string classcodeold, string classcodenew)
+{
+    if(is_balanced(uccodenew, classcodenew))
+    {
+        add_to(studentcode, uccodenew, classcodenew);
+        remove_uc(studentcode, uccodeold);
+        return true;
+    }
+    return false;
 }
