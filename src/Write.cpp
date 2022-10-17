@@ -125,7 +125,7 @@ bool Write::remove_uc_class(string studentcode, string uccode, string classcode)
         getline(line, stu2, ',');
         getline(line, buf, ',');
         getline(line, bug, '\r');
-        if ((stu1 != studentcode && stu2 != studentcode) || buf != uccode || buf != classcode)
+        if ((stu1 != studentcode && stu2 != studentcode) || buf != uccode || bug != classcode)
         {
             fo << buffer << "\n";
         }
@@ -220,7 +220,7 @@ bool Write::add_to(string studentcode, string uccode, string classcode)
     
     string buffer;
     getline(fi, buffer, '\n');
-    fo << buffer;
+    fo << buffer << "\n";
     while (getline(fi, buffer, '\n'))
     {
         stringstream line(buffer);
