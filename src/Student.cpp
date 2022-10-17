@@ -158,10 +158,30 @@ void Student::ocupation(bool cres)
     }
 }
 
-bool Student::change_uc_class(string studentcode, string uccodeold, string uccodenew, string classcodeold, string classcodenew)
+bool Student::change_uc(string studentcode, string uccodeold, string uccodenew, string classcodenew)
 {
     Write write;
-    if(write.change_uc_class(studentcode,uccodeold, uccodenew, classcodeold, classcodenew))
+    if(write.change_uc(studentcode,uccodeold, uccodenew, classcodenew))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Student::change_oneclass(string studentcode, string uccodeold, string classcodenew)
+{
+    Write write;
+    if(write.change_oneclass(studentcode,uccodeold, classcodenew))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Student::change_allclass(string studentcode, string classcodenew)
+{
+    Write write;
+    if(write.change_allclass(studentcode, classcodenew))
     {
         return true;
     }

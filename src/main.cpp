@@ -33,14 +33,14 @@ int main(int argc, char** argv)
                 cin >> code;
                 if (code.substr(0,5) != "L.EIC")
                 {
-                    cout << RED << "---\nInvalid UC Code." << endl;
+                    cout << RED << "---\nInvalid UC Code." << RESET << endl;
                     return 0;
                 }
                 uc.get_classes(code);
             }
             else
             {
-                cout << RED << "---\nInvalid choice." << endl;
+                cout << RED << "---\nInvalid choice." << RESET << endl;
                 return 0;
             }
         }
@@ -56,7 +56,7 @@ int main(int argc, char** argv)
                 cin >> code;
                 if (code.substr(0,5) != "L.EIC")
                 {
-                    cout << RED << "---\nInvalid UC Code." << endl;
+                    cout << RED << "---\nInvalid UC Code." << RESET << endl;
                     return 0;
                 }
                 uc.get_students(code);
@@ -69,14 +69,14 @@ int main(int argc, char** argv)
                 cin >> code;
                 if (code.substr(1,4) != "LEIC")
                 {
-                    cout << RED << "---\nInvalid UC Code." << endl;
+                    cout << RED << "---\nInvalid UC Code." << RESET << endl;
                     return 0;
                 }
                 class_.get_students(code);
             }
             else
             {
-                cout << RED << "---\nInvalid choice." << endl;
+                cout << RED << "---\nInvalid choice." << RESET << endl;
                 return 0;
             }
         }
@@ -92,7 +92,7 @@ int main(int argc, char** argv)
                 cin >> code;
                 if (code.substr(1,4) != "LEIC")
                 {
-                    cout << RED << "---\nInvalid Class Code." << endl;
+                    cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     return 0;
                 }
                 class_.get_schedule(code);
@@ -107,7 +107,7 @@ int main(int argc, char** argv)
             }
             else
             {
-                cout << RED << "---\nInvalid choice." << endl;
+                cout << RED << "---\nInvalid choice." << RESET << endl;
                 return 0;
             }
         }
@@ -128,7 +128,7 @@ int main(int argc, char** argv)
         }
         else
         {
-            cout << RED << "---\nInvalid choice." << endl;
+            cout << RED << "---\nInvalid choice." << RESET << endl;
             return 0;
         }
     }
@@ -150,7 +150,7 @@ int main(int argc, char** argv)
                 cin >> r;
                 if (r.substr(1,4) != "LEIC")
                 {
-                    cout << RED << "---\nInvalid Class Code." << endl;
+                    cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     return 0;
                 }
                 student.remove_class(code, r);
@@ -161,14 +161,14 @@ int main(int argc, char** argv)
                 cin >> r;
                 if (r.substr(0,5) != "L.EIC")
                 {
-                    cout << RED << "---\nInvalid Uc Code." << endl;
+                    cout << RED << "---\nInvalid Uc Code." << RESET << endl;
                     return 0;
                 }
                 student.remove_uc(code, r);
             }
             else
             {
-                cout << RED << "---\nInvalid choice." << endl;
+                cout << RED << "---\nInvalid choice." << RESET << endl;
                 return 0;
             }
         }
@@ -182,7 +182,7 @@ int main(int argc, char** argv)
             cin >> r;
             while (r.substr(0,5) != "L.EIC")
             {
-                cout << RED << "---\nInvalid Uc Code." << endl;
+                cout << RED << "---\nInvalid Uc Code." << RESET << endl;
                 cin >> r;
             }
             string rr;
@@ -197,61 +197,124 @@ int main(int argc, char** argv)
         }
         else if (r == "3") // Change Student
         {
-            Student student;
-            cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
-            string code;
-            string olduc;
-            cin >> code;
-            cout << "---\nUC (ex: L.EIC001):" << endl << endl;
-            cin >> olduc;
-            while (olduc.substr(0,5) != "L.EIC")
+            int coru;
+            cout << "---\n1 - Change UC\n2 - Change one Class\n3 - Change all Classes" << endl << endl;
+            cin >> coru;
+            while(!(coru == 1 || coru == 2 || coru == 3))
             {
-                cout << RED << "---\nInvalid Uc Code." << RESET <<endl;
+                cout << RED << "---\nInvalid Option." << RESET << endl;
+                cin >> coru;
+            }
+            if(coru == 1)
+            {
+                Student student;
+                cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
+                string code;
+                string olduc;
+                cin >> code;
+                cout << "---\nCurrent UC (ex: L.EIC001):" << endl << endl;
                 cin >> olduc;
-            }
-            string oldclass;
-            cout << "---\nClass (ex: 1LEIC01):" << endl << endl;
-            cin >> oldclass;
-            while (oldclass.substr(1,4) != "LEIC")
-            {
-                cout << RED << "---\nInvalid Class Code." << RESET << endl;
-                cin >> oldclass;
-            }
-            string newuc;
-            cout << "---\nDesired UC (ex: L.EIC001):" << endl << endl;
-            cin >> newuc;
-            while (newuc.substr(0,5) != "L.EIC")
-            {
-                cout << RED << "---\nInvalid Uc Code." << RESET << endl;
+                while (olduc.substr(0,5) != "L.EIC")
+                {
+                    cout << RED << "---\nInvalid Uc Code." << RESET <<endl;
+                    cin >> olduc;
+                }
+                string newuc;
+                cout << "---\nDesired UC (ex: L.EIC001):" << endl << endl;
                 cin >> newuc;
-            }
-            string newclass;
-            cout << "---\nDesired Class (ex: 1LEIC01):" << endl << endl;
-            cin >> newclass;
-            while (newclass.substr(1,4) != "LEIC")
-            {
-                cout << RED << "---\nInvalid Class Code." << RESET << endl;
+                while (newuc.substr(0,5) != "L.EIC")
+                {
+                    cout << RED << "---\nInvalid Uc Code." << RESET << endl;
+                    cin >> newuc;
+                }
+                string newclass;
+                cout << "---\nDesired Class (ex: 1LEIC01):" << endl << endl;
                 cin >> newclass;
+                while (newclass.substr(1,4) != "LEIC")
+                {
+                    cout << RED << "---\nInvalid Class Code." << RESET << endl;
+                    cin >> newclass;
+                }
+                if(student.change_uc(code, olduc, newuc, newclass))
+                {
+                    cout << GREEN << "---\n" << code << " changed from " << olduc  << " to " << newuc << " : "<< newclass << RESET << endl;
+                    return 0;
+                }
+                else
+                {
+                    cout << RED << "---\n" << code << " was unable to change from " << olduc  << " to " << newuc << " : "<< newclass << RESET << endl;
+                    return 0;
+                }
             }
-            if(student.change_uc_class(code, olduc, newuc, oldclass, newclass))
+            else if(coru == 2)
             {
-                cout << GREEN << "---\n" << code << " changed from " << olduc << " : " << oldclass << " to " << newuc << " : "<< newclass << RESET << endl;
-                return 0;
+                Student student;
+                cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
+                string code;
+                string olduc;
+                cin >> code;
+                cout << "---\nUC (ex: L.EIC001):" << endl << endl;
+                cin >> olduc;
+                while (olduc.substr(0,5) != "L.EIC")
+                {
+                    cout << RED << "---\nInvalid Uc Code." << RESET <<endl;
+                    cin >> olduc;
+                }
+                string newclass;
+                cout << "---\nDesired Class (ex: 1LEIC01):" << endl << endl;
+                cin >> newclass;
+                while (newclass.substr(1,4) != "LEIC")
+                {
+                    cout << RED << "---\nInvalid Class Code." << RESET << endl;
+                    cin >> newclass;
+                }
+                if(student.change_oneclass(code, olduc, newclass))
+                {
+                    cout << GREEN << "---\n" << code << " changed to " << olduc << " : "<< newclass << RESET << endl;
+                    return 0;
+                }
+                else
+                {
+                    cout << RED << "---\n" << code << " was unable to change" << " to " << olduc << " : "<< newclass << RESET << endl;
+                    return 0;
+                }
             }
-            else
+            else if(coru == 3)
             {
-                cout << RED << "---\n" << code << " was unable to change from " << olduc << " : " << oldclass << " to " << newuc << " : "<< newclass << RESET << endl;
+                Student student;
+                cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
+                string code;
+
+                cin >> code;
+                string newclass;
+                cout << "---\nDesired Class (ex: 1LEIC01):" << endl << endl;
+                cin >> newclass;
+                while (newclass.substr(1,4) != "LEIC")
+                {
+                    cout << RED << "---\nInvalid Class Code." << RESET << endl;
+                    cin >> newclass;
+                }
+                if(student.change_allclass(code, newclass))
+                {
+                    cout << GREEN << "---\n" << code << " changed all classes to " << newclass << RESET << endl;
+                    return 0;
+                }
+                else
+                {
+                    cout << RED << "---\n" << code << " was unable to change all classes to "  << newclass << RESET << endl;
+                    return 0;
+                }
             }
         }
         else
         {
-            cout << RED << "---\nInvalid choice." << endl;
+            cout << RED << "---\nInvalid choice." << RESET << endl;
             return 0;
         }
     }
     else
     {
-        cout << RED << "---\nInvalid choice." << endl;
+        cout << RED << "---\nInvalid choice." << RESET << endl;
         return 0;
     }
 
