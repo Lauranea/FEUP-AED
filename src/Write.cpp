@@ -21,7 +21,7 @@ bool Write::remove_class(string studentcode, string classcode)
     
     string buffer;
     getline(fi, buffer, '\n');
-    fo << buffer;
+    fo << buffer << "\n";
     while (getline(fi, buffer, '\n'))
     {
         stringstream line(buffer);
@@ -34,7 +34,7 @@ bool Write::remove_class(string studentcode, string classcode)
         getline(line, buf, '\r');
         if ((stu1 != studentcode && stu2 != studentcode) || buf != classcode)
         {
-            fo << buffer;
+            fo << buffer << "\n";
         }
         else
         {
@@ -67,7 +67,7 @@ bool Write::remove_uc(string studentcode, string uccode)
     
     string buffer;
     getline(fi, buffer, '\n');
-    fo << buffer;
+    fo << buffer << "\n";
     while (getline(fi, buffer, '\n'))
     {
         stringstream line(buffer);
@@ -79,7 +79,7 @@ bool Write::remove_uc(string studentcode, string uccode)
         getline(line, buf, ',');
         if ((stu1 != studentcode && stu2 != studentcode) || buf != uccode)
         {
-            fo << buffer;
+            fo << buffer << "\n";
         }
         else
         {
@@ -97,6 +97,52 @@ bool Write::remove_uc(string studentcode, string uccode)
     return rt;
 }
 
+bool Write::remove_uc_class(string studentcode, string uccode, string classcode)
+{
+    ifstream fi;
+    ofstream fo;
+    fi.open("../students_classes.csv");
+    fo.open("../students_classeso.csv");
+    if (!fi.is_open() || !fo.is_open())
+    {
+        cout << "\nCould not open file" << endl;
+        return false;
+    }
+
+    bool rt = false;
+    
+    string buffer;
+    getline(fi, buffer, '\n');
+    fo << buffer << "\n";
+    while (getline(fi, buffer, '\n'))
+    {
+        stringstream line(buffer);
+        string buf;
+        string stu1;
+        string stu2;
+        string bug;
+        getline(line, stu1, ',');
+        getline(line, stu2, ',');
+        getline(line, buf, ',');
+        getline(line, bug, '\r');
+        if ((stu1 != studentcode && stu2 != studentcode) || buf != uccode || buf != classcode)
+        {
+            fo << buffer << "\n";
+        }
+        else
+        {
+            rt = true;
+        }
+    }
+
+    fi.close();
+    fo.close();
+
+    remove("../students_classes.csv");
+    rename("../students_classeso.csv", "../students_classes.csv");
+
+    return rt;
+}
 
 bool Write::is_balanced(string uccode, string classcode)
 {
@@ -186,17 +232,17 @@ bool Write::add_to(string studentcode, string uccode, string classcode)
         getline(line, buf, ',');
         if (stu1 != studentcode && stu2 != studentcode)
         {
-            fo << buffer;
+            fo << buffer << "\n";
         }
         else
         {
             if(rt == false)
             {
-                string added = stu1 + "," + stu2 + "," + uccode + "," + classcode;
-                fo << added << endl;
+                string added = stu1 + "," + stu2 + "," + uccode + "," + classcode + "\r";
+                fo << added << "\n";
             }
-            string added = stu1 + "," + stu2 + "," + uccode + "," + classcode;
-            fo << buffer;
+            string added = stu1 + "," + stu2 + "," + uccode + "," + classcode  + "\r";
+            fo << buffer << "\n";
             rt = true;
         }
         getline(line, buf, '\r');
@@ -230,11 +276,11 @@ bool Write::add_to(string studentcode, string uccode, string classcode)
         }
         if(studentcoder)
         {
-            fo << studentcode << "," << studentcode2 + "," << uccode << "," << classcode << endl;
+            fo << studentcode << "," << studentcode2 + "," << uccode << "," << classcode << "\n";
         }
         else
         {
-            fo << studentcode2 << "," << studentcode + "," << uccode << "," << classcode << endl;
+            fo << studentcode2 << "," << studentcode + "," << uccode << "," << classcode << "\n";
         }
     }
 
@@ -252,7 +298,7 @@ bool Write::change_uc_class(string studentcode, string uccodeold, string uccoden
     if(is_balanced(uccodenew, classcodenew))
     {
         add_to(studentcode, uccodenew, classcodenew);
-        remove_uc(studentcode, uccodeold);
+        remove_uc_class(studentcode, uccodeold, classcodeold);
         return true;
     }
     return false;

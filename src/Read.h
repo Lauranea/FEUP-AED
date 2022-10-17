@@ -7,7 +7,7 @@
 #include <iostream>
 #include <sstream>
 #include <map>
-#include "aux.h"
+#include "structs.h"
 
 using namespace std;
 

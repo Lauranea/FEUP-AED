@@ -1,5 +1,5 @@
-#ifndef _AUX_H_
-#define _AUX_H_
+#ifndef _STRUCTS_H_
+#define _STRUCTS_H_
 
 
 #include <vector>

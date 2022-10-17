@@ -160,7 +160,8 @@ void Student::ocupation(bool cres)
 
 bool Student::change_uc_class(string studentcode, string uccodeold, string uccodenew, string classcodeold, string classcodenew)
 {
-    if(change_uc_class(studentcode,uccodeold, uccodenew, classcodeold, classcodenew))
+    Write write;
+    if(write.change_uc_class(studentcode,uccodeold, uccodenew, classcodeold, classcodenew))
     {
         return true;
     }
