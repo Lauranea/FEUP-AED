@@ -4,6 +4,8 @@
 #define BOLDWHITE   "\033[1m\033[37m"
 #define RED     "\033[31m"
 
+list<string> jpvds;
+
 void Student::get_schedule(string studentcode)
 {
     Read read;
