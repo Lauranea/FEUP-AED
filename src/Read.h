@@ -2,6 +2,7 @@
 #define _READ_H_
 
 #include <vector>
+#include <list>
 #include <string>
 #include <fstream>
 #include <iostream>

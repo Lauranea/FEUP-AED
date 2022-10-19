@@ -208,7 +208,7 @@ vector<pair<string, vector<string>>> Student::getucsclasses(vector<string>& clas
         string uc;
         string class1;
         getline(line, uc, ',');
-        getline(line, class1);
+        getline(line, class1, '\r');
         classes.insert(class1);
         if (ucs.size() != 0 && ucs[ucs.size()-1].first == uc)
         {
@@ -255,15 +255,7 @@ bool Student::validclass(string classer, string uc, vector<pair<string, vector<s
         {
             for(string ii : i.second)
             {
-                bool same = true;
-                for(int iii = 0; iii < 7; iii++)
-                {
-                    if(ii[iii]!=classer[iii])
-                    {
-                        same = false;
-                    }
-                }
-                if(same)
+                if (ii == classer)
                 {
                     return true;
                 }
@@ -299,15 +291,7 @@ bool Student::validclass2(string classer, vector<string> classes)
     }
     for(string i : classes)
     {
-        bool same = true;
-        for(int ii = 0; ii < classer.size(); ii++)
-        {
-            if(classer[ii] != i[ii])
-            {
-                same = false;
-            }
-        }
-        if(same)
+        if (i == classer)
         {
             return true;
         }
