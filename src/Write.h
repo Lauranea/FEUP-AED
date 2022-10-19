@@ -25,6 +25,7 @@ class Write
         vector<string> finduc(string studentcode);
         bool findcodename(string studentcode, string& studentcode2);
         bool add_to2(string studentcode, string studentname, string uc, string stuclass);
+        vector<string> getucs(string studentcode);
 };
 
 #endif

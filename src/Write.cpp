@@ -436,3 +436,33 @@ bool Write::add_to2(string studentcode, string studentname, string uc, string st
     rename("../students_classeso.csv", "../students_classes.csv");
     return 1;
 }
+
+vector<string> Write::getucs(string studentcode)
+{
+    vector<string> v;
+    ifstream fi;
+    fi.open("../students_classes.csv");
+    if (!fi.is_open())
+    {
+        cout << "\nCould not open file" << endl;
+        return v;
+    }
+    string buffer;
+    while (getline(fi, buffer, '\n'))
+    {
+        stringstream line(buffer);
+        string buf;
+        string stu1;
+        string stu2;
+        getline(line, stu1, ',');
+        getline(line, stu2, ',');
+        getline(line, buf, ',');
+        if(stu1 == studentcode || stu2 == studentcode)
+        {
+            v.push_back(buf);
+        }
+    }
+    fi.close();
+
+    return v;
+}

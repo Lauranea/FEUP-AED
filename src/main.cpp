@@ -14,6 +14,10 @@ using namespace std;
 int main(int argc, char** argv)
 {
     string r;
+    Student student;
+    vector<string> allclasses;
+    vector<pair<string, vector<string>>> ucs_classes = student.getucsclasses(allclasses);
+    
 
     cout << BOLDWHITE << "1 - View\n2 - Edit" << endl << endl;
     cin >> r;
@@ -31,10 +35,10 @@ int main(int argc, char** argv)
                 cout << "---\nUC Code (ex: L.EIC001):" << endl << endl;
                 string code;
                 cin >> code;
-                if (code.substr(0,5) != "L.EIC")
+                while(!student.validuc(code, ucs_classes))
                 {
                     cout << RED << "---\nInvalid UC Code." << RESET << endl;
-                    return 0;
+                    cin >> code;
                 }
                 uc.get_classes(code);
             }
@@ -54,10 +58,10 @@ int main(int argc, char** argv)
                 cout << "---\nUC Code (ex: L.EIC001):" << endl << endl;
                 string code;
                 cin >> code;
-                if (code.substr(0,5) != "L.EIC")
+                while(!student.validuc(code, ucs_classes))
                 {
                     cout << RED << "---\nInvalid UC Code." << RESET << endl;
-                    return 0;
+                    cin >> code;
                 }
                 uc.get_students(code);
             }
@@ -67,10 +71,10 @@ int main(int argc, char** argv)
                 cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
                 string code;
                 cin >> code;
-                if (code.substr(1,4) != "LEIC")
+                while(!student.validclass2(code, allclasses))
                 {
-                    cout << RED << "---\nInvalid UC Code." << RESET << endl;
-                    return 0;
+                    cout << RED << "---\nInvalid Class Code." << RESET << endl;
+                    cin >> code;
                 }
                 class_.get_students(code);
             }
@@ -90,16 +94,15 @@ int main(int argc, char** argv)
                 cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
                 string code;
                 cin >> code;
-                if (code.substr(1,4) != "LEIC")
+                while(!student.validclass2(code, allclasses))
                 {
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
-                    return 0;
+                    cin >> code;
                 }
                 class_.get_schedule(code);
             }
             else if (r == "2")
             {
-                Student student;
                 cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
                 string code;
                 cin >> code;
@@ -116,7 +119,6 @@ int main(int argc, char** argv)
             string order;
             cout << "---\nUC Order:\n\n1 - Ascending\n2 - Descending" << endl << endl;
             cin >> order;
-            Student student;
             if (order == "1")
             {
                 student.ocupation(true);
@@ -138,7 +140,6 @@ int main(int argc, char** argv)
         cin >> r;
         if (r == "1") // Remove student
         {
-            Student student;
             cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
             string code;
             cin >> code;
@@ -148,7 +149,7 @@ int main(int argc, char** argv)
             {
                 cout << "---\nClass  Code (ex: 1LEIC01):" << endl << endl;
                 cin >> r;
-                if (r.substr(1,4) != "LEIC")
+                if (!student.validclass2(r, allclasses))
                 {
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     return 0;
@@ -159,7 +160,7 @@ int main(int argc, char** argv)
             {
                 cout << "---\nUc  Code (ex: L.EIC001):" << endl << endl;
                 cin >> r;
-                if (r.substr(0,5) != "L.EIC")
+                if (!student.validuc(r, ucs_classes))
                 {
                     cout << RED << "---\nInvalid Uc Code." << RESET << endl;
                     return 0;
@@ -174,13 +175,12 @@ int main(int argc, char** argv)
         }
         else if (r == "2") // Add student
         {
-            Student student;
             cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
             string code;
             cin >> code;
             cout << "---\nTo UC (ex: L.EIC001):" << endl << endl;
             cin >> r;
-            while (r.substr(0,5) != "L.EIC")
+            while (!student.validuc(r, ucs_classes))
             {
                 cout << RED << "---\nInvalid Uc Code." << RESET << endl;
                 cin >> r;
@@ -188,7 +188,7 @@ int main(int argc, char** argv)
             string rr;
             cout << "---\nTo Class (ex: 1LEIC01):" << endl << endl;
             cin >> rr;
-            while (rr.substr(1,4) != "LEIC")
+            while (!student.validclass(rr,r, ucs_classes))
             {
                 cout << RED << "---\nInvalid Class Code." << endl;
                 cin >> rr;
@@ -207,14 +207,13 @@ int main(int argc, char** argv)
             }
             if(coru == 1)
             {
-                Student student;
                 cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
                 string code;
                 string olduc;
                 cin >> code;
                 cout << "---\nCurrent UC (ex: L.EIC001):" << endl << endl;
                 cin >> olduc;
-                while (olduc.substr(0,5) != "L.EIC")
+                while (!student.validuc(olduc, ucs_classes))
                 {
                     cout << RED << "---\nInvalid Uc Code." << RESET <<endl;
                     cin >> olduc;
@@ -222,7 +221,7 @@ int main(int argc, char** argv)
                 string newuc;
                 cout << "---\nDesired UC (ex: L.EIC001):" << endl << endl;
                 cin >> newuc;
-                while (newuc.substr(0,5) != "L.EIC")
+                while (!student.validuc(newuc, ucs_classes))
                 {
                     cout << RED << "---\nInvalid Uc Code." << RESET << endl;
                     cin >> newuc;
@@ -230,7 +229,7 @@ int main(int argc, char** argv)
                 string newclass;
                 cout << "---\nDesired Class (ex: 1LEIC01):" << endl << endl;
                 cin >> newclass;
-                while (newclass.substr(1,4) != "LEIC")
+                while (!student.validclass(newclass, newuc, ucs_classes))
                 {
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     cin >> newclass;
@@ -248,14 +247,13 @@ int main(int argc, char** argv)
             }
             else if(coru == 2)
             {
-                Student student;
                 cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
                 string code;
                 string olduc;
                 cin >> code;
                 cout << "---\nUC (ex: L.EIC001):" << endl << endl;
                 cin >> olduc;
-                while (olduc.substr(0,5) != "L.EIC")
+                while (!student.validuc(olduc, ucs_classes))
                 {
                     cout << RED << "---\nInvalid Uc Code." << RESET <<endl;
                     cin >> olduc;
@@ -263,7 +261,7 @@ int main(int argc, char** argv)
                 string newclass;
                 cout << "---\nDesired Class (ex: 1LEIC01):" << endl << endl;
                 cin >> newclass;
-                while (newclass.substr(1,4) != "LEIC")
+                while (!student.validclass(newclass, olduc, ucs_classes))
                 {
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     cin >> newclass;
@@ -281,7 +279,6 @@ int main(int argc, char** argv)
             }
             else if(coru == 3)
             {
-                Student student;
                 cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
                 string code;
 
@@ -289,10 +286,28 @@ int main(int argc, char** argv)
                 string newclass;
                 cout << "---\nDesired Class (ex: 1LEIC01):" << endl << endl;
                 cin >> newclass;
-                while (newclass.substr(1,4) != "LEIC")
+                bool queque = true;
+                vector<string> verify1 = student.getucs(code);
+                for(string i : verify1)
+                {
+                    cout << i << endl;
+                    if(!student.validclass(newclass, i, ucs_classes))
+                    {
+                        queque = false;
+                    }
+                }
+                while (!queque)
                 {
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     cin >> newclass;
+                    queque = true;
+                    for(string i : verify1)
+                    {
+                        if(!student.validclass(newclass, i, ucs_classes))
+                        {
+                            queque = false;
+                        }
+                    }
                 }
                 if(student.change_allclass(code, newclass))
                 {

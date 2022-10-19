@@ -187,3 +187,130 @@ bool Student::change_allclass(string studentcode, string classcodenew)
     }
     return false;
 }
+
+vector<pair<string, vector<string>>> Student::getucsclasses(vector<string>& classes3)
+{
+    ifstream fi;
+    set<string> classes;
+    vector<pair<string, vector<string>>> ucs;
+    fi.open("../classes_per_uc.csv");
+    if (!fi.is_open())
+    {
+        cout << "\nCould not open file" << endl;
+        return ucs;
+    }
+    
+    string buffer;
+    getline(fi, buffer, '\n');
+    while (getline(fi, buffer, '\n'))
+    {
+        stringstream line(buffer);
+        string uc;
+        string class1;
+        getline(line, uc, ',');
+        getline(line, class1);
+        classes.insert(class1);
+        if (ucs.size() != 0 && ucs[ucs.size()-1].first == uc)
+        {
+            ucs[ucs.size()-1].second.push_back(class1);
+        }
+        else
+        {
+            vector<string> class2;
+            class2.push_back(class1);
+            ucs.push_back(pair(uc, class2));
+        }
+    }
+    for(string i : classes)
+    {
+        classes3.push_back(i);
+    }
+
+    fi.close();
+    
+    return ucs;
+}
+
+bool Student::validuc(string uc, vector<pair<string, vector<string>>> ucs)
+{
+    for(pair<string, vector<string>> i : ucs)
+    {
+        if(uc == i.first)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Student::validclass(string classer, string uc, vector<pair<string, vector<string>>> ucclass)
+{
+    if(classer.size() != 7)
+    {
+        return false;
+    }
+    for(pair<string, vector<string>> i : ucclass)
+    {
+        if(i.first == uc)
+        {
+            for(string ii : i.second)
+            {
+                bool same = true;
+                for(int iii = 0; iii < 7; iii++)
+                {
+                    if(ii[iii]!=classer[iii])
+                    {
+                        same = false;
+                    }
+                }
+                if(same)
+                {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool Student::mytoupper(string& word)
+{
+    for(int i = 0; i < word.size() - 1; i++)
+    {
+        if(word[i] >= 97 && word[i] <= 122)
+        {
+            word[i] = word[i] - 32;
+        }
+    }
+    return 1;
+}
+
+vector<string> Student::getucs(string studentcode)
+{
+    Write write;
+    return write.getucs(studentcode);
+}
+
+bool Student::validclass2(string classer, vector<string> classes)
+{
+    if(classer.size() != 7)
+    {
+        return false;
+    }
+    for(string i : classes)
+    {
+        bool same = true;
+        for(int ii = 0; ii < classer.size(); ii++)
+        {
+            if(classer[ii] != i[ii])
+            {
+                same = false;
+            }
+        }
+        if(same)
+        {
+            return true;
+        }
+    }
+    return false;
+}
