@@ -5,4 +5,7 @@
 5. estes "exemplos" sao obrigatorios?
 6. como vai avaliar o projeto?
 7. as classes sao inuteis
-8. temos de usar algoritmos, ou podemos usar sort?
+8. temos de usar algoritmos, ou podemos usar sort? / ha alguma vantagem a nivel de nota em usar?
+9. O balanced tem de contar com a turma de onde o aluno sai ou so a turma onde ele entra?
+10. Mudar alunos de turma quando tem dois nomes?
+11. Os horarios iniciais estão validos ou precisamos de os trocar? 
