@@ -1,0 +1,8 @@
+1. usar filas
+2. tenho msm de usar listas ("utilizar vetores, listas, filas e BST (esta última é um fator de valorização)")?
+3. o q é para salvar em ficheiros para uso futuro?
+4. no armazenamento de estudantes querem q usemos BST. mas como?
+5. estes "exemplos" sao obrigatorios?
+6. como vai avaliar o projeto?
+7. as classes sao inuteis
+8. temos de usar algoritmos, ou podemos usar sort?
