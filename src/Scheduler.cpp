@@ -7,10 +7,15 @@ void Scheduler::initialize()
     classes_per_uc_v = read.read_classes_per_uc();
     classes_v = read.read_classes();
     students_classes_v = read.read_students_classes();
-    
+
+    initialize_all_ucs_classes();
+}
+
+void Scheduler::initialize_all_ucs_classes()
+{
     int current_uc_index = -1;
     string current_uc = "";
-    for (int i = 0; i < classes_per_uc_v.size(); i++) // initialize all_classes_v and ucs_classes_v
+    for (int i = 0; i < classes_per_uc_v.size(); i++)
     {
         if (current_uc != classes_per_uc_v[i].UcCode)
         {
@@ -35,6 +40,4 @@ void Scheduler::initialize()
             all_classes_v.push_back(classes_per_uc_v[i].ClassCode);
         }
     }
-
-
 }

@@ -17,6 +17,8 @@ class Scheduler
 {
     public:
         void initialize();
+        void initialize_all_ucs_classes();
+        
         vector<classes_per_uc> classes_per_uc_v;
         vector<classes> classes_v;
         vector<students_classes> students_classes_v;
