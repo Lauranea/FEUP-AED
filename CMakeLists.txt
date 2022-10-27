@@ -16,6 +16,8 @@ src/Sort.cpp
 src/Sort.h
 src/Student.cpp
 src/Student.h
+src/Scheduler.cpp
+src/Scheduler.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE})
