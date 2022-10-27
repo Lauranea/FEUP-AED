@@ -18,6 +18,7 @@ class Scheduler
     public:
         void initialize();
         void initialize_all_ucs_classes();
+        vector<vector<string>> schedule(vector<vector<string>> p);
         
         vector<classes_per_uc> classes_per_uc_v;
         vector<classes> classes_v;

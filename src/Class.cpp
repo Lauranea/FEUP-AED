@@ -10,8 +10,8 @@ void Class::get_students(string classcode)
     cout << "---\nOrder:\n\n1 - Alphabetically\n2 - Numerically" << endl << endl;
     cin >> order;
     cout << RESET << "---\nAll Students that have the Class " << classcode << ":" << endl << endl;
-    Read read;
-    vector<students_classes> tmp1 = read.read_students_classes();
+    Scheduler s;
+    vector<students_classes> tmp1 = s.students_classes_v;
     vector<pair<string, string>> p;
     for (int i = 0; i < tmp1.size(); i++)
     {
@@ -55,8 +55,8 @@ void Class::get_students(string classcode)
 
 void Class::get_schedule(string classcode)
 {
-    Read read;
-    vector<classes> tmp = read.read_classes();
+    Scheduler s;
+    vector<classes> tmp = s.classes_v;
     cout << RESET << "---\nSchedule from class " << classcode << ":" << endl << endl;
     vector<vector<string>> p;
     for (int i = 0; i < tmp.size(); i++)
@@ -67,7 +67,7 @@ void Class::get_schedule(string classcode)
         }
     }
 
-    vector<vector<string>> l = read.b(p);
+    vector<vector<string>> l = s.schedule(p);
 
     vector<string> Monday = l.at(0);
     vector<string> Tuesday = l.at(1);

@@ -8,28 +8,26 @@ list<string> jpvds;
 
 void Student::get_schedule(string studentcode)
 {
-    Read read;
-    vector<students_classes> tmp1 = read.read_students_classes();
-    vector<classes> tmp2 = read.read_classes();
+    Scheduler s;
     cout << RESET << "---\nSchedule from Student " << studentcode << ":" << endl << endl;
     vector<vector<string>> p;
-    map<string, string> pp;
-    for (int i = 0; i < tmp1.size(); i++)
+    map<string, string> bigpp;
+    for (int i = 0; i < s.students_classes_v.size(); i++)
     {
-        if (tmp1.at(i).StudentCode == studentcode || tmp1.at(i).StudentName == studentcode)
+        if (s.students_classes_v.at(i).StudentCode == studentcode || s.students_classes_v.at(i).StudentName == studentcode)
         {
-            pp[tmp1.at(i).UcCode] = tmp1.at(i).ClassCode;
+            bigpp[s.students_classes_v.at(i).UcCode] = s.students_classes_v.at(i).ClassCode;
         }
     }
-    for (int i = 0; i < tmp2.size(); i++)
+    for (int i = 0; i < s.classes_v.size(); i++)
     {
-        if (tmp2.at(i).ClassCode == pp[tmp2.at(i).UcCode])
+        if (s.classes_v.at(i).ClassCode == bigpp[s.classes_v.at(i).UcCode])
         {
-            p.push_back({tmp2.at(i).UcCode, tmp2.at(i).Weekday, tmp2.at(i).StartHour, tmp2.at(i).Duration, tmp2.at(i).Type});
+            p.push_back({s.classes_v.at(i).UcCode, s.classes_v.at(i).Weekday, s.classes_v.at(i).StartHour, s.classes_v.at(i).Duration, s.classes_v.at(i).Type});
         }
     }
 
-    vector<vector<string>> l = read.b(p);
+    vector<vector<string>> l = s.schedule(p);
 
     vector<string> Monday = l.at(0);
     vector<string> Tuesday = l.at(1);
