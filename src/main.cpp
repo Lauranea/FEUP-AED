@@ -101,14 +101,14 @@ int main(int argc, char** argv)
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     cin >> code;
                 }
-                class_.get_schedule(code);
+                class_.get_schedule(s, code);
             }
             else if (r == "2")
             {
                 cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
                 string code;
                 cin >> code;
-                student.get_schedule(code);
+                student.get_schedule(s, code);
             }
             else
             {

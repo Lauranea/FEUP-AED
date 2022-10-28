@@ -6,9 +6,8 @@
 
 list<string> jpvds;
 
-void Student::get_schedule(string studentcode)
+void Student::get_schedule(Scheduler &s, string studentcode)
 {
-    Scheduler s;
     cout << RESET << "---\nSchedule from Student " << studentcode << ":" << endl << endl;
     vector<vector<string>> p;
     map<string, string> bigpp;

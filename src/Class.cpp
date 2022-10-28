@@ -53,9 +53,8 @@ void Class::get_students(string classcode)
     }
 }
 
-void Class::get_schedule(string classcode)
+void Class::get_schedule(Scheduler &s, string classcode)
 {
-    Scheduler s;
     vector<classes> tmp = s.classes_v;
     cout << RESET << "---\nSchedule from class " << classcode << ":" << endl << endl;
     vector<vector<string>> p;
