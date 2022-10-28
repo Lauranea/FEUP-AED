@@ -14,6 +14,7 @@ void Scheduler::initialize()
 
     initialize_all_ucs_classes();
     initialize_class_horarios();
+    initialize_ocupation();
 }
 
 void Scheduler::initialize_all_ucs_classes()
@@ -191,4 +192,46 @@ vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
         
     }
     return a;
+}
+
+void Scheduler::initialize_ocupation()
+{
+    for (int i = 0; i < students_classes_v.size(); i++)
+    {
+        bool a = true;
+        for (int j = 0; j < ocupation_v.size(); j++)
+        {
+            if (students_classes_v[i].UcCode == ocupation_v[j].first)
+            {
+                bool b = true;
+                for (int k = 0; k < ocupation_v[j].second.size(); k++)
+                {
+                    if (ocupation_v[j].second[k].first == students_classes_v[i].ClassCode)
+                    {
+                        ocupation_v[j].second[k].second++;
+                        b = false;
+                    }
+                }
+                if (b)
+                {
+                    ocupation_v[j].second.push_back({students_classes_v[i].ClassCode, 1});
+                }
+                a = false;
+            }
+        }
+        if (a)
+        {
+            ocupation_v.push_back({students_classes_v[i].UcCode, {{students_classes_v[i].ClassCode, 1}}});
+        }
+    }
+
+    // for (int i = 0; i < ocupation_v.size(); i++)
+    // {
+    //     sort(ocupation_v[i].second.begin(), ocupation_v[i].second.end());
+    //     cout << endl << ocupation_v[i].first << endl;
+    //     for (int j = 0; j < ocupation_v[i].second.size(); j++)
+    //     {
+    //         cout << ocupation_v[i].second[j].first << " - " << ocupation_v[i].second[j].second << endl;
+    //     }
+    // }
 }

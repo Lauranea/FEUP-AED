@@ -95,7 +95,7 @@ void Student::get_schedule(string studentcode)
 
 void Student::remove_class(string studentcode, string classcode)
 {
-    Write write;
+    Write write(s);
     if (write.remove_class(studentcode, classcode))
     {
         cout << RESET << "\nRemoved student " << studentcode << " from Class " << classcode << endl;
@@ -108,7 +108,7 @@ void Student::remove_class(string studentcode, string classcode)
 
 void Student::remove_uc(string studentcode, string uccode)
 {
-    Write write;
+    Write write(s);
     if (write.remove_uc(studentcode, uccode))
     {
         cout << RESET << "\nRemoved student " << studentcode << " from UC " << uccode << endl;
@@ -122,7 +122,7 @@ void Student::remove_uc(string studentcode, string uccode)
 
 void Student::add_to(string studentcode, string uccode, string classcode)
 {
-    Write write;
+    Write write(s);
     if (write.is_balanced(uccode, classcode))
     {
         if (write.add_to(studentcode, uccode, classcode))
@@ -142,8 +142,7 @@ void Student::add_to(string studentcode, string uccode, string classcode)
 
 void Student::ocupation(bool cres)
 {
-    Read read;
-    vector<pair<string, vector<pair<string, int>>>> p = read.ocupation();
+    vector<pair<string, vector<pair<string, int>>>> p = s.ocupation_v;
     if (cres)
     {
         sort(p.begin(), p.end(), sortCrescenteUc);
@@ -166,7 +165,7 @@ void Student::ocupation(bool cres)
 
 bool Student::change_uc(string studentcode, string uccodeold, string uccodenew, string classcodenew)
 {
-    Write write;
+    Write write(s);
     if(write.change_uc(studentcode,uccodeold, uccodenew, classcodenew))
     {
         return true;
@@ -176,7 +175,7 @@ bool Student::change_uc(string studentcode, string uccodeold, string uccodenew, 
 
 bool Student::change_oneclass(string studentcode, string uccodeold, string classcodenew)
 {
-    Write write;
+    Write write(s);
     if(write.change_oneclass(studentcode,uccodeold, classcodenew))
     {
         return true;
@@ -186,7 +185,7 @@ bool Student::change_oneclass(string studentcode, string uccodeold, string class
 
 bool Student::change_allclass(string studentcode, string classcodenew)
 {
-    Write write;
+    Write write(s);
     if(write.change_allclass(studentcode, classcodenew))
     {
         return true;
@@ -285,7 +284,7 @@ bool Student::mytoupper(string& word)
 
 vector<string> Student::getucs(string studentcode)
 {
-    Write write;
+    Write write(s);
     return write.getucs(studentcode);
 }
 
@@ -304,8 +303,6 @@ bool Student::validclass2(string classer, vector<string> classes)
     }
     return false;
 }
-
-
 
 bool Student::validchangehorario(string code, string oldclass, string newclass)
 {

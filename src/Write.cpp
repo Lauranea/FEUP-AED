@@ -10,6 +10,8 @@
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
 
+Write::Write(Scheduler &new_s) : s(new_s) {} 
+
 bool Write::remove_class(string studentcode, string classcode)
 {
     ifstream fi;
@@ -151,8 +153,7 @@ bool Write::remove_uc_class(string studentcode, string uccode, string classcode)
 
 bool Write::is_balanced(string uccode, string classcode)
 {
-    Read read;
-    vector<pair<string, vector<pair<string, int>>>> p = read.ocupation();
+    vector<pair<string, vector<pair<string, int>>>> p = s.ocupation_v;
     
     for (int i = 0; i < p.size(); i++)
     {

@@ -13,13 +13,17 @@
 #include <iostream>
 #include <sstream>
 #include <map>
+#include "Scheduler.h"
 #include "structs.h"
 
 using namespace std;
 
 class Write
 {
+    private:
+        Scheduler &s; 
     public:
+        Write(Scheduler &s);
         bool remove_class(string studentcode, string classcode);
         bool remove_uc(string studentcode, string uccode);
         bool add_to(string studentcode, string uccode, string classcode);
