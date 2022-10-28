@@ -1,12 +1,14 @@
+/**
+ * @file Read.h 
+ * Funções para ler ficheiros
+ */
+
 #ifndef _READ_H_
 #define _READ_H_
 
 #include <vector>
 #include <list>
-/**
- * @file Read.h 
- * Funções para ler ficheiros
- */
+
 
 #include <string>
 #include <fstream>
