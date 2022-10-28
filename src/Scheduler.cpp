@@ -103,7 +103,7 @@ vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
                 }
                 if (p.at(i).at(3) == "1") // duration 1 hour
                 {
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 1) = " " + p.at(i).at(0) + "     ";
+                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 1) = " " + p.at(i).at(0) + "  ";
                     if (p.at(i).at(4).length() == 1)
                     {
                         a.at(d[p.at(i).at(1)]).at(c.at(j).second + 2) = " " + p.at(i).at(4) + "         ";
@@ -116,7 +116,7 @@ vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
                 }
                 else if (p.at(i).at(3) == "1.5") // duration 1 hour and 30 minutes
                 {
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 2) = " " + p.at(i).at(0) + "     ";
+                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 2) = " " + p.at(i).at(0) + "  ";
                     if (p.at(i).at(4).length() == 1)
                     {
                         a.at(d[p.at(i).at(1)]).at(c.at(j).second + 3) = " " + p.at(i).at(4) + "         ";
@@ -129,7 +129,7 @@ vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
                 }
                 else // duration 2 hours
                 {
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 2) = " " + p.at(i).at(0) + "     ";
+                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 3) = " " + p.at(i).at(0) + "  ";
                     if (p.at(i).at(4).length() == 1)
                     {
                         a.at(d[p.at(i).at(1)]).at(c.at(j).second + 4) = " " + p.at(i).at(4) + "         ";
