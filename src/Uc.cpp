@@ -6,6 +6,12 @@ using namespace std;
 
 Uc::Uc(Scheduler &new_s) : s(new_s) {} 
 
+/**
+ * @brief 
+ * vai buscar todas as Classes que tem uma Uc;
+ * Complexidade: n
+ * @param uccode codigo da uc
+ */
 void Uc::get_classes(string uccode)
 {
     cout << RESET << "---\nAll Classes that have the UC " << uccode << ":" << endl << endl;
@@ -18,6 +24,12 @@ void Uc::get_classes(string uccode)
     }
 }
 
+/**
+ * @brief 
+ * cria um vetor de pares com (Nome do aluno, codigo do aluno) de uma UC e ordena o de acordo com o que o utilizador escolhe(1 para ordem alfabética e 2 para ordem numérica); 
+ * Complexidade: n * m 
+ * @param uccode numero da uc de qual se quer os alunos 
+ */
 void Uc::get_students(string uccode)
 {
     string order;
