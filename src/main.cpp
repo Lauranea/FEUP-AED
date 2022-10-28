@@ -235,15 +235,12 @@ int main(int argc, char **argv)
                 }
                 if (student.change_uc(code, olduc, newuc, newclass))
                 {
-                    cout << GREEN << "---\n"
-                         << code << " changed from " << olduc << " to " << newuc << " : " << newclass << RESET << endl;
+                    cout << GREEN << "---\n" << code << " changed from " << olduc << " to " << newuc << " : " << newclass << RESET << endl;
                     return 0;
                 }
                 else
                 {
-                    cout << RED << "---\n"
-                         << code << " was unable to change from " << olduc << " to " << newuc << " : " << newclass
-                         << RESET << endl;
+                    cout << RED << "---\n" << code << " was unable to change from " << olduc << " to " << newuc << " : " << newclass << RESET << endl;
                     return 0;
                 }
             }
@@ -320,8 +317,7 @@ int main(int argc, char **argv)
                 }
                 else
                 {
-                    cout << RED << "---\n"
-                         << code << " was unable to change all classes to " << newclass << RESET << endl;
+                    cout << RED << "---\n" << code << " was unable to change all classes to " << newclass << RESET << endl;
                     return 0;
                 }
             }
