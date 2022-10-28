@@ -9,7 +9,6 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include "Read.h"
 #include <algorithm>
 
 using namespace std;

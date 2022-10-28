@@ -14,9 +14,9 @@
 #include <sstream>
 #include <map>
 #include "structs.h"
+#include "Read.h"
 
 using namespace std;
-
 
 class Scheduler
 {

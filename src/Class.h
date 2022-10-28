@@ -23,7 +23,6 @@ class Class
         Class(Scheduler &s);
         void get_students(string classcode);
         void get_schedule(string classcode);
-
 };
 
 #endif
