@@ -12,9 +12,12 @@ using namespace std;
 
 class Class
 {
+    private:
+        Scheduler &s; 
     public:
-        void get_students(Scheduler &s, string classcode);
-        void get_schedule(Scheduler &s, string classcode);
+        Class(Scheduler &s);
+        void get_students(string classcode);
+        void get_schedule(string classcode);
 
 };
 

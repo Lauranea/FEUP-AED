@@ -4,7 +4,9 @@
 
 using namespace std;
 
-void Class::get_students(Scheduler &s, string classcode)
+Class::Class(Scheduler &new_s) : s(new_s) {} 
+
+void Class::get_students(string classcode)
 {
     string order;
     cout << "---\nOrder:\n\n1 - Alphabetically\n2 - Numerically" << endl << endl;
@@ -51,7 +53,7 @@ void Class::get_students(Scheduler &s, string classcode)
     }
 }
 
-void Class::get_schedule(Scheduler &s, string classcode)
+void Class::get_schedule(string classcode)
 {
     vector<classes> tmp = s.classes_v;
     cout << RESET << "---\nSchedule from class " << classcode << ":" << endl << endl;

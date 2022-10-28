@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     string r;
     Student student(s);
     Uc uc(s);
-    Class class_;
+    Class class_(s);
     
 
     cout << BOLDWHITE << "1 - View\n2 - Edit" << endl << endl;
@@ -77,7 +77,7 @@ int main(int argc, char** argv)
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     cin >> code;
                 }
-                class_.get_students(s, code);
+                class_.get_students(code);
             }
             else
             {
@@ -99,7 +99,7 @@ int main(int argc, char** argv)
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     cin >> code;
                 }
-                class_.get_schedule(s, code);
+                class_.get_schedule(code);
             }
             else if (r == "2")
             {
