@@ -5,13 +5,15 @@
 
 #include "Student.h"
 
-#define RESET   "\033[0m"
-#define BOLDWHITE   "\033[1m\033[37m"
-#define RED     "\033[31m"
+#define RESET "\033[0m"
+#define BOLDWHITE "\033[1m\033[37m"
+#define RED "\033[31m"
 
 list<string> jpvds;
 
-Student::Student(Scheduler &new_s) : s(new_s) {} 
+Student::Student(Scheduler &new_s) : s(new_s)
+{
+}
 
 void Student::get_schedule(string studentcode)
 {
@@ -41,7 +43,7 @@ void Student::get_schedule(string studentcode)
     vector<string> Thursday = l.at(3);
     vector<string> Friday = l.at(4);
 
-    // Epic programming start here 
+    // Epic programming start here
 
     cout << "///////////////| Monday    | Tuesday   | Wednesday | Thursday  | Friday    |" << endl;
     cout << "---------------|-----------|-----------|-----------|-----------|-----------|" << endl;
@@ -112,7 +114,6 @@ void Student::remove_uc(string studentcode, string uccode)
     if (write.remove_uc(studentcode, uccode))
     {
         cout << RESET << "\nRemoved student " << studentcode << " from UC " << uccode << endl;
-        
     }
     else
     {
@@ -127,11 +128,11 @@ void Student::add_to(string studentcode, string uccode, string classcode)
     {
         if (write.add_to(studentcode, uccode, classcode))
         {
-            cout << RESET << "\nAdded student " << studentcode << " to UC " << uccode  << " to Class " << classcode << endl;
+            cout << RESET << "\nAdded student " << studentcode << " to UC " << uccode << " to Class " << classcode << endl;
         }
         else
         {
-            cout << RED << "\nFailed to add student " << studentcode << " to UC " << uccode  << " to Class " << classcode << endl;
+            cout << RED << "\nFailed to add student " << studentcode << " to UC " << uccode << " to Class " << classcode << endl;
         }
     }
     else
@@ -166,7 +167,7 @@ void Student::ocupation(bool cres)
 bool Student::change_uc(string studentcode, string uccodeold, string uccodenew, string classcodenew)
 {
     Write write(s);
-    if(write.change_uc(studentcode,uccodeold, uccodenew, classcodenew))
+    if (write.change_uc(studentcode, uccodeold, uccodenew, classcodenew))
     {
         return true;
     }
@@ -176,7 +177,7 @@ bool Student::change_uc(string studentcode, string uccodeold, string uccodenew, 
 bool Student::change_oneclass(string studentcode, string uccodeold, string classcodenew)
 {
     Write write(s);
-    if(write.change_oneclass(studentcode,uccodeold, classcodenew))
+    if (write.change_oneclass(studentcode, uccodeold, classcodenew))
     {
         return true;
     }
@@ -186,14 +187,14 @@ bool Student::change_oneclass(string studentcode, string uccodeold, string class
 bool Student::change_allclass(string studentcode, string classcodenew)
 {
     Write write(s);
-    if(write.change_allclass(studentcode, classcodenew))
+    if (write.change_allclass(studentcode, classcodenew))
     {
         return true;
     }
     return false;
 }
 
-vector<pair<string, vector<string>>> Student::getucsclasses(vector<string>& classes3)
+vector<pair<string, vector<string>>> Student::getucsclasses(vector<string> &classes3)
 {
     ifstream fi;
     set<string> classes;
@@ -204,7 +205,7 @@ vector<pair<string, vector<string>>> Student::getucsclasses(vector<string>& clas
         cout << "\nCould not open file" << endl;
         return ucs;
     }
-    
+
     string buffer;
     getline(fi, buffer, '\n');
     while (getline(fi, buffer, '\n'))
@@ -215,9 +216,9 @@ vector<pair<string, vector<string>>> Student::getucsclasses(vector<string>& clas
         getline(line, uc, ',');
         getline(line, class1, '\r');
         classes.insert(class1);
-        if (ucs.size() != 0 && ucs[ucs.size()-1].first == uc)
+        if (ucs.size() != 0 && ucs[ucs.size() - 1].first == uc)
         {
-            ucs[ucs.size()-1].second.push_back(class1);
+            ucs[ucs.size() - 1].second.push_back(class1);
         }
         else
         {
@@ -226,21 +227,21 @@ vector<pair<string, vector<string>>> Student::getucsclasses(vector<string>& clas
             ucs.push_back(pair(uc, class2));
         }
     }
-    for(string i : classes)
+    for (string i : classes)
     {
         classes3.push_back(i);
     }
 
     fi.close();
-    
+
     return ucs;
 }
 
 bool Student::validuc(string uc, vector<pair<string, vector<string>>> ucs)
 {
-    for(pair<string, vector<string>> i : ucs)
+    for (pair<string, vector<string>> i : ucs)
     {
-        if(uc == i.first)
+        if (uc == i.first)
         {
             return true;
         }
@@ -250,15 +251,15 @@ bool Student::validuc(string uc, vector<pair<string, vector<string>>> ucs)
 
 bool Student::validclass(string classer, string uc, vector<pair<string, vector<string>>> ucclass)
 {
-    if(classer.size() != 7)
+    if (classer.size() != 7)
     {
         return false;
     }
-    for(pair<string, vector<string>> i : ucclass)
+    for (pair<string, vector<string>> i : ucclass)
     {
-        if(i.first == uc)
+        if (i.first == uc)
         {
-            for(string ii : i.second)
+            for (string ii : i.second)
             {
                 if (ii == classer)
                 {
@@ -270,11 +271,11 @@ bool Student::validclass(string classer, string uc, vector<pair<string, vector<s
     return false;
 }
 
-bool Student::mytoupper(string& word)
+bool Student::mytoupper(string &word)
 {
-    for(int i = 0; i < word.size() - 1; i++)
+    for (int i = 0; i < word.size() - 1; i++)
     {
-        if(word[i] >= 97 && word[i] <= 122)
+        if (word[i] >= 97 && word[i] <= 122)
         {
             word[i] = word[i] - 32;
         }
@@ -290,11 +291,11 @@ vector<string> Student::getucs(string studentcode)
 
 bool Student::validclass2(string classer, vector<string> classes)
 {
-    if(classer.size() != 7)
+    if (classer.size() != 7)
     {
         return false;
     }
-    for(string i : classes)
+    for (string i : classes)
     {
         if (i == classer)
         {
@@ -313,15 +314,15 @@ bool Student::validaddhorario(string code, string newclass)
 {
     bool seen = false;
     vector<pair<string, vector<float>>> horario;
-    for(students_classes i : s.students_classes_v)
+    for (students_classes i : s.students_classes_v)
     {
-        if((i.ClassCode != code || i.StudentName != code) && seen == true)
+        if ((i.ClassCode != code || i.StudentName != code) && seen == true)
         {
             break;
         }
-        if(i.ClassCode == code || i.StudentName == code)
+        if (i.ClassCode == code || i.StudentName == code)
         {
-            //ifhdoagf
+            // ifhdoagf
         }
     }
     return 1;

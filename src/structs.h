@@ -6,13 +6,12 @@
 #ifndef _STRUCTS_H_
 #define _STRUCTS_H_
 
-
-#include <vector>
-#include <string>
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <map>
+#include <sstream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -39,6 +38,5 @@ struct students_classes
     string UcCode;
     string ClassCode;
 };
-
 
 #endif

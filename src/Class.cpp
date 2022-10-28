@@ -5,17 +5,19 @@
 
 #include "Class.h"
 
-#define RESET   "\033[0m"
+#define RESET "\033[0m"
 
 using namespace std;
 
-Class::Class(Scheduler &new_s) : s(new_s) {} 
+Class::Class(Scheduler &new_s) : s(new_s)
+{
+}
 
 /**
- * @brief 
+ * @brief
  * cria um vetor de pares com (Nome do aluno, codigo do aluno) de uma Class e ordena o de acordo com o que o utilizador escolhe(1 para ordem alfabética e 2 para ordem numérica);
  * Complexidade: n
- * @param classcode 
+ * @param classcode
  */
 void Class::get_students(string classcode)
 {
@@ -39,7 +41,7 @@ void Class::get_students(string classcode)
             }
             if (a)
             {
-                p.push_back({s.students_classes_v.at(i).StudentName,  s.students_classes_v.at(i).StudentCode});
+                p.push_back({s.students_classes_v.at(i).StudentName, s.students_classes_v.at(i).StudentCode});
             }
         }
     }
@@ -65,11 +67,11 @@ void Class::get_students(string classcode)
 }
 
 /**
- * @brief 
+ * @brief
  * cria um vetor com o UCcode, o dia da semana, a que horas começa, quanto tempo dura, e o tipo
  * cria vetores para os dias da semana, espaços vazios, separações, UCcode e o tipo
  * Imprime no terminal o horario de uma class
- * @param classcode 
+ * @param classcode
  */
 void Class::get_schedule(string classcode)
 {
@@ -92,7 +94,7 @@ void Class::get_schedule(string classcode)
     vector<string> Thursday = l.at(3);
     vector<string> Friday = l.at(4);
 
-    // Epic programming start here 
+    // Epic programming start here
 
     cout << "///////////////| Monday    | Tuesday   | Wednesday | Thursday  | Friday    |" << endl;
     cout << "---------------|-----------|-----------|-----------|-----------|-----------|" << endl;

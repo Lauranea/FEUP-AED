@@ -1,14 +1,14 @@
 /**
- * @file Read.h 
+ * @file Read.h
  * Funções para ler ficheiros
  */
 
 #include "Read.h"
 
-#define RESET   "\033[0m"
+#define RESET "\033[0m"
 
 /**
- * @brief 
+ * @brief
  * abre o ficheiro classes_per_uc, verifica se não está aberto(se existe), e cria uma vetor com a informação;
  * Complexidade: n
  * @return vector<classes_per_uc> devolve um vetor com a informação, se nao existir ficheiro devolve um vetor vazio
@@ -22,7 +22,7 @@ vector<classes_per_uc> Read::read_classes_per_uc()
     {
         return v;
     }
-    
+
     string buffer;
     getline(fi, buffer, '\n');
     while (getline(fi, buffer, '\n'))
@@ -47,7 +47,7 @@ vector<classes_per_uc> Read::read_classes_per_uc()
 }
 
 /**
- * @brief 
+ * @brief
  * abre o ficheiro classes, verifica se não está aberto(se existe), e cria uma vetor com a informação;
  * Complexidade: n
  * @return vector<classes> devolve um vetor com a informação, se nao existir ficheiro devolve um vetor vazio
@@ -61,7 +61,7 @@ vector<classes> Read::read_classes()
     {
         return v;
     }
-    
+
     string buffer;
     getline(fi, buffer);
     while (getline(fi, buffer))
@@ -86,7 +86,8 @@ vector<classes> Read::read_classes()
 
     // for (auto a : v)
     // {
-    //     cout << a.ClassCode << " " << a.UcCode << " " << a.Weekday << " " << a.StartHour << " " << a.Duration << " " << a.Type << endl;
+    //     cout << a.ClassCode << " " << a.UcCode << " " << a.Weekday << " " << a.StartHour << " " << a.Duration << " "
+    //     << a.Type << endl;
     // }
 
     fi.close();
@@ -94,10 +95,11 @@ vector<classes> Read::read_classes()
 }
 
 /**
- * @brief 
+ * @brief
  * abre o ficheiro students_classes, verifica se não está aberto(se existe), e cria uma vetor com a informação
  * Complexidade: n
- * @return vector<students_classes> vector<classes> devolve um vetor com a informação, se nao existir ficheiro devolve um vetor vazio
+ * @return vector<students_classes> vector<classes> devolve um vetor com a informação, se nao existir ficheiro devolve
+ * um vetor vazio
  */
 vector<students_classes> Read::read_students_classes()
 {
@@ -108,7 +110,7 @@ vector<students_classes> Read::read_students_classes()
     {
         return v;
     }
-    
+
     string buffer;
     getline(fi, buffer, '\n');
     while (getline(fi, buffer, '\n'))
@@ -129,7 +131,8 @@ vector<students_classes> Read::read_students_classes()
 
     // for (auto a : v)
     // {
-    //     cout << "'" << a.StudentCode << "' '" << a.StudentName << "' '" << a.UcCode << "' '" << a.ClassCode << "'" << endl;
+    //     cout << "'" << a.StudentCode << "' '" << a.StudentName << "' '" << a.UcCode << "' '" << a.ClassCode << "'" <<
+    //     endl;
     // }
 
     fi.close();

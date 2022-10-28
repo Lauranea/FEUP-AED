@@ -1,18 +1,20 @@
 /**
- * @file Uc.cpp 
+ * @file Uc.cpp
  * Funções que usam como base uma UC
  */
 
 #include "Uc.h"
 
-#define RESET   "\033[0m"
+#define RESET "\033[0m"
 
 using namespace std;
 
-Uc::Uc(Scheduler &new_s) : s(new_s) {} 
+Uc::Uc(Scheduler &new_s) : s(new_s)
+{
+}
 
 /**
- * @brief 
+ * @brief
  * vai buscar todas as Classes que tem uma Uc;
  * Complexidade: n
  * @param uccode codigo da uc
@@ -30,10 +32,10 @@ void Uc::get_classes(string uccode)
 }
 
 /**
- * @brief 
- * cria um vetor de pares com (Nome do aluno, codigo do aluno) de uma UC e ordena o de acordo com o que o utilizador escolhe(1 para ordem alfabética e 2 para ordem numérica); 
- * Complexidade: n * m 
- * @param uccode numero da uc de qual se quer os alunos 
+ * @brief
+ * cria um vetor de pares com (Nome do aluno, codigo do aluno) de uma UC e ordena o de acordo com o que o utilizador escolhe(1 para ordem alfabética e 2 para ordem numérica);
+ * Complexidade: n * m
+ * @param uccode numero da uc de qual se quer os alunos
  */
 void Uc::get_students(string uccode)
 {
@@ -57,7 +59,7 @@ void Uc::get_students(string uccode)
             }
             if (a)
             {
-                p.push_back({s.students_classes_v.at(i).StudentName,  s.students_classes_v.at(i).StudentCode});
+                p.push_back({s.students_classes_v.at(i).StudentName, s.students_classes_v.at(i).StudentCode});
             }
         }
     }

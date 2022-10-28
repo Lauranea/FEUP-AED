@@ -7,10 +7,12 @@
 #include "Read.h"
 #include <climits>
 
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
+#define RESET "\033[0m"
+#define RED "\033[31m"
 
-Write::Write(Scheduler &new_s) : s(new_s) {} 
+Write::Write(Scheduler &new_s) : s(new_s)
+{
+}
 
 bool Write::remove_class(string studentcode, string classcode)
 {
@@ -25,7 +27,7 @@ bool Write::remove_class(string studentcode, string classcode)
     }
 
     bool rt = false;
-    
+
     string buffer;
     getline(fi, buffer, '\n');
     fo << buffer << "\n";
@@ -71,7 +73,7 @@ bool Write::remove_uc(string studentcode, string uccode)
     }
 
     bool rt = false;
-    
+
     string buffer;
     getline(fi, buffer, '\n');
     fo << buffer << "\n";
@@ -117,7 +119,7 @@ bool Write::remove_uc_class(string studentcode, string uccode, string classcode)
     }
 
     bool rt = false;
-    
+
     string buffer;
     getline(fi, buffer, '\n');
     fo << buffer << "\n";
@@ -154,7 +156,7 @@ bool Write::remove_uc_class(string studentcode, string uccode, string classcode)
 bool Write::is_balanced(string uccode, string classcode)
 {
     vector<pair<string, vector<pair<string, int>>>> p = s.ocupation_v;
-    
+
     for (int i = 0; i < p.size(); i++)
     {
         if (p[i].first == uccode)
@@ -184,15 +186,15 @@ bool Write::is_balanced(string uccode, string classcode)
 
 bool validcode(string code)
 {
-    if(code.size() != 9)
+    if (code.size() != 9)
     {
         return false;
     }
-    for(char i : code)
+    for (char i : code)
     {
-        if((i >= 65 && i <= 90)||(i <= 122 && i >= 97))
+        if ((i >= 65 && i <= 90) || (i <= 122 && i >= 97))
         {
-        return false;
+            return false;
         }
     }
     return true;
@@ -200,11 +202,11 @@ bool validcode(string code)
 
 bool validname(string name)
 {
-    for(char i : name)
+    for (char i : name)
     {
-        if((i <= 65 || i >= 122)||(i > 97 && i < 90))
+        if ((i <= 65 || i >= 122) || (i > 97 && i < 90))
         {
-        return false;
+            return false;
         }
     }
     return true;
@@ -223,7 +225,7 @@ bool Write::add_to(string studentcode, string uccode, string classcode)
     }
 
     bool rt = false;
-    
+
     string buffer;
     getline(fi, buffer, '\n');
     fo << buffer << "\n";
@@ -242,22 +244,22 @@ bool Write::add_to(string studentcode, string uccode, string classcode)
         }
         else
         {
-            if(rt == false)
+            if (rt == false)
             {
                 string added = stu1 + "," + stu2 + "," + uccode + "," + classcode + "\r";
                 fo << added << "\n";
             }
-            string added = stu1 + "," + stu2 + "," + uccode + "," + classcode  + "\r";
+            string added = stu1 + "," + stu2 + "," + uccode + "," + classcode + "\r";
             fo << buffer << "\n";
             rt = true;
         }
         getline(line, buf, '\r');
     }
-    if(!rt)
+    if (!rt)
     {
         string studentcode2;
         bool studentcoder;
-        if(studentcode[0] >= 65)
+        if (studentcode[0] >= 65)
         {
             cout << "---\nStudent Code (ex: 202045037):" << endl << endl;
             studentcoder = 0;
@@ -268,9 +270,9 @@ bool Write::add_to(string studentcode, string uccode, string classcode)
             studentcoder = 1;
         }
         cin >> studentcode2;
-        while(studentcode2 == "" || (studentcode2[0] >= 65 && studentcoder == 0) || (studentcode2[0] < 65 && studentcoder == 1) || (validcode(studentcode2) == 0 && studentcoder == 0) || (validname(studentcode2) == 0 && studentcoder == 1))
+        while (studentcode2 == "" || (studentcode2[0] >= 65 && studentcoder == 0) || (studentcode2[0] < 65 && studentcoder == 1) || (validcode(studentcode2) == 0 && studentcoder == 0) || (validname(studentcode2) == 0 && studentcoder == 1))
         {
-            if(studentcoder)
+            if (studentcoder)
             {
                 cout << RED << "---\nInvalid Name." << RESET << endl << "Please select a new one" << endl;
             }
@@ -280,7 +282,7 @@ bool Write::add_to(string studentcode, string uccode, string classcode)
             }
             cin >> studentcode2;
         }
-        if(studentcoder)
+        if (studentcoder)
         {
             fo << studentcode << "," << studentcode2 + "," << uccode << "," << classcode << "\n";
         }
@@ -301,7 +303,7 @@ bool Write::add_to(string studentcode, string uccode, string classcode)
 
 bool Write::change_uc(string studentcode, string uccodeold, string uccodenew, string classcodenew)
 {
-    if(is_balanced(uccodenew, classcodenew))
+    if (is_balanced(uccodenew, classcodenew))
     {
         add_to(studentcode, uccodenew, classcodenew);
         remove_uc(studentcode, uccodeold);
@@ -312,7 +314,7 @@ bool Write::change_uc(string studentcode, string uccodeold, string uccodenew, st
 
 bool Write::change_oneclass(string studentcode, string uccodeold, string classcodenew)
 {
-    if(is_balanced(uccodeold, classcodenew))
+    if (is_balanced(uccodeold, classcodenew))
     {
         remove_uc(studentcode, uccodeold);
         add_to(studentcode, uccodeold, classcodenew);
@@ -325,24 +327,24 @@ bool Write::change_allclass(string studentcode, string classcodenew)
 {
     string studentcode2;
     bool x = findcodename(studentcode, studentcode2);
-    if(x)
+    if (x)
     {
         string tmp = studentcode;
         studentcode = studentcode2;
         studentcode2 = tmp;
     }
-    if(is_balanced(studentcode, classcodenew))
+    if (is_balanced(studentcode, classcodenew))
     {
         vector<string> ok = finduc(studentcode);
-        if(ok.size() == 0)
+        if (ok.size() == 0)
         {
             return 0;
         }
-        for(string i : ok)
+        for (string i : ok)
         {
             remove_uc(studentcode, i);
         }
-        for(string i : ok)
+        for (string i : ok)
         {
             add_to2(studentcode2, studentcode, i, classcodenew);
         }
@@ -374,7 +376,7 @@ vector<string> Write::finduc(string studentcode)
         getline(line, stu2, ',');
         getline(line, buf, ',');
         if (stu1 == studentcode || stu2 == studentcode)
-        {      
+        {
             answer.push_back(buf);
         }
         getline(line, buf, '\r');
@@ -382,7 +384,7 @@ vector<string> Write::finduc(string studentcode)
     return answer;
 }
 
-bool Write::findcodename(string studentcode, string& studentcode2)
+bool Write::findcodename(string studentcode, string &studentcode2)
 {
     ifstream fi;
     fi.open("../students_classes.csv");
@@ -406,9 +408,9 @@ bool Write::findcodename(string studentcode, string& studentcode2)
         if (stu1 == studentcode)
         {
             studentcode2 = stu2;
-            return 1;   
+            return 1;
         }
-        else if(stu2 == studentcode)
+        else if (stu2 == studentcode)
         {
             studentcode2 = stu1;
             return 0;
@@ -463,7 +465,7 @@ vector<string> Write::getucs(string studentcode)
         getline(line, stu1, ',');
         getline(line, stu2, ',');
         getline(line, buf, ',');
-        if(stu1 == studentcode || stu2 == studentcode)
+        if (stu1 == studentcode || stu2 == studentcode)
         {
             v.push_back(buf);
         }

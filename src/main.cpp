@@ -1,18 +1,18 @@
 #include <iostream>
 
-#include "Uc.h"
 #include "Class.h"
-#include "Student.h"
 #include "Scheduler.h"
+#include "Student.h"
+#include "Uc.h"
 
-#define RESET   "\033[0m"
-#define BOLDWHITE   "\033[1m\033[37m"
-#define RED     "\033[31m"
+#define RESET "\033[0m"
+#define BOLDWHITE "\033[1m\033[37m"
+#define RED "\033[31m"
 #define GREEN "\033[32m"
 
 using namespace std;
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     Scheduler s;
     s.initialize();
@@ -21,7 +21,6 @@ int main(int argc, char** argv)
     Student student(s);
     Uc uc(s);
     Class class_(s);
-    
 
     cout << BOLDWHITE << "1 - View\n2 - Edit" << endl << endl;
     cin >> r;
@@ -38,7 +37,7 @@ int main(int argc, char** argv)
                 cout << "---\nUC Code (ex: L.EIC001):" << endl << endl;
                 string code;
                 cin >> code;
-                while(!student.validuc(code, s.ucs_classes_v))
+                while (!student.validuc(code, s.ucs_classes_v))
                 {
                     cout << RED << "---\nInvalid UC Code." << RESET << endl;
                     cin >> code;
@@ -60,7 +59,7 @@ int main(int argc, char** argv)
                 cout << "---\nUC Code (ex: L.EIC001):" << endl << endl;
                 string code;
                 cin >> code;
-                while(!student.validuc(code, s.ucs_classes_v))
+                while (!student.validuc(code, s.ucs_classes_v))
                 {
                     cout << RED << "---\nInvalid UC Code." << RESET << endl;
                     cin >> code;
@@ -72,7 +71,7 @@ int main(int argc, char** argv)
                 cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
                 string code;
                 cin >> code;
-                while(!student.validclass2(code, s.all_classes_v))
+                while (!student.validclass2(code, s.all_classes_v))
                 {
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     cin >> code;
@@ -94,7 +93,7 @@ int main(int argc, char** argv)
                 cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
                 string code;
                 cin >> code;
-                while(!student.validclass2(code, s.all_classes_v))
+                while (!student.validclass2(code, s.all_classes_v))
                 {
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     cin >> code;
@@ -188,7 +187,7 @@ int main(int argc, char** argv)
             string rr;
             cout << "---\nTo Class (ex: 1LEIC01):" << endl << endl;
             cin >> rr;
-            while (!student.validclass(rr,r, s.ucs_classes_v))
+            while (!student.validclass(rr, r, s.ucs_classes_v))
             {
                 cout << RED << "---\nInvalid Class Code." << endl;
                 cin >> rr;
@@ -200,12 +199,12 @@ int main(int argc, char** argv)
             int coru;
             cout << "---\n1 - Change UC\n2 - Change one Class\n3 - Change all Classes" << endl << endl;
             cin >> coru;
-            while(!(coru == 1 || coru == 2 || coru == 3))
+            while (!(coru == 1 || coru == 2 || coru == 3))
             {
                 cout << RED << "---\nInvalid Option." << RESET << endl;
                 cin >> coru;
             }
-            if(coru == 1)
+            if (coru == 1)
             {
                 cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
                 string code;
@@ -215,7 +214,7 @@ int main(int argc, char** argv)
                 cin >> olduc;
                 while (!student.validuc(olduc, s.ucs_classes_v))
                 {
-                    cout << RED << "---\nInvalid Uc Code." << RESET <<endl;
+                    cout << RED << "---\nInvalid Uc Code." << RESET << endl;
                     cin >> olduc;
                 }
                 string newuc;
@@ -234,18 +233,21 @@ int main(int argc, char** argv)
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     cin >> newclass;
                 }
-                if(student.change_uc(code, olduc, newuc, newclass))
+                if (student.change_uc(code, olduc, newuc, newclass))
                 {
-                    cout << GREEN << "---\n" << code << " changed from " << olduc  << " to " << newuc << " : "<< newclass << RESET << endl;
+                    cout << GREEN << "---\n"
+                         << code << " changed from " << olduc << " to " << newuc << " : " << newclass << RESET << endl;
                     return 0;
                 }
                 else
                 {
-                    cout << RED << "---\n" << code << " was unable to change from " << olduc  << " to " << newuc << " : "<< newclass << RESET << endl;
+                    cout << RED << "---\n"
+                         << code << " was unable to change from " << olduc << " to " << newuc << " : " << newclass
+                         << RESET << endl;
                     return 0;
                 }
             }
-            else if(coru == 2)
+            else if (coru == 2)
             {
                 cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
                 string code;
@@ -255,7 +257,7 @@ int main(int argc, char** argv)
                 cin >> olduc;
                 while (!student.validuc(olduc, s.ucs_classes_v))
                 {
-                    cout << RED << "---\nInvalid Uc Code." << RESET <<endl;
+                    cout << RED << "---\nInvalid Uc Code." << RESET << endl;
                     cin >> olduc;
                 }
                 string newclass;
@@ -266,18 +268,20 @@ int main(int argc, char** argv)
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     cin >> newclass;
                 }
-                if(student.change_oneclass(code, olduc, newclass))
+                if (student.change_oneclass(code, olduc, newclass))
                 {
-                    cout << GREEN << "---\n" << code << " changed to " << olduc << " : "<< newclass << RESET << endl;
+                    cout << GREEN << "---\n" << code << " changed to " << olduc << " : " << newclass << RESET << endl;
                     return 0;
                 }
                 else
                 {
-                    cout << RED << "---\n" << code << " was unable to change" << " to " << olduc << " : "<< newclass << RESET << endl;
+                    cout << RED << "---\n"
+                         << code << " was unable to change"
+                         << " to " << olduc << " : " << newclass << RESET << endl;
                     return 0;
                 }
             }
-            else if(coru == 3)
+            else if (coru == 3)
             {
                 cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
                 string code;
@@ -288,10 +292,10 @@ int main(int argc, char** argv)
                 cin >> newclass;
                 bool queque = true;
                 vector<string> verify1 = student.getucs(code);
-                for(string i : verify1)
+                for (string i : verify1)
                 {
                     cout << i << endl;
-                    if(!student.validclass(newclass, i, s.ucs_classes_v))
+                    if (!student.validclass(newclass, i, s.ucs_classes_v))
                     {
                         queque = false;
                     }
@@ -301,22 +305,23 @@ int main(int argc, char** argv)
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     cin >> newclass;
                     queque = true;
-                    for(string i : verify1)
+                    for (string i : verify1)
                     {
-                        if(!student.validclass(newclass, i, s.ucs_classes_v))
+                        if (!student.validclass(newclass, i, s.ucs_classes_v))
                         {
                             queque = false;
                         }
                     }
                 }
-                if(student.change_allclass(code, newclass))
+                if (student.change_allclass(code, newclass))
                 {
                     cout << GREEN << "---\n" << code << " changed all classes to " << newclass << RESET << endl;
                     return 0;
                 }
                 else
                 {
-                    cout << RED << "---\n" << code << " was unable to change all classes to "  << newclass << RESET << endl;
+                    cout << RED << "---\n"
+                         << code << " was unable to change all classes to " << newclass << RESET << endl;
                     return 0;
                 }
             }
