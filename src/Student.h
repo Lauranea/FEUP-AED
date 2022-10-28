@@ -15,9 +15,13 @@ using namespace std;
 
 class Student
 {
+    private:
+        Scheduler &s;
     public:
+        Student(Scheduler &s);
         vector<pair<string, vector<string>>> getucsclasses(vector<string>& classes);
-        void get_schedule(Scheduler &s, string studentcode);
+        vector<string> getucs(string studentcode);
+        void get_schedule(string studentcode);
         void remove_class(string studentcode, string classcode);
         void remove_uc(string studentcode, string classcode);
         void add_to(string studentcode, string uccode, string classcode);
@@ -28,7 +32,6 @@ class Student
         bool validclass(string classer, string uc, vector<pair<string, vector<string>>> classes);
         bool validuc(string uc, vector<pair<string, vector<string>>> ucs);
         bool mytoupper(string& word);
-        vector<string> getucs(string studentcode);
         bool validclass2(string classer, vector<string> classes);
 };
 

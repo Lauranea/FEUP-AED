@@ -6,7 +6,9 @@
 
 list<string> jpvds;
 
-void Student::get_schedule(Scheduler &s, string studentcode)
+Student::Student(Scheduler &new_s) : s(new_s) {} 
+
+void Student::get_schedule(string studentcode)
 {
     cout << RESET << "---\nSchedule from Student " << studentcode << ":" << endl << endl;
     vector<vector<string>> p;
