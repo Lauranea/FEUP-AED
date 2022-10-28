@@ -4,7 +4,9 @@
 
 using namespace std;
 
-void Uc::get_classes(Scheduler &s, string uccode)
+Uc::Uc(Scheduler &new_s) : s(new_s) {} 
+
+void Uc::get_classes(string uccode)
 {
     cout << RESET << "---\nAll Classes that have the UC " << uccode << ":" << endl << endl;
     for (int i = 0; i < s.classes_per_uc_v.size(); i++)
@@ -16,7 +18,7 @@ void Uc::get_classes(Scheduler &s, string uccode)
     }
 }
 
-void Uc::get_students(Scheduler &s, string uccode)
+void Uc::get_students(string uccode)
 {
     string order;
     cout << "---\nOrder:\n\n1 - Alphabetically\n2 - Numerically" << endl << endl;

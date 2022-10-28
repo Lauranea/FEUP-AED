@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 
     string r;
     Student student(s);
-    Uc uc;
+    Uc uc(s);
     Class class_;
     
 
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
                     cout << RED << "---\nInvalid UC Code." << RESET << endl;
                     cin >> code;
                 }
-                uc.get_classes(s, code);
+                uc.get_classes(code);
             }
             else
             {
@@ -65,7 +65,7 @@ int main(int argc, char** argv)
                     cout << RED << "---\nInvalid UC Code." << RESET << endl;
                     cin >> code;
                 }
-                uc.get_students(s, code);
+                uc.get_students(code);
             }
             else if (r == "2")
             {

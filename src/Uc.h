@@ -12,9 +12,12 @@ using namespace std;
 
 class Uc
 {
+    private:
+        Scheduler &s; 
     public:
-        void get_classes(Scheduler &s, string uccode);
-        void get_students(Scheduler &s, string uccode);
+        Uc(Scheduler &s);
+        void get_classes(string uccode);
+        void get_students(string uccode);
 
 };
 
