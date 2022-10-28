@@ -1,3 +1,8 @@
+/**
+ * @file Scheduler.h
+ * Inicializa todos os vetores
+ */
+
 #ifndef _SCHEDULER_H_
 #define _SCHEDULER_H_
 

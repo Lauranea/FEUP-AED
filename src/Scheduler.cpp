@@ -1,3 +1,8 @@
+/**
+ * @file Scheduler.cpp
+ * Inicializa todos os vetores
+ */
+
 #include "Scheduler.h"
 #include "Read.h"
 

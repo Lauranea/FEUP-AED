@@ -3,6 +3,11 @@
 
 #include <vector>
 #include <list>
+/**
+ * @file Read.h 
+ * Funções para ler ficheiros
+ */
+
 #include <string>
 #include <fstream>
 #include <iostream>

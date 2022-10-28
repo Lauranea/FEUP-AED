@@ -1,3 +1,8 @@
+/**
+ * @file Read.h 
+ * Funções para ler ficheiros
+ */
+
 #include "Read.h"
 
 #define RESET   "\033[0m"

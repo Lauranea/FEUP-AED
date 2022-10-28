@@ -1,3 +1,8 @@
+/**
+ * @file Write.cpp
+ * {COMPLETAR}
+ */
+
 #include "Write.h"
 #include "Read.h"
 #include <climits>
