@@ -4,23 +4,21 @@
 
 using namespace std;
 
-void Class::get_students(string classcode)
+void Class::get_students(Scheduler &s, string classcode)
 {
     string order;
     cout << "---\nOrder:\n\n1 - Alphabetically\n2 - Numerically" << endl << endl;
     cin >> order;
     cout << RESET << "---\nAll Students that have the Class " << classcode << ":" << endl << endl;
-    Scheduler s;
-    vector<students_classes> tmp1 = s.students_classes_v;
     vector<pair<string, string>> p;
-    for (int i = 0; i < tmp1.size(); i++)
+    for (int i = 0; i < s.students_classes_v.size(); i++)
     {
-        if (tmp1.at(i).ClassCode == classcode)
+        if (s.students_classes_v.at(i).ClassCode == classcode)
         {
             bool a = true;
             for (int j = 0; j < p.size(); j++)
             {
-                if (tmp1.at(i).StudentCode == p.at(j).second)
+                if (s.students_classes_v.at(i).StudentCode == p.at(j).second)
                 {
                     a = false;
                     break;
@@ -28,7 +26,7 @@ void Class::get_students(string classcode)
             }
             if (a)
             {
-                p.push_back({tmp1.at(i).StudentName,  tmp1.at(i).StudentCode});
+                p.push_back({s.students_classes_v.at(i).StudentName,  s.students_classes_v.at(i).StudentCode});
             }
         }
     }

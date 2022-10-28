@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include "Read.h"
+#include "Scheduler.h"
 #include <algorithm>
 #include "Sort.h"
 
@@ -13,8 +13,8 @@ using namespace std;
 class Uc
 {
     public:
-        void get_classes(string uccode);
-        void get_students(string uccode);
+        void get_classes(Scheduler &s, string uccode);
+        void get_students(Scheduler &s, string uccode);
 
 };
 

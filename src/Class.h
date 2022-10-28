@@ -13,7 +13,7 @@ using namespace std;
 class Class
 {
     public:
-        void get_students(string classcode);
+        void get_students(Scheduler &s, string classcode);
         void get_schedule(Scheduler &s, string classcode);
 
 };

@@ -19,6 +19,8 @@ int main(int argc, char** argv)
 
     string r;
     Student student;
+    Uc uc;
+    Class class_;
     
 
     cout << BOLDWHITE << "1 - View\n2 - Edit" << endl << endl;
@@ -33,7 +35,6 @@ int main(int argc, char** argv)
             cin >> r;
             if (r == "1")
             {
-                Uc uc;
                 cout << "---\nUC Code (ex: L.EIC001):" << endl << endl;
                 string code;
                 cin >> code;
@@ -42,7 +43,7 @@ int main(int argc, char** argv)
                     cout << RED << "---\nInvalid UC Code." << RESET << endl;
                     cin >> code;
                 }
-                uc.get_classes(code);
+                uc.get_classes(s, code);
             }
             else
             {
@@ -56,7 +57,6 @@ int main(int argc, char** argv)
             cin >> r;
             if (r == "1")
             {
-                Uc uc;
                 cout << "---\nUC Code (ex: L.EIC001):" << endl << endl;
                 string code;
                 cin >> code;
@@ -65,11 +65,10 @@ int main(int argc, char** argv)
                     cout << RED << "---\nInvalid UC Code." << RESET << endl;
                     cin >> code;
                 }
-                uc.get_students(code);
+                uc.get_students(s, code);
             }
             else if (r == "2")
             {
-                Class class_;
                 cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
                 string code;
                 cin >> code;
@@ -78,7 +77,7 @@ int main(int argc, char** argv)
                     cout << RED << "---\nInvalid Class Code." << RESET << endl;
                     cin >> code;
                 }
-                class_.get_students(code);
+                class_.get_students(s, code);
             }
             else
             {
@@ -92,7 +91,6 @@ int main(int argc, char** argv)
             cin >> r;
             if (r == "1")
             {
-                Class class_;
                 cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
                 string code;
                 cin >> code;
