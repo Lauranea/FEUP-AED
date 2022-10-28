@@ -18,7 +18,7 @@ int main(int argc, char** argv)
     s.initialize();
 
     string r;
-    Student student;
+    Student student(s);
     Uc uc;
     Class class_;
     
@@ -106,7 +106,7 @@ int main(int argc, char** argv)
                 cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
                 string code;
                 cin >> code;
-                student.get_schedule(s, code);
+                student.get_schedule(code);
             }
             else
             {
