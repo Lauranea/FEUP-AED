@@ -9,6 +9,7 @@ void Scheduler::initialize()
     students_classes_v = read.read_students_classes();
 
     initialize_all_ucs_classes();
+    initialize_class_horarios();
 }
 
 void Scheduler::initialize_all_ucs_classes()
@@ -39,6 +40,27 @@ void Scheduler::initialize_all_ucs_classes()
         {
             all_classes_v.push_back(classes_per_uc_v[i].ClassCode);
         }
+    }
+}
+
+void Scheduler::initialize_class_horarios()
+{
+    for(classes i : classes_v)
+    {
+        if(i.Type == "T")
+        {
+            continue;
+        }
+        float duration = atof(i.Duration.c_str());
+        float start = atof(i.StartHour.c_str());
+        vector<float> times;
+        while(duration > 0)
+        {
+            times.push_back(start);
+            duration -= 0.5;
+            start += 0.5;
+        }
+        class_horarios_v.push_back(pair(pair(i.UcCode, i.ClassCode), pair(i.Weekday, times)));
     }
 }
 

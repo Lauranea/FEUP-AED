@@ -33,6 +33,8 @@ class Student
         bool validuc(string uc, vector<pair<string, vector<string>>> ucs);
         bool mytoupper(string& word);
         bool validclass2(string classer, vector<string> classes);
+        bool validchangehorario(string student, string classbegone, string classbenow);
+        bool validaddhorario(string student, string newclass);
 };
 
 #endif

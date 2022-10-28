@@ -299,3 +299,28 @@ bool Student::validclass2(string classer, vector<string> classes)
     }
     return false;
 }
+
+
+
+bool Student::validchangehorario(string code, string oldclass, string newclass)
+{
+    return 1;
+}
+
+bool Student::validaddhorario(string code, string newclass)
+{
+    bool seen = false;
+    vector<pair<string, vector<float>>> horario;
+    for(students_classes i : s.students_classes_v)
+    {
+        if((i.ClassCode != code || i.StudentName != code) && seen == true)
+        {
+            break;
+        }
+        if(i.ClassCode == code || i.StudentName == code)
+        {
+            //ifhdoagf
+        }
+    }
+    return 1;
+}
