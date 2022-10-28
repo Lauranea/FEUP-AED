@@ -2,6 +2,12 @@
 
 #define RESET   "\033[0m"
 
+/**
+ * @brief 
+ * abre o ficheiro classes_per_uc, verifica se não está aberto(se existe), e cria uma vetor com a informação;
+ * Complexidade: n
+ * @return vector<classes_per_uc> devolve um vetor com a informação, se nao existir ficheiro devolve um vetor vazio
+ */
 vector<classes_per_uc> Read::read_classes_per_uc()
 {
     vector<classes_per_uc> v;
@@ -35,6 +41,12 @@ vector<classes_per_uc> Read::read_classes_per_uc()
     return v;
 }
 
+/**
+ * @brief 
+ * abre o ficheiro classes, verifica se não está aberto(se existe), e cria uma vetor com a informação;
+ * Complexidade: n
+ * @return vector<classes> devolve um vetor com a informação, se nao existir ficheiro devolve um vetor vazio
+ */
 vector<classes> Read::read_classes()
 {
     vector<classes> v;
@@ -76,6 +88,12 @@ vector<classes> Read::read_classes()
     return v;
 }
 
+/**
+ * @brief 
+ * abre o ficheiro students_classes, verifica se não está aberto(se existe), e cria uma vetor com a informação
+ * Complexidade: n
+ * @return vector<students_classes> vector<classes> devolve um vetor com a informação, se nao existir ficheiro devolve um vetor vazio
+ */
 vector<students_classes> Read::read_students_classes()
 {
     vector<students_classes> v;
