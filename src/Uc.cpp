@@ -1,3 +1,8 @@
+/**
+ * @file Uc.cpp 
+ * Funções que usam como base uma UC
+ */
+
 #include "Uc.h"
 
 #define RESET   "\033[0m"
