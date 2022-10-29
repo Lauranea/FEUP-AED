@@ -14,106 +14,6 @@ Write::Write(Scheduler &new_s) : s(new_s)
 {
 }
 
-bool Write::remove_class(string studentcode, string classcode)
-{
-    auto it = remove_if(s.students_classes_v.begin(), s.students_classes_v.end(), [classcode, studentcode](students_classes r) { return (r.ClassCode == classcode && (r.StudentCode == studentcode || r.StudentName == studentcode)); });
-    if (it != s.students_classes_v.end())
-    {
-        s.students_classes_v.erase(it, s.students_classes_v.end());
-        return true;
-    }
-    return false;
-}
-
-bool Write::remove_uc(string studentcode, string uccode)
-{
-    auto it = remove_if(s.students_classes_v.begin(), s.students_classes_v.end(), [uccode, studentcode](students_classes r) { return (r.UcCode == uccode && (r.StudentCode == studentcode || r.StudentName == studentcode)); });
-    if (it != s.students_classes_v.end())
-    {
-        s.students_classes_v.erase(it, s.students_classes_v.end());
-        return true;
-    }
-    return false;
-}
-
-bool Write::remove_uc_class(string studentcode, string uccode, string classcode)
-{
-    ifstream fi;
-    ofstream fo;
-    fi.open("../students_classes.csv");
-    fo.open("../students_classeso.csv");
-    if (!fi.is_open() || !fo.is_open())
-    {
-        cout << "\nCould not open file" << endl;
-        return false;
-    }
-
-    bool rt = false;
-
-    string buffer;
-    getline(fi, buffer, '\n');
-    fo << buffer << "\n";
-    while (getline(fi, buffer, '\n'))
-    {
-        stringstream line(buffer);
-        string buf;
-        string stu1;
-        string stu2;
-        string bug;
-        getline(line, stu1, ',');
-        getline(line, stu2, ',');
-        getline(line, buf, ',');
-        getline(line, bug, '\r');
-        if ((stu1 != studentcode && stu2 != studentcode) || buf != uccode || bug != classcode)
-        {
-            fo << buffer << "\n";
-        }
-        else
-        {
-            rt = true;
-        }
-    }
-
-    fi.close();
-    fo.close();
-
-    remove("../students_classes.csv");
-    rename("../students_classeso.csv", "../students_classes.csv");
-
-    return rt;
-}
-
-bool Write::is_balanced(string uccode, string classcode)
-{
-    vector<pair<string, vector<pair<string, int>>>> p = s.ocupation_v;
-
-    for (int i = 0; i < p.size(); i++)
-    {
-        if (p[i].first == uccode)
-        {
-            int min = INT_MAX;
-            int cur = 0;
-            for (int j = 0; j < p[i].second.size(); j++)
-            {
-                if (p[i].second[j].second < min)
-                {
-                    min = p[i].second[j].second;
-                }
-                if (p[i].second[j].first == classcode)
-                {
-                    cur = p[i].second[j].second;
-                }
-            }
-            if (cur + 1 - min >= 4)
-            {
-                return false;
-            }
-            break;
-        }
-    }
-    return true;
-}
-
 bool validcode(string code)
 {
     if (code.size() != 9)
@@ -142,101 +42,12 @@ bool validname(string name)
     return true;
 }
 
-bool Write::add_to(string studentcode, string uccode, string classcode)
-{
-    ifstream fi;
-    ofstream fo;
-    fi.open("../students_classes.csv");
-    fo.open("../students_classeso.csv");
-    if (!fi.is_open() || !fo.is_open())
-    {
-        cout << "\nCould not open file" << endl;
-        return false;
-    }
-
-    bool rt = false;
-
-    string buffer;
-    getline(fi, buffer, '\n');
-    fo << buffer << "\n";
-    while (getline(fi, buffer, '\n'))
-    {
-        stringstream line(buffer);
-        string buf;
-        string stu1;
-        string stu2;
-        getline(line, stu1, ',');
-        getline(line, stu2, ',');
-        getline(line, buf, ',');
-        if (stu1 != studentcode && stu2 != studentcode)
-        {
-            fo << buffer << "\n";
-        }
-        else
-        {
-            if (rt == false)
-            {
-                string added = stu1 + "," + stu2 + "," + uccode + "," + classcode + "\r";
-                fo << added << "\n";
-            }
-            string added = stu1 + "," + stu2 + "," + uccode + "," + classcode + "\r";
-            fo << buffer << "\n";
-            rt = true;
-        }
-        getline(line, buf, '\r');
-    }
-    if (!rt)
-    {
-        string studentcode2;
-        bool studentcoder;
-        if (studentcode[0] >= 65)
-        {
-            cout << "---\nStudent Code (ex: 202045037):" << endl << endl;
-            studentcoder = 0;
-        }
-        else
-        {
-            cout << "---\nStudent Name (ex: Ronaldo):" << endl << endl;
-            studentcoder = 1;
-        }
-        cin >> studentcode2;
-        while (studentcode2 == "" || (studentcode2[0] >= 65 && studentcoder == 0) || (studentcode2[0] < 65 && studentcoder == 1) || (validcode(studentcode2) == 0 && studentcoder == 0) || (validname(studentcode2) == 0 && studentcoder == 1))
-        {
-            if (studentcoder)
-            {
-                cout << RED << "---\nInvalid Name." << RESET << endl << "Please select a new one" << endl;
-            }
-            else
-            {
-                cout << RED << "---\nInvalid Code." << RESET << endl << "Please select a new one" << endl;
-            }
-            cin >> studentcode2;
-        }
-        if (studentcoder)
-        {
-            fo << studentcode << "," << studentcode2 + "," << uccode << "," << classcode << "\n";
-        }
-        else
-        {
-            fo << studentcode2 << "," << studentcode + "," << uccode << "," << classcode << "\n";
-        }
-    }
-
-    fi.close();
-    fo.close();
-
-    remove("../students_classes.csv");
-    rename("../students_classeso.csv", "../students_classes.csv");
-
-    return rt;
-}
-
 bool Write::change_uc(string studentcode, string uccodeold, string uccodenew, string classcodenew)
 {
-    if (is_balanced(uccodenew, classcodenew))
+    if (s.is_balanced(uccodenew, classcodenew))
     {
-        add_to(studentcode, uccodenew, classcodenew);
-        remove_uc(studentcode, uccodeold);
+        // add_to(studentcode, uccodenew, classcodenew);
+        // s.remove_uc(studentcode, uccodeold);
         return true;
     }
     return false;
@@ -244,10 +55,10 @@ bool Write::change_uc(string studentcode, string uccodeold, string uccodenew, st
 
 bool Write::change_oneclass(string studentcode, string uccodeold, string classcodenew)
 {
-    if (is_balanced(uccodeold, classcodenew))
+    if (s.is_balanced(uccodeold, classcodenew))
     {
-        remove_uc(studentcode, uccodeold);
-        add_to(studentcode, uccodeold, classcodenew);
+        // s.remove_uc(studentcode, uccodeold);
+        // add_to(studentcode, uccodeold, classcodenew);
         return true;
     }
     return false;
@@ -263,7 +74,7 @@ bool Write::change_allclass(string studentcode, string classcodenew)
         studentcode = studentcode2;
         studentcode2 = tmp;
     }
-    if (is_balanced(studentcode, classcodenew))
+    if (s.is_balanced(studentcode, classcodenew))
     {
         vector<string> ok = finduc(studentcode);
         if (ok.size() == 0)
@@ -272,7 +83,7 @@ bool Write::change_allclass(string studentcode, string classcodenew)
         }
         for (string i : ok)
         {
-            remove_uc(studentcode, i);
+            // s.remove_uc(studentcode, i);
         }
         for (string i : ok)
         {

@@ -5,6 +5,10 @@
 
 #include "Scheduler.h"
 
+#define RESET "\033[0m"
+#define BOLDWHITE "\033[1m\033[37m"
+#define RED "\033[31m"
+
 void Scheduler::initialize()
 {
     Read read;
@@ -15,6 +19,7 @@ void Scheduler::initialize()
     initialize_all_ucs_classes();
     initialize_class_horarios();
     initialize_ocupation();
+    initialize_students();
 }
 
 void Scheduler::initialize_all_ucs_classes()
@@ -151,29 +156,17 @@ void Scheduler::initialize_ocupation()
     for (int i = 0; i < students_classes_v.size(); i++)
     {
         bool a = true;
-        for (int j = 0; j < ocupation_v.size(); j++)
+        for (int j = 0; j < ocupation_v[students_classes_v[i].UcCode].size(); j++)
         {
-            if (students_classes_v[i].UcCode == ocupation_v[j].first)
+            if (ocupation_v[students_classes_v[i].UcCode][j].first == students_classes_v[i].ClassCode)
             {
-                bool b = true;
-                for (int k = 0; k < ocupation_v[j].second.size(); k++)
-                {
-                    if (ocupation_v[j].second[k].first == students_classes_v[i].ClassCode)
-                    {
-                        ocupation_v[j].second[k].second++;
-                        b = false;
-                    }
-                }
-                if (b)
-                {
-                    ocupation_v[j].second.push_back({students_classes_v[i].ClassCode, 1});
-                }
+                ocupation_v[students_classes_v[i].UcCode][j].second++;
                 a = false;
             }
         }
         if (a)
         {
-            ocupation_v.push_back({students_classes_v[i].UcCode, {{students_classes_v[i].ClassCode, 1}}});
+            ocupation_v[students_classes_v[i].UcCode].push_back({students_classes_v[i].ClassCode, 1});
         }
     }
 
@@ -186,4 +179,166 @@ void Scheduler::initialize_ocupation()
     //         cout << ocupation_v[i].second[j].first << " - " << ocupation_v[i].second[j].second << endl;
     //     }
     // }
+}
+
+void Scheduler::initialize_students()
+{
+    for (int i = 0; i < students_classes_v.size(); i++)
+    {
+        students_m[students_classes_v[i].StudentName].first = students_classes_v[i].StudentCode;
+        students_m[students_classes_v[i].StudentName].second.push_back({students_classes_v[i].UcCode, students_classes_v[i].ClassCode});
+    }
+}
+
+bool Scheduler::remove_uc_class(string studentcode, string uccode, string classcode)
+{
+    auto it = remove_if(students_classes_v.begin(), students_classes_v.end(), [uccode, classcode, studentcode](students_classes r) { return (r.UcCode == uccode && r.ClassCode == classcode && (r.StudentCode == studentcode || r.StudentName == studentcode)); });
+    if (it != students_classes_v.end())
+    {
+        students_classes_v.erase(it, students_classes_v.end());
+        return true;
+    }
+    return false;
+}
+
+
+bool Scheduler::is_balanced(string uccode, string classcode)
+{
+    for (auto o : ocupation_v)
+    {
+        if (o.first == uccode)
+        {
+            int min = INT_MAX;
+            int cur = 0;
+            for (int j = 0; j < o.second.size(); j++)
+            {
+                if (o.second[j].second < min)
+                {
+                    min = o.second[j].second;
+                }
+                if (o.second[j].first == classcode)
+                {
+                    cur = o.second[j].second;
+                }
+            }
+            if (cur + 1 - min >= 4)
+            {
+                return false;
+            }
+            break;
+        }
+    }
+    return true;
+}
+
+bool Scheduler::add_to(string studentcode, string uccode, string classcode)
+{
+    if (!is_balanced(uccode, classcode))
+    {
+        return false;
+    }
+
+    
+
+    // ifstream fi;
+    // ofstream fo;
+    // fi.open("../students_classes.csv");
+    // fo.open("../students_classeso.csv");
+    // if (!fi.is_open() || !fo.is_open())
+    // {
+    //     cout << "\nCould not open file" << endl;
+    //     return false;
+    // }
+
+    // bool rt = false;
+
+    // string buffer;
+    // getline(fi, buffer, '\n');
+    // fo << buffer << "\n";
+    // while (getline(fi, buffer, '\n'))
+    // {
+    //     stringstream line(buffer);
+    //     string buf;
+    //     string stu1;
+    //     string stu2;
+    //     getline(line, stu1, ',');
+    //     getline(line, stu2, ',');
+    //     getline(line, buf, ',');
+    //     if (stu1 != studentcode && stu2 != studentcode)
+    //     {
+    //         fo << buffer << "\n";
+    //     }
+    //     else
+    //     {
+    //         if (rt == false)
+    //         {
+    //             string added = stu1 + "," + stu2 + "," + uccode + "," + classcode + "\r";
+    //             fo << added << "\n";
+    //         }
+    //         string added = stu1 + "," + stu2 + "," + uccode + "," + classcode + "\r";
+    //         fo << buffer << "\n";
+    //         rt = true;
+    //     }
+    //     getline(line, buf, '\r');
+    // }
+    // if (!rt)
+    // {
+    //     string studentcode2;
+    //     bool studentcoder;
+    //     if (studentcode[0] >= 65)
+    //     {
+    //         cout << "---\nStudent Code (ex: 202045037):" << endl << endl;
+    //         studentcoder = 0;
+    //     }
+    //     else
+    //     {
+    //         cout << "---\nStudent Name (ex: Ronaldo):" << endl << endl;
+    //         studentcoder = 1;
+    //     }
+    //     cin >> studentcode2;
+    //     while (studentcode2 == "" || (studentcode2[0] >= 65 && studentcoder == 0) || (studentcode2[0] < 65 && studentcoder == 1) || (validcode(studentcode2) == 0 && studentcoder == 0) || (validname(studentcode2) == 0 && studentcoder == 1))
+    //     {
+    //         if (studentcoder)
+    //         {
+    //             cout << RED << "---\nInvalid Name." << RESET << endl << "Please select a new one" << endl;
+    //         }
+    //         else
+    //         {
+    //             cout << RED << "---\nInvalid Code." << RESET << endl << "Please select a new one" << endl;
+    //         }
+    //         cin >> studentcode2;
+    //     }
+    //     if (studentcoder)
+    //     {
+    //         fo << studentcode << "," << studentcode2 + "," << uccode << "," << classcode << "\n";
+    //     }
+    //     else
+    //     {
+    //         fo << studentcode2 << "," << studentcode + "," << uccode << "," << classcode << "\n";
+    //     }
+    // }
+
+    // fi.close();
+    // fo.close();
+
+    // remove("../students_classes.csv");
+    // rename("../students_classeso.csv", "../students_classes.csv");
+
+    // return rt;
+}
+
+
+void Scheduler::ocupation()
+{
+    map<string, vector<pair<string, int>>> p = ocupation_v;
+
+    for (auto o : ocupation_v)
+    {
+        sort(o.second.begin(), o.second.end());
+        cout << BOLDWHITE << endl << o.first << RESET << endl;
+        for (int j = 0; j < o.second.size(); j++)
+        {
+            cout << o.second[j].first << " - " << o.second[j].second << endl;
+        }
+    }
 }

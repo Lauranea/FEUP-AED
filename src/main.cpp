@@ -115,17 +115,7 @@ int main(int argc, char **argv)
         }
         else if (r == "4") // Get Ocupation
         {
-            string order;
-            cout << "---\nUC Order:\n\n1 - Ascending\n2 - Descending" << endl << endl;
-            cin >> order;
-            if (order == "1")
-            {
-                student.ocupation(true);
-            }
-            else
-            {
-                student.ocupation(false);
-            }
+            s.ocupation();
         }
         else
         {
@@ -142,35 +132,7 @@ int main(int argc, char **argv)
             cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
             string code;
             cin >> code;
-            cout << "---\nFrom:\n\n1 - Class\n2 - UC" << endl << endl;
-            cin >> r;
-            if (r == "1")
-            {
-                cout << "---\nClass  Code (ex: 1LEIC01):" << endl << endl;
-                cin >> r;
-                if (!student.validclass2(r, s.all_classes_v))
-                {
-                    cout << RED << "---\nInvalid Class Code." << RESET << endl;
-                    return 0;
-                }
-                student.remove_class(code, r);
-            }
-            else if (r == "2")
-            {
-                cout << "---\nUc  Code (ex: L.EIC001):" << endl << endl;
-                cin >> r;
-                if (!student.validuc(r, s.ucs_classes_v))
-                {
-                    cout << RED << "---\nInvalid Uc Code." << RESET << endl;
-                    return 0;
-                }
-                student.remove_uc(code, r);
-            }
-            else
-            {
-                cout << RED << "---\nInvalid choice." << RESET << endl;
-                return 0;
-            }
+            student.remove_uc_class(code);
         }
         else if (r == "2") // Add student
         {
@@ -192,7 +154,7 @@ int main(int argc, char **argv)
                 cout << RED << "---\nInvalid Class Code." << endl;
                 cin >> rr;
             }
-            student.add_to(code, r, rr);
+            s.add_to(code, r, rr);
         }
         else if (r == "3") // Change Student
         {

@@ -95,72 +95,66 @@ void Student::get_schedule(string studentcode)
     cout << "---------------|" << Monday.at(46) << "|" << Tuesday.at(46) << "|" << Wednesday.at(46) << "|" << Thursday.at(46) << "|" << Friday.at(46) << "|" << endl;
 }
 
-void Student::remove_class(string studentcode, string classcode)
+void Student::remove_uc_class(string studentcode)
 {
-    Write write(s);
-    if (write.remove_class(studentcode, classcode))
+    cout << "\n---\nUCs:" << endl;
+    set<string> c1;
+    set<string> c2;
+    bool is_valid= false;
+    for (int i = 0; i < s.students_m[studentcode].second.size(); i++)
     {
-        cout << RESET << "\nRemoved student " << studentcode << " from Class " << classcode << endl;
+        c1.insert(s.students_m[studentcode].second[i].first);
+        c1.insert(s.students_m[studentcode].second[i].second);
     }
-    else
+    for (string cc : c1)
     {
-        cout << RED << "\nFailed to remove student " << studentcode << " from Class " << classcode << endl;
+        cout<< RESET << cc << endl;
     }
-}
-
-void Student::remove_uc(string studentcode, string uccode)
-{
-    Write write(s);
-    if (write.remove_uc(studentcode, uccode))
+    string uccode;
+    cout << "\n---\nUC Code:" << endl << endl;
+    cin >> uccode;
+    for (int i = 0; i < s.students_m[studentcode].second.size(); i++)
     {
-        cout << RESET << "\nRemoved student " << studentcode << " from UC " << uccode << endl;
-    }
-    else
-    {
-        cout << RED << "\nFailed to remove student " << studentcode << " from UC " << uccode << endl;
-    }
-}
-
-void Student::add_to(string studentcode, string uccode, string classcode)
-{
-    Write write(s);
-    if (write.is_balanced(uccode, classcode))
-    {
-        if (write.add_to(studentcode, uccode, classcode))
+        if (s.students_m[studentcode].second[i].first == uccode)
         {
-            cout << RESET << "\nAdded student " << studentcode << " to UC " << uccode << " to Class " << classcode << endl;
-        }
-        else
-        {
-            cout << RED << "\nFailed to add student " << studentcode << " to UC " << uccode << " to Class " << classcode << endl;
+            is_valid = true;
         }
     }
-    else
+    if (!is_valid)
     {
-        cout << RED << "\nWith this change, the Classes would not be balanced " << endl;
+        cout << RED << "\nInvalid UC code " << endl;
+        return;
     }
-}
+    is_valid = false;
 
-void Student::ocupation(bool cres)
-{
-    vector<pair<string, vector<pair<string, int>>>> p = s.ocupation_v;
-    if (cres)
+    cout << "\n---\nClasses:" << endl;
+    for (string cc : c2)
     {
-        sort(p.begin(), p.end(), sortCrescenteUc);
+        cout<< RESET << cc << endl;
     }
-    else
+    string classcode;
+    cout << "\n---\nClass Code:" << endl << endl;
+    cin >> classcode;
+    for (int i = 0; i < s.students_m[studentcode].second.size(); i++)
     {
-        sort(p.begin(), p.end(), sortDecrescenteUc);
-    }
-
-    for (int i = 0; i < p.size(); i++)
-    {
-        sort(p[i].second.begin(), p[i].second.end());
-        cout << BOLDWHITE << endl << p[i].first << RESET << endl;
-        for (int j = 0; j < p[i].second.size(); j++)
+        if (s.students_m[studentcode].second[i].second == classcode)
         {
-            cout << p[i].second[j].first << " - " << p[i].second[j].second << endl;
+            is_valid = true;
         }
+    }
+    if (!is_valid)
+    {
+        cout << RED << "\nInvalid Class code " << endl;
+        return;
+    }
+
+    if (s.remove_uc_class(studentcode, uccode, classcode))
+    {
+        cout << RESET << "\nRemoved student " << studentcode << " from UC / Class " << uccode << " / " << classcode << endl;
+    }
+    else
+    {
+        cout << RED << "\nFailed to remove student " << studentcode << " from UC / Class " << uccode << " / " << classcode << endl;
     }
 }
 
