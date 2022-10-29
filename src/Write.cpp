@@ -16,48 +16,13 @@ Write::Write(Scheduler &new_s) : s(new_s)
 
 bool Write::remove_class(string studentcode, string classcode)
 {
-    ifstream fi;
-    ofstream fo;
-    fi.open("../students_classes.csv");
-    fo.open("../students_classeso.csv");
-    if (!fi.is_open() || !fo.is_open())
+    auto it = remove_if(s.students_classes_v.begin(), s.students_classes_v.end(), [classcode, studentcode](students_classes r) { return (r.ClassCode == classcode && (r.StudentCode == studentcode || r.StudentName == studentcode)); });
+    if (it != s.students_classes_v.end())
     {
-        cout << "\nCould not open file" << endl;
-        return false;
+        s.students_classes_v.erase(it, s.students_classes_v.end());
+        return true;
     }
-
-    bool rt = false;
-
-    string buffer;
-    getline(fi, buffer, '\n');
-    fo << buffer << "\n";
-    while (getline(fi, buffer, '\n'))
-    {
-        stringstream line(buffer);
-        string buf;
-        string stu1;
-        string stu2;
-        getline(line, stu1, ',');
-        getline(line, stu2, ',');
-        getline(line, buf, ',');
-        getline(line, buf, '\r');
-        if ((stu1 != studentcode && stu2 != studentcode) || buf != classcode)
-        {
-            fo << buffer << "\n";
-        }
-        else
-        {
-            rt = true;
-        }
-    }
-
-    fi.close();
-    fo.close();
-
-    remove("../students_classes.csv");
-    rename("../students_classeso.csv", "../students_classes.csv");
-
-    return rt;
+    return false;
 }
 
 bool Write::remove_uc(string studentcode, string uccode)
