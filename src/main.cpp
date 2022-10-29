@@ -143,18 +143,16 @@ int main(int argc, char **argv)
                 cin >> code;
                 cout << "---\nTo UC (ex: L.EIC001):" << endl << endl;
                 cin >> r;
-                while (!student.validuc(r, s.ucs_classes_v))
+                if (!s.is_valid_uc(r))
                 {
                     cout << RED << "---\nInvalid Uc Code." << RESET << endl;
-                    cin >> r;
                 }
                 string rr;
                 cout << "---\nTo Class (ex: 1LEIC01):" << endl << endl;
                 cin >> rr;
-                while (!student.validclass(rr, r, s.ucs_classes_v))
+                if (!s.is_valid_uc_class(r, rr))
                 {
-                    cout << RED << "---\nInvalid Class Code." << endl;
-                    cin >> rr;
+                    cout << RED << "---\nInvalid UC / Class combination." << endl;
                 }
                 s.add_to(code, r, rr);
             }
@@ -163,7 +161,7 @@ int main(int argc, char **argv)
                 int coru;
                 cout << "---\n1 - Change UC\n2 - Change one Class\n3 - Change all Classes" << endl << endl;
                 cin >> coru;
-                while (!(coru == 1 || coru == 2 || coru == 3))
+                if (!(coru == 1 || coru == 2 || coru == 3))
                 {
                     cout << RED << "---\nInvalid Option." << RESET << endl;
                     cin >> coru;
@@ -237,8 +235,8 @@ int main(int argc, char **argv)
                     else
                     {
                         cout << RED << "---\n"
-                            << code << " was unable to change"
-                            << " to " << olduc << " : " << newclass << RESET << endl;
+                             << code << " was unable to change"
+                             << " to " << olduc << " : " << newclass << RESET << endl;
                         continue;
                     }
                 }

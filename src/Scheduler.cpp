@@ -280,7 +280,62 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
         }
 
         return true;
+    }
+    return false;
+}
 
+bool Scheduler::change_class(string studentcode, string uccode, string classcode, string newclasscode)
+{
+    if (!is_valid_uc_class(uccode, newclasscode) || !is_balanced(uccode, newclasscode))
+    {
+        return false;
+    }
+
+    bool can_add = true;
+    bool is_name = false;
+    string other_code = "";
+    for (int i = 0; i < students_classes_v.size(); i++)
+    {
+        if (students_classes_v[i].StudentCode == studentcode)
+        {
+            is_name = false;
+            other_code = students_classes_v[i].StudentName;
+        }
+        else if (students_classes_v[i].StudentName == studentcode)
+        {
+            is_name = true;
+            other_code = students_classes_v[i].StudentCode;
+        }
+
+        if (other_code != "")
+        {
+            if (students_classes_v[i].UcCode == uccode && students_classes_v[i].ClassCode == classcode)
+            {
+                can_add = false;
+            }
+        }
+    }
+    if (can_add)
+    {
+        if (is_name)
+        {
+            students_classes_v.push_back({other_code, studentcode, uccode, classcode});
+        }
+        else
+        {
+            students_classes_v.push_back({studentcode, other_code, uccode, classcode});
+        }
+
+        for (int i = 0; i < ocupation_v[uccode].size(); i++)
+        {
+            if (ocupation_v[uccode][i].first == classcode)
+            {
+                ocupation_v[uccode][i].second++;
+                break;
+            }
+        }
+
+        return true;
     }
     return false;
 }
@@ -298,4 +353,40 @@ void Scheduler::ocupation()
             cout << o.second[j].first << " - " << o.second[j].second << endl;
         }
     }
+}
+
+bool Scheduler::is_valid_uc_class(string uccode, string classcode)
+{
+    for (int i = 0; i < classes_per_uc_v.size(); i++)
+    {
+        if (classes_per_uc_v[i].UcCode == uccode && classes_per_uc_v[i].ClassCode == classcode)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Scheduler::is_valid_uc(string uccode)
+{
+    for (int i = 0; i < ucs_classes_v.size(); i++)
+    {
+        if (ucs_classes_v[i].first == uccode)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Scheduler::is_valid_class(string classcode)
+{
+    for (int i = 0; i < all_classes_v.size(); i++)
+    {
+        if (all_classes_v[i] == classcode)
+        {
+            return true;
+        }
+    }
+    return false;
 }
