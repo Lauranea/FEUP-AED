@@ -269,11 +269,13 @@ bool Student::validchangehorario(string code, string oldclass, string newclass)
 {
     return 1;
 }
-
+/*
 bool Student::validaddhorario(string code, string newclass)
 {
     bool seen = false;
     vector<pair<string, vector<float>>> horario;
+    vector<pair<string,string>> classes;
+    vector<pair<string, vector<float>>> student_horario;
     for (students_classes i : s.students_classes_v)
     {
         if ((i.ClassCode != code || i.StudentName != code) && seen == true)
@@ -282,8 +284,19 @@ bool Student::validaddhorario(string code, string newclass)
         }
         if (i.ClassCode == code || i.StudentName == code)
         {
-            // ifhdoagf
+            classes.push_back(pair(i.UcCode,i.ClassCode));
+        }
+    }
+    for(pair<string, string> i : classes)
+    {
+        for(pair<string, pair<string, pair<string, vector<float>>>> ii : s.class_horarios_v2)
+        {
+            if(i.first == ii.first)
+            {
+                for()
+            }
         }
     }
     return 1;
 }
+*/
