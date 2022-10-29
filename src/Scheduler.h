@@ -29,7 +29,6 @@ class Scheduler
     void initialize_all_ucs_classes();
     void initialize_class_horarios();
     void initialize_ocupation();
-    void initialize_students();
 
     bool remove_uc_class(string studentcode, string uccode, string classcode);
     bool is_balanced(string uccode, string classcode);
@@ -45,7 +44,6 @@ class Scheduler
     vector<pair<string, vector<string>>> ucs_classes_v;
     vector<pair<pair<string, string>, pair<string, vector<float>>>> class_horarios_v;
     map<string, vector<pair<string, int>>> ocupation_v;
-    unordered_map<string, pair<string, vector<pair<string, string>>>> students_m;
 };
 
 #endif

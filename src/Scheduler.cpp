@@ -19,7 +19,6 @@ void Scheduler::initialize()
     initialize_all_ucs_classes();
     initialize_class_horarios();
     initialize_ocupation();
-    initialize_students();
 }
 
 void Scheduler::initialize_all_ucs_classes()
@@ -179,15 +178,6 @@ void Scheduler::initialize_ocupation()
     //         cout << ocupation_v[i].second[j].first << " - " << ocupation_v[i].second[j].second << endl;
     //     }
     // }
-}
-
-void Scheduler::initialize_students()
-{
-    for (int i = 0; i < students_classes_v.size(); i++)
-    {
-        students_m[students_classes_v[i].StudentName].first = students_classes_v[i].StudentCode;
-        students_m[students_classes_v[i].StudentName].second.push_back({students_classes_v[i].UcCode, students_classes_v[i].ClassCode});
-    }
 }
 
 bool Scheduler::remove_uc_class(string studentcode, string uccode, string classcode)

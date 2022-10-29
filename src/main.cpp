@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 
     while (true)
     {
-        cout << BOLDWHITE << "\n\n1 - View\n2 - Edit\n3 - Quit" << endl << endl;
+        cout << BOLDWHITE << "\n\n1 - View\n2 - Edit\nq - Quit" << endl << endl;
         cin >> r;
         if (r == "1") // View
         {
@@ -292,7 +292,7 @@ int main(int argc, char **argv)
                 continue;
             }
         }
-        else if (r == "3") // Quit
+        else if (r == "q") // Quit
         {
             return 0;
         }

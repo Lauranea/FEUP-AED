@@ -98,49 +98,29 @@ void Student::get_schedule(string studentcode)
 void Student::remove_uc_class(string studentcode)
 {
     cout << "\n---\nUCs:" << endl;
-    set<string> c1;
-    set<string> c2;
-    bool is_valid= false;
-    for (int i = 0; i < s.students_m[studentcode].second.size(); i++)
+    map<string, string> c;
+    for (int i = 0; i < s.students_classes_v.size(); i++)
     {
-        c1.insert(s.students_m[studentcode].second[i].first);
+        if (s.students_classes_v[i].StudentCode == studentcode || s.students_classes_v[i].StudentName == studentcode)
+        {
+            c[s.students_classes_v[i].UcCode] = s.students_classes_v[i].ClassCode;
+        }
     }
-    for (string cc : c1)
+    for (pair<string, string> cc : c)
     {
-        cout<< RESET << cc << endl;
+        cout<< RESET << cc.first << endl;
     }
     string uccode;
     cout << "\n---\nUC Code:" << endl << endl;
     cin >> uccode;
-    for (int i = 0; i < s.students_m[studentcode].second.size(); i++)
-    {
-        if (s.students_m[studentcode].second[i].first == uccode)
-        {
-            is_valid = true;
-        }
-    }
-    if (!is_valid)
-    {
-        cout << RED << "\nInvalid UC code " << endl;
-        return;
-    }
 
-    string classcode;
-    for (int i = 0; i < s.students_m[studentcode].second.size(); i++)
+    if (s.remove_uc_class(studentcode, uccode, c[uccode]))
     {
-        if (s.students_m[studentcode].second[i].first == uccode)
-        {
-            classcode = s.students_m[studentcode].second[i].second;
-        }
-    }
-
-    if (s.remove_uc_class(studentcode, uccode, classcode))
-    {
-        cout << RESET << "\nRemoved student " << studentcode << " from UC / Class " << uccode << " / " << classcode << endl;
+        cout << RESET << "\nRemoved student " << studentcode << " from UC / Class " << uccode << " / " << c[uccode] << endl;
     }
     else
     {
-        cout << RED << "\nFailed to remove student " << studentcode << " from UC / Class " << uccode << " / " << classcode << endl;
+        cout << RED << "\nFailed to remove student " << studentcode << " from UC / Class " << uccode << " / " << c[uccode] << endl;
     }
 }
 
