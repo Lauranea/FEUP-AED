@@ -104,7 +104,6 @@ void Student::remove_uc_class(string studentcode)
     for (int i = 0; i < s.students_m[studentcode].second.size(); i++)
     {
         c1.insert(s.students_m[studentcode].second[i].first);
-        c1.insert(s.students_m[studentcode].second[i].second);
     }
     for (string cc : c1)
     {
@@ -125,27 +124,14 @@ void Student::remove_uc_class(string studentcode)
         cout << RED << "\nInvalid UC code " << endl;
         return;
     }
-    is_valid = false;
 
-    cout << "\n---\nClasses:" << endl;
-    for (string cc : c2)
-    {
-        cout<< RESET << cc << endl;
-    }
     string classcode;
-    cout << "\n---\nClass Code:" << endl << endl;
-    cin >> classcode;
     for (int i = 0; i < s.students_m[studentcode].second.size(); i++)
     {
-        if (s.students_m[studentcode].second[i].second == classcode)
+        if (s.students_m[studentcode].second[i].first == uccode)
         {
-            is_valid = true;
+            classcode = s.students_m[studentcode].second[i].second;
         }
-    }
-    if (!is_valid)
-    {
-        cout << RED << "\nInvalid Class code " << endl;
-        return;
     }
 
     if (s.remove_uc_class(studentcode, uccode, classcode))

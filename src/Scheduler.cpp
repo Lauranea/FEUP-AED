@@ -196,6 +196,13 @@ bool Scheduler::remove_uc_class(string studentcode, string uccode, string classc
     if (it != students_classes_v.end())
     {
         students_classes_v.erase(it, students_classes_v.end());
+        for (int i = 0; i < ocupation_v[uccode].size(); i++)
+        {
+            if (ocupation_v[uccode][i].first == classcode)
+            {
+                ocupation_v[uccode][i].second--;
+            }
+        }
         return true;
     }
     return false;
