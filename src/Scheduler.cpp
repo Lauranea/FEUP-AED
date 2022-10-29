@@ -191,6 +191,7 @@ bool Scheduler::remove_uc_class(string studentcode, string uccode, string classc
             if (ocupation_v[uccode][i].first == classcode)
             {
                 ocupation_v[uccode][i].second--;
+                break;
             }
         }
         return true;
@@ -268,7 +269,18 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
         {
             students_classes_v.push_back({studentcode, other_code, uccode, classcode});
         }
+
+        for (int i = 0; i < ocupation_v[uccode].size(); i++)
+        {
+            if (ocupation_v[uccode][i].first == classcode)
+            {
+                ocupation_v[uccode][i].second++;
+                break;
+            }
+        }
+
         return true;
+
     }
     return false;
 }
