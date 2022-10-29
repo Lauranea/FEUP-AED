@@ -198,7 +198,6 @@ bool Scheduler::remove_uc_class(string studentcode, string uccode, string classc
     return false;
 }
 
-
 bool Scheduler::is_balanced(string uccode, string classcode)
 {
     for (auto o : ocupation_v)
@@ -235,95 +234,44 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
         return false;
     }
 
-    
+    bool can_add = true;
+    bool is_name = false;
+    string other_code = "";
+    for (int i = 0; i < students_classes_v.size(); i++)
+    {
+        if (students_classes_v[i].StudentCode == studentcode)
+        {
+            is_name = false;
+            other_code = students_classes_v[i].StudentName;
+        }
+        else if (students_classes_v[i].StudentName == studentcode)
+        {
+            is_name = true;
+            other_code = students_classes_v[i].StudentCode;
+        }
 
-    // ifstream fi;
-    // ofstream fo;
-    // fi.open("../students_classes.csv");
-    // fo.open("../students_classeso.csv");
-    // if (!fi.is_open() || !fo.is_open())
-    // {
-    //     cout << "\nCould not open file" << endl;
-    //     return false;
-    // }
-
-    // bool rt = false;
-
-    // string buffer;
-    // getline(fi, buffer, '\n');
-    // fo << buffer << "\n";
-    // while (getline(fi, buffer, '\n'))
-    // {
-    //     stringstream line(buffer);
-    //     string buf;
-    //     string stu1;
-    //     string stu2;
-    //     getline(line, stu1, ',');
-    //     getline(line, stu2, ',');
-    //     getline(line, buf, ',');
-    //     if (stu1 != studentcode && stu2 != studentcode)
-    //     {
-    //         fo << buffer << "\n";
-    //     }
-    //     else
-    //     {
-    //         if (rt == false)
-    //         {
-    //             string added = stu1 + "," + stu2 + "," + uccode + "," + classcode + "\r";
-    //             fo << added << "\n";
-    //         }
-    //         string added = stu1 + "," + stu2 + "," + uccode + "," + classcode + "\r";
-    //         fo << buffer << "\n";
-    //         rt = true;
-    //     }
-    //     getline(line, buf, '\r');
-    // }
-    // if (!rt)
-    // {
-    //     string studentcode2;
-    //     bool studentcoder;
-    //     if (studentcode[0] >= 65)
-    //     {
-    //         cout << "---\nStudent Code (ex: 202045037):" << endl << endl;
-    //         studentcoder = 0;
-    //     }
-    //     else
-    //     {
-    //         cout << "---\nStudent Name (ex: Ronaldo):" << endl << endl;
-    //         studentcoder = 1;
-    //     }
-    //     cin >> studentcode2;
-    //     while (studentcode2 == "" || (studentcode2[0] >= 65 && studentcoder == 0) || (studentcode2[0] < 65 && studentcoder == 1) || (validcode(studentcode2) == 0 && studentcoder == 0) || (validname(studentcode2) == 0 && studentcoder == 1))
-    //     {
-    //         if (studentcoder)
-    //         {
-    //             cout << RED << "---\nInvalid Name." << RESET << endl << "Please select a new one" << endl;
-    //         }
-    //         else
-    //         {
-    //             cout << RED << "---\nInvalid Code." << RESET << endl << "Please select a new one" << endl;
-    //         }
-    //         cin >> studentcode2;
-    //     }
-    //     if (studentcoder)
-    //     {
-    //         fo << studentcode << "," << studentcode2 + "," << uccode << "," << classcode << "\n";
-    //     }
-    //     else
-    //     {
-    //         fo << studentcode2 << "," << studentcode + "," << uccode << "," << classcode << "\n";
-    //     }
-    // }
-
-    // fi.close();
-    // fo.close();
-
-    // remove("../students_classes.csv");
-    // rename("../students_classeso.csv", "../students_classes.csv");
-
-    // return rt;
+        if (other_code != "")
+        {
+            if (students_classes_v[i].UcCode == uccode && students_classes_v[i].ClassCode == classcode)
+            {
+                can_add = false;
+            }
+        }
+    }
+    if (can_add)
+    {
+        if (is_name)
+        {
+            students_classes_v.push_back({other_code, studentcode, uccode, classcode});
+        }
+        else
+        {
+            students_classes_v.push_back({studentcode, other_code, uccode, classcode});
+        }
+        return true;
+    }
+    return false;
 }
-
 
 void Scheduler::ocupation()
 {
