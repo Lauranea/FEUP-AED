@@ -95,45 +95,6 @@ void Student::get_schedule(string studentcode)
     cout << "---------------|" << Monday.at(46) << "|" << Tuesday.at(46) << "|" << Wednesday.at(46) << "|" << Thursday.at(46) << "|" << Friday.at(46) << "|" << endl;
 }
 
-void Student::remove_uc_class(string studentcode)
-{
-    cout << "\n---\nUCs:" << endl;
-    map<string, string> c;
-    for (int i = 0; i < s.students_classes_v.size(); i++)
-    {
-        if (s.students_classes_v[i].StudentCode == studentcode || s.students_classes_v[i].StudentName == studentcode)
-        {
-            c[s.students_classes_v[i].UcCode] = s.students_classes_v[i].ClassCode;
-        }
-    }
-    for (pair<string, string> cc : c)
-    {
-        cout<< RESET << cc.first << endl;
-    }
-    string uccode;
-    cout << "\n---\nUC Code:" << endl << endl;
-    cin >> uccode;
-
-    if (s.remove_uc_class(studentcode, uccode, c[uccode]))
-    {
-        cout << RESET << "\nRemoved student " << studentcode << " from UC / Class " << uccode << " / " << c[uccode] << endl;
-    }
-    else
-    {
-        cout << RED << "\nFailed to remove student " << studentcode << " from UC / Class " << uccode << " / " << c[uccode] << endl;
-    }
-}
-
-bool Student::change_uc(string studentcode, string uccodeold, string uccodenew, string classcodenew)
-{
-    Write write(s);
-    if (write.change_uc(studentcode, uccodeold, uccodenew, classcodenew))
-    {
-        return true;
-    }
-    return false;
-}
-
 bool Student::change_oneclass(string studentcode, string uccodeold, string classcodenew)
 {
     Write write(s);

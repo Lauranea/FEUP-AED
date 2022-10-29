@@ -28,9 +28,7 @@ class Student
     vector<pair<string, vector<string>>> getucsclasses(vector<string> &classes);
     vector<string> getucs(string studentcode);
     void get_schedule(string studentcode);
-    void remove_uc_class(string studentcode);
     void ocupation(bool alpha);
-    bool change_uc(string studentcode, string uccodeold, string uccodenew, string classcodenew);
     bool change_oneclass(string studentcode, string uccodeold, string classcodenew);
     bool change_allclass(string studentcode, string classcodenew);
     bool validclass(string classer, string uc, vector<pair<string, vector<string>>> classes);

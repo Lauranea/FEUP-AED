@@ -134,7 +134,31 @@ int main(int argc, char **argv)
                 cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
                 string code;
                 cin >> code;
-                student.remove_uc_class(code);
+                cout << "\n---\nUCs:" << endl;
+                map<string, string> c;
+                for (int i = 0; i < s.students_classes_v.size(); i++)
+                {
+                    if (s.students_classes_v[i].StudentCode == code || s.students_classes_v[i].StudentName == code)
+                    {
+                        c[s.students_classes_v[i].UcCode] = s.students_classes_v[i].ClassCode;
+                    }
+                }
+                for (pair<string, string> cc : c)
+                {
+                    cout<< RESET << cc.first << endl;
+                }
+                string uccode;
+                cout << "\n---\nUC Code:" << endl << endl;
+                cin >> uccode;
+
+                if (s.remove_uc_class(code, uccode, c[uccode]))
+                {
+                    cout << RESET << "\nRemoved student " << code << " from UC / Class  " << uccode << " / " << c[uccode] << endl;
+                }
+                else
+                {
+                    cout << RED << "\nFailed to remove student " << code << " from UC / Class  " << uccode << " / " << c[uccode] << endl;
+                }
             }
             else if (r == "2") // Add student
             {
@@ -146,142 +170,84 @@ int main(int argc, char **argv)
                 if (!s.is_valid_uc(r))
                 {
                     cout << RED << "---\nInvalid Uc Code." << RESET << endl;
+                    continue;
+                }
+                cout << "\n---\nClasses:" << endl;
+                for (int i = 0; i < s.classes_per_uc_v.size(); i++)
+                {
+                    if (s.classes_per_uc_v[i].UcCode == r)
+                    {
+                        cout << RESET << s.classes_per_uc_v[i].ClassCode << endl;
+                    }
                 }
                 string rr;
-                cout << "---\nTo Class (ex: 1LEIC01):" << endl << endl;
+                cout << "\n---\nTo Class:" << endl << endl;
                 cin >> rr;
                 if (!s.is_valid_uc_class(r, rr))
                 {
                     cout << RED << "---\nInvalid UC / Class combination." << endl;
+                    continue;
                 }
-                s.add_to(code, r, rr);
+                if (s.add_to(code, r, rr))
+                {
+                    cout << RESET << "\nAdded student " << code << " to UC / Class  " << r << " / " << rr << endl;
+                }
+                else
+                {
+                    cout << RED << "\nFailed to remove student " << code << " from UC / Class  " << r << " / " << rr << endl;
+                }
             }
             else if (r == "3") // Change Student
             {
-                int coru;
-                cout << "---\n1 - Change UC\n2 - Change one Class\n3 - Change all Classes" << endl << endl;
-                cin >> coru;
-                if (!(coru == 1 || coru == 2 || coru == 3))
+                cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
+                string code;
+                cin >> code;
+                cout << "\n---\nUCs:" << endl;
+                map<string, string> c;
+                for (int i = 0; i < s.students_classes_v.size(); i++)
                 {
-                    cout << RED << "---\nInvalid Option." << RESET << endl;
-                    cin >> coru;
-                }
-                if (coru == 1)
-                {
-                    cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
-                    string code;
-                    string olduc;
-                    cin >> code;
-                    cout << "---\nCurrent UC (ex: L.EIC001):" << endl << endl;
-                    cin >> olduc;
-                    while (!student.validuc(olduc, s.ucs_classes_v))
+                    if (s.students_classes_v[i].StudentCode == code || s.students_classes_v[i].StudentName == code)
                     {
-                        cout << RED << "---\nInvalid Uc Code." << RESET << endl;
-                        cin >> olduc;
-                    }
-                    string newuc;
-                    cout << "---\nDesired UC (ex: L.EIC001):" << endl << endl;
-                    cin >> newuc;
-                    while (!student.validuc(newuc, s.ucs_classes_v))
-                    {
-                        cout << RED << "---\nInvalid Uc Code." << RESET << endl;
-                        cin >> newuc;
-                    }
-                    string newclass;
-                    cout << "---\nDesired Class (ex: 1LEIC01):" << endl << endl;
-                    cin >> newclass;
-                    while (!student.validclass(newclass, newuc, s.ucs_classes_v))
-                    {
-                        cout << RED << "---\nInvalid Class Code." << RESET << endl;
-                        cin >> newclass;
-                    }
-                    if (student.change_uc(code, olduc, newuc, newclass))
-                    {
-                        cout << GREEN << "---\n" << code << " changed from " << olduc << " to " << newuc << " : " << newclass << RESET << endl;
-                        continue;
-                    }
-                    else
-                    {
-                        cout << RED << "---\n" << code << " was unable to change from " << olduc << " to " << newuc << " : " << newclass << RESET << endl;
-                        continue;
+                        c[s.students_classes_v[i].UcCode] = s.students_classes_v[i].ClassCode;
                     }
                 }
-                else if (coru == 2)
+                for (pair<string, string> cc : c)
                 {
-                    cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
-                    string code;
-                    string olduc;
-                    cin >> code;
-                    cout << "---\nUC (ex: L.EIC001):" << endl << endl;
-                    cin >> olduc;
-                    while (!student.validuc(olduc, s.ucs_classes_v))
+                    cout<< RESET << cc.first << endl;
+                }
+                cout << "\n---\nChange Class of UC:" << endl << endl;
+                string uccode;
+                cin >> uccode;
+                if (!s.is_valid_uc(uccode))
+                {
+                    cout << RED << "---\nInvalid Uc Code." << RESET << endl;
+                    continue;
+                }
+                cout << "\n---\nClasses:" << endl;
+                for (int i = 0; i < s.classes_per_uc_v.size(); i++)
+                {
+                    if (s.classes_per_uc_v[i].UcCode == uccode)
                     {
-                        cout << RED << "---\nInvalid Uc Code." << RESET << endl;
-                        cin >> olduc;
-                    }
-                    string newclass;
-                    cout << "---\nDesired Class (ex: 1LEIC01):" << endl << endl;
-                    cin >> newclass;
-                    while (!student.validclass(newclass, olduc, s.ucs_classes_v))
-                    {
-                        cout << RED << "---\nInvalid Class Code." << RESET << endl;
-                        cin >> newclass;
-                    }
-                    if (student.change_oneclass(code, olduc, newclass))
-                    {
-                        cout << GREEN << "---\n" << code << " changed to " << olduc << " : " << newclass << RESET << endl;
-                        continue;
-                    }
-                    else
-                    {
-                        cout << RED << "---\n"
-                             << code << " was unable to change"
-                             << " to " << olduc << " : " << newclass << RESET << endl;
-                        continue;
+                        cout << RESET << s.classes_per_uc_v[i].ClassCode << endl;
                     }
                 }
-                else if (coru == 3)
+                string newclass;
+                cout << "---\nTo Class (ex: 1LEIC01):" << endl << endl;
+                cin >> newclass;
+                if (!s.is_valid_uc_class(uccode, newclass))
                 {
-                    cout << "---\nStudent Name / Code (ex: Ronaldo / 202045037):" << endl << endl;
-                    string code;
-
-                    cin >> code;
-                    string newclass;
-                    cout << "---\nDesired Class (ex: 1LEIC01):" << endl << endl;
-                    cin >> newclass;
-                    bool queque = true;
-                    vector<string> verify1 = student.getucs(code);
-                    for (string i : verify1)
-                    {
-                        cout << i << endl;
-                        if (!student.validclass(newclass, i, s.ucs_classes_v))
-                        {
-                            queque = false;
-                        }
-                    }
-                    while (!queque)
-                    {
-                        cout << RED << "---\nInvalid Class Code." << RESET << endl;
-                        cin >> newclass;
-                        queque = true;
-                        for (string i : verify1)
-                        {
-                            if (!student.validclass(newclass, i, s.ucs_classes_v))
-                            {
-                                queque = false;
-                            }
-                        }
-                    }
-                    if (student.change_allclass(code, newclass))
-                    {
-                        cout << GREEN << "---\n" << code << " changed all classes to " << newclass << RESET << endl;
-                        continue;
-                    }
-                    else
-                    {
-                        cout << RED << "---\n" << code << " was unable to change all classes to " << newclass << RESET << endl;
-                        continue;
-                    }
+                    cout << RED << "---\nInvalid UC / Class Combination." << RESET << endl;
+                    continue;
+                }
+                if (s.change_class(code, uccode, newclass))
+                {
+                    cout << GREEN << "---\nUC " << uccode << " changed to Class " << newclass << RESET << endl;
+                    continue;
+                }
+                else
+                {
+                    cout << RED << "---\nUC " << code << " was unable to change to Class " << newclass << RESET << endl;
+                    continue;
                 }
             }
             else

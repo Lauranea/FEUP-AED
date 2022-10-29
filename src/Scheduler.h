@@ -35,7 +35,7 @@ class Scheduler
     bool remove_uc_class(string studentcode, string uccode, string classcode);
     bool is_balanced(string uccode, string classcode);
     bool add_to(string studentcode, string uccode, string classcode);
-    bool change_class(string studentcode, string uccode, string classcode, string newclasscode);
+    bool change_class(string studentcode, string uccode, string newclasscode);
     void ocupation();
     bool is_valid_uc_class(string uccode, string classcode);
     bool is_valid_uc(string uccode);
