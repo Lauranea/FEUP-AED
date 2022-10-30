@@ -9,17 +9,16 @@
 #include "Read.h"
 #include "Sort.h"
 #include "structs.h"
+#include <climits>
 #include <fstream>
 #include <iostream>
 #include <list>
 #include <map>
+#include <set>
 #include <sstream>
 #include <string>
-#include <vector>
-#include <map>
 #include <unordered_map>
-#include <set>
-#include <climits>
+#include <vector>
 
 using namespace std;
 
@@ -28,7 +27,7 @@ class Scheduler
   public:
     void initialize();
     void initialize_all_ucs_classes();
-    //void initialize_class_horarios();
+    // void initialize_class_horarios();
     void initialize_class_horarios2();
     void initialize_ocupation();
 
@@ -49,7 +48,7 @@ class Scheduler
     vector<students_classes> students_classes_v;
     vector<string> all_classes_v;
     vector<pair<string, vector<string>>> ucs_classes_v;
-    //vector<pair<pair<string, string>, pair<string, vector<float>>>> class_horarios_v;
+    // vector<pair<pair<string, string>, pair<string, vector<float>>>> class_horarios_v;
     vector<pair<string, vector<pair<string, pair<string, vector<float>>>>>> class_horarios_v2;
     map<string, vector<pair<string, int>>> ocupation_v;
 };

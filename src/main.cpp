@@ -94,8 +94,7 @@ int main(int argc, char **argv)
 
     cout << "Teste 1" << endl;
     bool okes = s.is_valid_schedule_change("Ronaldo", "L.EIC011", "", "2LEIC11");
-    cout << okes << endl << "Fim Teste 1" << endl; 
-
+    cout << okes << endl << "Fim Teste 1" << endl;
 
     while (true)
     {
@@ -220,7 +219,7 @@ int main(int argc, char **argv)
                 }
                 for (pair<string, string> cc : c)
                 {
-                    cout<< RESET << cc.first << endl;
+                    cout << RESET << cc.first << endl;
                 }
                 string uccode;
                 cout << "\n---\nUC Code:" << endl << endl;
@@ -277,7 +276,7 @@ int main(int argc, char **argv)
                 }
                 for (pair<string, string> cc : c)
                 {
-                    cout<< RESET << cc.first << endl;
+                    cout << RESET << cc.first << endl;
                 }
                 cout << "\n---\nChange Class of UC:" << endl << endl;
                 string uccode;

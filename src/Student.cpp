@@ -230,7 +230,7 @@ bool Student::validchangehorario(string code, string oldclass, string newclass, 
 {
     bool seen = false;
     vector<pair<string, vector<float>>> horario;
-    vector<pair<string,string>> classes;
+    vector<pair<string, string>> classes;
     vector<pair<string, vector<float>>> student_horario;
     for (students_classes i : s.students_classes_v)
     {
@@ -240,38 +240,38 @@ bool Student::validchangehorario(string code, string oldclass, string newclass, 
         }
         if (i.StudentCode == code || i.StudentName == code)
         {
-            if(i.UcCode == olduc && i.ClassCode == oldclass)
+            if (i.UcCode == olduc && i.ClassCode == oldclass)
             {
                 continue;
             }
             else
             {
-                classes.push_back(pair(i.UcCode,i.ClassCode));
+                classes.push_back(pair(i.UcCode, i.ClassCode));
             }
         }
     }
-    for(pair<string, string> i : classes)
+    for (pair<string, string> i : classes)
     {
-        for(pair<string, vector<pair<string, pair<string, vector<float>>>>> ii : s.class_horarios_v2)
+        for (pair<string, vector<pair<string, pair<string, vector<float>>>>> ii : s.class_horarios_v2)
         {
-            if(i.first == ii.first)
+            if (i.first == ii.first)
             {
-                for(pair<string, pair<string, vector<float>>> iii : ii.second)
+                for (pair<string, pair<string, vector<float>>> iii : ii.second)
                 {
-                    if(iii.first == i.second)
+                    if (iii.first == i.second)
                     {
                         bool yes = false;
-                        for(pair<string, vector<float>> iiii : horario)
+                        for (pair<string, vector<float>> iiii : horario)
                         {
-                            if(iiii.first == iii.second.first)
+                            if (iiii.first == iii.second.first)
                             {
                                 yes = true;
-                                for(float z : iii.second.second)
+                                for (float z : iii.second.second)
                                 {
                                     iiii.second.push_back(z);
                                 }
                             }
-                            if(!yes)
+                            if (!yes)
                             {
                                 horario.push_back(pair(iii.second));
                             }
@@ -283,23 +283,23 @@ bool Student::validchangehorario(string code, string oldclass, string newclass, 
             }
         }
     }
-    for(pair<string, vector<pair<string, pair<string, vector<float>>>>> i : s.class_horarios_v2)
+    for (pair<string, vector<pair<string, pair<string, vector<float>>>>> i : s.class_horarios_v2)
     {
-        if(i.first == newuc)
+        if (i.first == newuc)
         {
-            for(pair<string, pair<string, vector<float>>> ii : i.second)
+            for (pair<string, pair<string, vector<float>>> ii : i.second)
             {
-                if(ii.first == newclass)
+                if (ii.first == newclass)
                 {
-                    for(pair<string, vector<float>> iii : horario)
+                    for (pair<string, vector<float>> iii : horario)
                     {
-                        if(iii.first == ii.second.first)
+                        if (iii.first == ii.second.first)
                         {
-                            for(float z : iii.second)
+                            for (float z : iii.second)
                             {
-                                for(float zz : ii.second.second)
+                                for (float zz : ii.second.second)
                                 {
-                                    if(z == zz)
+                                    if (z == zz)
                                     {
                                         return false;
                                     }
@@ -319,10 +319,10 @@ bool Student::validchangehorario(string code, string oldclass, string newclass, 
 
 bool Student::validaddhorario(string code, string newclass, string newuc)
 {
-    //vector<pair<string, vector<pair<string, pair<string, vector<float>>>>>> class_horarios_v2;
+    // vector<pair<string, vector<pair<string, pair<string, vector<float>>>>>> class_horarios_v2;
     bool seen = false;
     vector<pair<string, vector<float>>> horario;
-    vector<pair<string,string>> classes;
+    vector<pair<string, string>> classes;
     vector<pair<string, vector<float>>> student_horario;
     for (students_classes i : s.students_classes_v)
     {
@@ -332,31 +332,31 @@ bool Student::validaddhorario(string code, string newclass, string newuc)
         }
         if (i.StudentCode == code || i.StudentName == code)
         {
-            classes.push_back(pair(i.UcCode,i.ClassCode));
+            classes.push_back(pair(i.UcCode, i.ClassCode));
         }
     }
-    for(pair<string, string> i : classes)
+    for (pair<string, string> i : classes)
     {
-        for(pair<string, vector<pair<string, pair<string, vector<float>>>>> ii : s.class_horarios_v2)
+        for (pair<string, vector<pair<string, pair<string, vector<float>>>>> ii : s.class_horarios_v2)
         {
-            if(i.first == ii.first)
+            if (i.first == ii.first)
             {
-                for(pair<string, pair<string, vector<float>>> iii : ii.second)
+                for (pair<string, pair<string, vector<float>>> iii : ii.second)
                 {
-                    if(iii.first == i.second)
+                    if (iii.first == i.second)
                     {
                         bool yes = false;
-                        for(pair<string, vector<float>> iiii : horario)
+                        for (pair<string, vector<float>> iiii : horario)
                         {
-                            if(iiii.first == iii.second.first)
+                            if (iiii.first == iii.second.first)
                             {
                                 yes = true;
-                                for(float z : iii.second.second)
+                                for (float z : iii.second.second)
                                 {
                                     iiii.second.push_back(z);
                                 }
                             }
-                            if(!yes)
+                            if (!yes)
                             {
                                 horario.push_back(pair(iii.second));
                             }
@@ -368,23 +368,23 @@ bool Student::validaddhorario(string code, string newclass, string newuc)
             }
         }
     }
-    for(pair<string, vector<pair<string, pair<string, vector<float>>>>> i : s.class_horarios_v2) //iterar pelas ucs, no maximo 15
+    for (pair<string, vector<pair<string, pair<string, vector<float>>>>> i : s.class_horarios_v2) // iterar pelas ucs, no maximo 15
     {
-        if(i.first == newuc)
+        if (i.first == newuc)
         {
-            for(pair<string, pair<string, vector<float>>> ii : i.second) //iterar pelas classes no maximo 15?
+            for (pair<string, pair<string, vector<float>>> ii : i.second) // iterar pelas classes no maximo 15?
             {
-                if(ii.first == newclass)
+                if (ii.first == newclass)
                 {
-                    for(pair<string, vector<float>> iii : horario) //iterar pelos dias, no maximo 5?
+                    for (pair<string, vector<float>> iii : horario) // iterar pelos dias, no maximo 5?
                     {
-                        if(iii.first == ii.second.first)
+                        if (iii.first == ii.second.first)
                         {
-                            for(float z : iii.second) //iterar pelas horas do horario do estudante
+                            for (float z : iii.second) // iterar pelas horas do horario do estudante
                             {
-                                for(float zz : ii.second.second) // iterar pelas horas da aula
+                                for (float zz : ii.second.second) // iterar pelas horas da aula
                                 {
-                                    if(z == zz)
+                                    if (z == zz)
                                     {
                                         return false;
                                     }

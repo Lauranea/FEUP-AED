@@ -163,11 +163,11 @@ void Scheduler::initialize_class_horarios2()
 {
     string lastuc = "L.EIC001";
     vector<pair<string, pair<string, vector<float>>>> current;
-    for(classes i : classes_v)
+    for (classes i : classes_v)
     {
-        if(i.UcCode == lastuc)
+        if (i.UcCode == lastuc)
         {
-            if(i.Type == "T")
+            if (i.Type == "T")
             {
                 continue;
             }
@@ -184,10 +184,10 @@ void Scheduler::initialize_class_horarios2()
         }
         else
         {
-            class_horarios_v2.push_back(pair(lastuc,current));
+            class_horarios_v2.push_back(pair(lastuc, current));
             current.clear();
             lastuc = i.UcCode;
-            if(i.Type == "T")
+            if (i.Type == "T")
             {
                 continue;
             }
@@ -365,7 +365,6 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
         cout << RED << "\nOverlapping classes" << RESET << endl;
         return false;
     }
-
 
     bool can_add = true;
     bool is_name = false;
