@@ -25,6 +25,7 @@ class Write
 
   public:
     Write(Scheduler &s);
+    bool write();
     bool change_uc(string studentcode, string uccodeold, string uccodenew, string classcodenew);
     bool change_oneclass(string studentcode, string uccodeold, string classcodenew);
     bool change_allclass(string studentcode, string classcodenew);

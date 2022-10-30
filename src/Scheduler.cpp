@@ -325,7 +325,7 @@ bool Scheduler::change_class(string studentcode, string uccode, string classcode
 
     for (int i = 0; i < students_classes_v.size(); i++)
     {
-        if (students_classes_v[i].UcCode == uccode)
+        if (students_classes_v[i].UcCode == uccode && (students_classes_v[i].StudentCode == studentcode || students_classes_v[i].StudentName == studentcode))
         {
             students_classes_v[i].ClassCode = newclasscode;
             for (int i = 0; i < ocupation_v[uccode].size(); i++)
@@ -347,8 +347,6 @@ bool Scheduler::change_class(string studentcode, string uccode, string classcode
 
 void Scheduler::ocupation()
 {
-    map<string, vector<pair<string, int>>> p = ocupation_v;
-
     for (auto o : ocupation_v)
     {
         sort(o.second.begin(), o.second.end());

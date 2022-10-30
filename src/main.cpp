@@ -18,9 +18,12 @@ int main(int argc, char **argv)
     s.initialize();
 
     string r;
+
     Student student(s);
     Uc uc(s);
     Class class_(s);
+
+    Write write(s);
 
     while (true)
     {
@@ -258,6 +261,7 @@ int main(int argc, char **argv)
         }
         else if (r == "q") // Quit
         {
+            write.write();
             return 0;
         }
         else
