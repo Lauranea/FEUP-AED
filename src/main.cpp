@@ -4,6 +4,7 @@
 #include "Scheduler.h"
 #include "Student.h"
 #include "Uc.h"
+#include <queue>
 
 #define RESET "\033[0m"
 #define BOLDWHITE "\033[1m\033[37m"
@@ -20,6 +21,8 @@ int main(int argc, char **argv)
 
     string r;
 
+    queue<request> q;
+
     Student student(s);
     Uc uc(s);
     Class class_(s);
@@ -30,7 +33,7 @@ int main(int argc, char **argv)
 
     while (true)
     {
-        cout << BOLDWHITE << "\n\n1 - View\n2 - Edit\n" << RESET << "\nTo Save / Quit, use vim-like commands" << BOLDWHITE << endl << endl;
+        cout << BOLDWHITE << "\n\n1 - View\n2 - Request\n3 - Process Requests" << RESET << "\n\nTo Save / Quit, use vim-like commands" << BOLDWHITE << endl << endl;
         cin >> r;
         if (r == "1") // View
         {
@@ -131,7 +134,7 @@ int main(int argc, char **argv)
                 continue;
             }
         }
-        else if (r == "2") // Edit
+        else if (r == "2") // Request
         {
             cout << "---\n1 - Remove Student\n2 - Add Student\n3 - Change Student" << endl << endl;
             cin >> r;
@@ -157,15 +160,8 @@ int main(int argc, char **argv)
                 cout << "\n---\nUC Code:" << endl << endl;
                 cin >> uccode;
 
-                if (s.remove_uc_class(code, uccode, c[uccode]))
-                {
-                    can_exit_clean = false;
-                    cout << GREEN << "\nRemoved student " << code << " from UC / Class  " << uccode << " / " << c[uccode] << endl;
-                }
-                else
-                {
-                    cout << RED << "\nFailed to remove student " << code << " from UC / Class  " << uccode << " / " << c[uccode] << endl;
-                }
+                q.push({"remove", code, uccode, c[uccode]});
+                cout << RESET << "\nAdded to queue" << endl;
             }
             else if (r == "2") // Add student
             {
@@ -265,6 +261,35 @@ int main(int argc, char **argv)
                 continue;
             }
         }
+        else if (r == "3") // Process Requests
+        {
+            cout << "---\n1 - View Requests\n2 - Process Requests" << endl << endl;
+            cin >> r;
+            if (r == "1")
+            {
+                if (q.size() == 0)
+                {
+                    cout << RESET << "\n0 queued requests" << endl;
+                    continue;
+                }
+                queue<request> q_copy = q;
+                cout << RESET << "\n" << q_copy.size() << " queued requests:" << endl;
+                while (!q_copy.empty())
+                {
+                    cout << q_copy.front().type << " " << q_copy.front().student << " " << q_copy.front().uccode << " " << q_copy.front().classcode << endl;
+                    q_copy.pop();
+                }
+            }
+            else if (r == "2")
+            {
+
+            }
+            else
+            {
+                cout << RED << "---\nInvalid choice." << RESET << endl;
+                continue;
+            }
+        }
         else if (r == ":w") // Write
         {
             can_exit_clean = true;
@@ -298,4 +323,27 @@ int main(int argc, char **argv)
     }
 
     return 0;
+}
+
+
+queue<request> process_requests(Scheduler &s, queue<request> q)
+{
+    queue<request> q_fail;
+    while (!q.empty())
+    {
+        if (q.front().type == "remove")
+        {
+            if (s.remove_uc_class(q.front().student, q.front().uccode, q.front().classcode))
+            {
+                cout << GREEN << "\nRemoved student " << q.front().student << " from UC:" << q.front().uccode << " / Class:" << q.front().classcode << endl;
+                q.pop();
+            }
+            else
+            {
+                cout << RED << "\nFailed to remove student " << q.front().student << " from UC:" << q.front().uccode << " / Class:" << q.front().classcode << endl;
+                q_fail.push(q.front());
+                q.pop();
+            }
+        }
+    }
 }

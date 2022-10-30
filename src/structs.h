@@ -39,4 +39,12 @@ struct students_classes
     string ClassCode;
 };
 
+struct request
+{
+    string type; // add remove change
+    string student;
+    string uccode;
+    string classcode;
+};
+
 #endif
