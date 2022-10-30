@@ -20,7 +20,7 @@ bool can_exit_clean = true;
 
 queue<request> process_requests(Scheduler &s, queue<request> q)
 {
-    if (!!q.empty())
+    if (!q.empty())
     {
         can_exit_clean = false;
     }
