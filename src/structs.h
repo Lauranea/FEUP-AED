@@ -45,6 +45,7 @@ struct request
     string student;
     string uccode;
     string classcode;
+    string newclasscode;
 };
 
 #endif

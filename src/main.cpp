@@ -11,8 +11,64 @@
 #define RED "\033[31m"
 #define VIMERR "\e[38;5;015m\e[48;2;255;0;0m"
 #define GREEN "\033[32m"
+#define BLUE "\033[34m"
 
 using namespace std;
+
+queue<request> process_requests(Scheduler &s, queue<request> q)
+{
+    queue<request> q_fail;
+    while (!q.empty())
+    {
+        if (q.front().type == "remove")
+        {
+            if (s.remove_uc_class(q.front().student, q.front().uccode, q.front().classcode))
+            {
+                cout << GREEN << "Removed student " << q.front().student << " from UC:" << q.front().uccode << " / Class:" << q.front().classcode << endl;
+                q.pop();
+            }
+            else
+            {
+                cout << RED << "Failed to remove student " << q.front().student << " from UC:" << q.front().uccode << " / Class:" << q.front().classcode << endl;
+                q_fail.push(q.front());
+                q.pop();
+            }
+        }
+        else if (q.front().type == "add")
+        {
+            if (s.add_to(q.front().student, q.front().uccode, q.front().classcode))
+            {
+                cout << GREEN << "Added student " << q.front().student << " to UC:" << q.front().uccode << " / to Class:" << q.front().classcode << endl;
+                q.pop();
+            }
+            else
+            {
+                cout << RED << "Failed to add student " << q.front().student << " to UC:" << q.front().uccode << " / to Class:" << q.front().classcode << endl;
+                q_fail.push(q.front());
+                q.pop();
+            }
+        }
+        else if (q.front().type == "change")
+        {
+            if (s.change_class(q.front().student, q.front().uccode, q.front().classcode, q.front().newclasscode))
+            {
+                cout << GREEN << "Changed student " << q.front().student << " on UC:" << q.front().uccode << " to Class:" << q.front().newclasscode << endl;
+                q.pop();
+            }
+            else
+            {
+                cout << RED << "Failed to change student " << q.front().student << " on UC:" << q.front().uccode << " to Class:" << q.front().newclasscode << endl;
+                q_fail.push(q.front());
+                q.pop();
+            }
+        }
+        else
+        {
+            q.pop();
+        }
+    }
+    return q_fail;
+}
 
 int main(int argc, char **argv)
 {
@@ -33,7 +89,7 @@ int main(int argc, char **argv)
 
     while (true)
     {
-        cout << BOLDWHITE << "\n\n1 - View\n2 - Request\n3 - Process Requests" << RESET << "\n\nTo Save / Quit, use vim-like commands" << BOLDWHITE << endl << endl;
+        cout << BOLDWHITE << "\n------\n1 - View\n2 - Request\n3 - Process Requests" << RESET << "\n\nTo Save / Quit, use vim-like commands" << BOLDWHITE << endl << endl;
         cin >> r;
         if (r == "1") // View
         {
@@ -160,8 +216,8 @@ int main(int argc, char **argv)
                 cout << "\n---\nUC Code:" << endl << endl;
                 cin >> uccode;
 
-                q.push({"remove", code, uccode, c[uccode]});
-                cout << RESET << "\nAdded to queue" << endl;
+                q.push({"remove", code, uccode, c[uccode], ""});
+                cout << BLUE << "\nAdded to queue" << endl;
             }
             else if (r == "2") // Add student
             {
@@ -191,15 +247,9 @@ int main(int argc, char **argv)
                     cout << RED << "---\nInvalid UC / Class combination." << endl;
                     continue;
                 }
-                if (s.add_to(code, r, rr))
-                {
-                    can_exit_clean = false;
-                    cout << GREEN << "\nAdded student " << code << " to UC / Class  " << r << " / " << rr << endl;
-                }
-                else
-                {
-                    cout << RED << "\nFailed to add student " << code << " to UC / Class  " << r << " / " << rr << endl;
-                }
+
+                q.push({"add", code, r, rr, ""});
+                cout << BLUE << "\nAdded to queue" << endl;
             }
             else if (r == "3") // Change Student
             {
@@ -243,17 +293,8 @@ int main(int argc, char **argv)
                     cout << RED << "---\nInvalid UC / Class Combination." << RESET << endl;
                     continue;
                 }
-                if (s.change_class(code, uccode, c[uccode],  newclass))
-                {
-                    can_exit_clean = false;
-                    cout << GREEN << "---\nUC " << uccode << " changed to Class " << newclass << RESET << endl;
-                    continue;
-                }
-                else
-                {
-                    cout << RED << "---\nUC " << code << " was unable to change to Class " << newclass << RESET << endl;
-                    continue;
-                }
+                q.push({"change", code, uccode, c[uccode], newclass});
+                cout << BLUE << "\nAdded to queue" << endl;
             }
             else
             {
@@ -282,7 +323,7 @@ int main(int argc, char **argv)
             }
             else if (r == "2")
             {
-
+                process_requests(s, q);
             }
             else
             {
@@ -323,27 +364,4 @@ int main(int argc, char **argv)
     }
 
     return 0;
-}
-
-
-queue<request> process_requests(Scheduler &s, queue<request> q)
-{
-    queue<request> q_fail;
-    while (!q.empty())
-    {
-        if (q.front().type == "remove")
-        {
-            if (s.remove_uc_class(q.front().student, q.front().uccode, q.front().classcode))
-            {
-                cout << GREEN << "\nRemoved student " << q.front().student << " from UC:" << q.front().uccode << " / Class:" << q.front().classcode << endl;
-                q.pop();
-            }
-            else
-            {
-                cout << RED << "\nFailed to remove student " << q.front().student << " from UC:" << q.front().uccode << " / Class:" << q.front().classcode << endl;
-                q_fail.push(q.front());
-                q.pop();
-            }
-        }
-    }
 }
