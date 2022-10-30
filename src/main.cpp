@@ -8,6 +8,7 @@
 #define RESET "\033[0m"
 #define BOLDWHITE "\033[1m\033[37m"
 #define RED "\033[31m"
+#define VIMERR "\e[38;5;015m\e[48;2;255;0;0m"
 #define GREEN "\033[32m"
 
 using namespace std;
@@ -280,7 +281,7 @@ int main(int argc, char **argv)
         {
             if (!can_exit_clean)
             {
-                cout << RED << "---\nE37: No write since last change (add ! to override)" << RESET << endl;
+                cout << VIMERR << "\nE37: No write since last change (add ! to override)" << RESET << endl;
                 continue;
             }
             return 0;
