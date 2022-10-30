@@ -61,8 +61,8 @@ void Scheduler::initialize_class_horarios()
         {
             continue;
         }
-        float duration = atof(i.Duration.c_str());
-        float start = atof(i.StartHour.c_str());
+        float duration = stoi(i.Duration);
+        float start = stoi(i.StartHour);
         vector<float> times;
         while (duration > 0)
         {
@@ -89,8 +89,8 @@ void Scheduler::initialize_class_horarios2()
         }
         if(i.UcCode == lastuc)
         {
-            float duration = atof(i.Duration.c_str());
-            float start = atof(i.StartHour.c_str());
+            float duration = stof(i.Duration);
+            float start = stof(i.StartHour);
             vector<float> times;
             while (duration > 0)
             {
@@ -104,8 +104,8 @@ void Scheduler::initialize_class_horarios2()
         {
             class_horarios_v2.push_back(pair(i.UcCode, current));
             lastuc = i.UcCode;
-            float duration = atof(i.Duration.c_str());
-            float start = atof(i.StartHour.c_str());
+            float duration = stof(i.Duration);
+            float start = stof(i.StartHour);
             vector<float> times;
             while (duration > 0)
             {
@@ -134,8 +134,8 @@ void Scheduler::initialize_class_horarios2()
                 i++;
                 continue;
             }
-            float duration = atof(classes_v[i].Duration.c_str());
-            float start = atof(classes_v[i].StartHour.c_str());
+            float duration = stof(classes_v[i].Duration);
+            float start = stof(classes_v[i].StartHour);
             vector<float> times;
             while (duration > 0)
             {
@@ -360,6 +360,12 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
         cout << RED << "\nClasses would be unbalanced" << RESET << endl;
         return false;
     }
+    if (!is_valid_schedule_change(studentcode, uccode, "", classcode))
+    {
+        cout << RED << "\nOverlapping classes" << RESET << endl;
+        return false;
+    }
+
 
     bool can_add = true;
     bool is_name = false;
@@ -412,8 +418,19 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
 
 bool Scheduler::change_class(string studentcode, string uccode, string classcode, string newclasscode)
 {
-    if (!is_valid_uc_class(uccode, newclasscode) || !is_balanced(uccode, newclasscode))
+    if (!is_valid_uc_class(uccode, newclasscode))
     {
+        cout << RED << "\nInvalid UC / Class combination" << RESET << endl;
+        return false;
+    }
+    if (!is_balanced(uccode, newclasscode))
+    {
+        cout << RED << "\nClasses would be unbalanced" << RESET << endl;
+        return false;
+    }
+    if (!is_valid_schedule_change(studentcode, uccode, classcode, newclasscode))
+    {
+        cout << RED << "\nOverlapping classes" << RESET << endl;
         return false;
     }
 
@@ -486,4 +503,46 @@ bool Scheduler::is_valid_class(string classcode)
         }
     }
     return false;
+}
+
+bool Scheduler::is_valid_schedule_change(string studentcode, string uc, string oldclass, string newclass)
+{
+    vector<pair<string, string>> student_ucs_classes_v;
+    for (int i = 0; i < students_classes_v.size(); i++)
+    {
+        if ((students_classes_v[i].StudentCode == studentcode || students_classes_v[i].StudentName == studentcode) && !(students_classes_v[i].UcCode == uc && students_classes_v[i].ClassCode == oldclass))
+        {
+            student_ucs_classes_v.push_back({students_classes_v[i].UcCode, students_classes_v[i].ClassCode});
+        }
+    }
+    string weekday;
+    float start = 0;
+    float duration = 0;
+    for (int i = 0; i < classes_v.size(); i++)
+    {
+        if (classes_v[i].UcCode == uc && classes_v[i].ClassCode == newclass && classes_v[i].Type.size() > 1)
+        {
+            weekday = classes_v[i].Weekday;
+            start = stof(classes_v[i].StartHour);
+            duration = stof(classes_v[i].Duration);
+            break;
+        }
+    }
+    for (int i = 0; i < classes_v.size(); i++)
+    {
+        if (weekday == classes_v[i].Weekday && classes_v[i].Type.size() > 1)
+        {
+            for (int j = 0; j < student_ucs_classes_v.size(); j++)
+            {
+                if (classes_v[i].UcCode == student_ucs_classes_v[j].first && classes_v[i].ClassCode == student_ucs_classes_v[j].second)
+                {
+                    if ((start < stof(classes_v[i].StartHour) && start + duration >= stof(classes_v[i].StartHour)) || (start > stof(classes_v[i].StartHour) && start < stof(classes_v[i].StartHour) + stof(classes_v[i].Duration)) || (start == stof(classes_v[i].StartHour)))
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+    return true;
 }

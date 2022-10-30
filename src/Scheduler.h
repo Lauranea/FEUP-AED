@@ -40,6 +40,7 @@ class Scheduler
     bool is_valid_uc_class(string uccode, string classcode);
     bool is_valid_uc(string uccode);
     bool is_valid_class(string classcode);
+    bool is_valid_schedule_change(string studentcode, string uc, string oldclass, string newclass);
 
     vector<vector<string>> schedule(vector<vector<string>> p);
 

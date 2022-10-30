@@ -93,7 +93,7 @@ int main(int argc, char **argv)
     Write write(s);
 
     cout << "Teste 1" << endl;
-    bool okes = student.validaddhorario("Ronaldo", "2LEIC11", "L.EIC011");
+    bool okes = s.is_valid_schedule_change("Ronaldo", "L.EIC011", "", "2LEIC11");
     cout << okes << endl << "Fim Teste 1" << endl; 
 
 
