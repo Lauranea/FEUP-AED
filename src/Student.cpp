@@ -226,12 +226,7 @@ bool Student::validclass2(string classer, vector<string> classes)
     return false;
 }
 
-bool Student::validchangehorario(string code, string oldclass, string newclass)
-{
-    return 1;
-}
-/*
-bool Student::validaddhorario(string code, string newclass)
+bool Student::validchangehorario(string code, string oldclass, string newclass, string newuc, string olduc)
 {
     bool seen = false;
     vector<pair<string, vector<float>>> horario;
@@ -239,25 +234,170 @@ bool Student::validaddhorario(string code, string newclass)
     vector<pair<string, vector<float>>> student_horario;
     for (students_classes i : s.students_classes_v)
     {
-        if ((i.ClassCode != code || i.StudentName != code) && seen == true)
+        if ((i.StudentCode != code && i.StudentName != code) && seen == true)
         {
             break;
         }
-        if (i.ClassCode == code || i.StudentName == code)
+        if (i.StudentCode == code || i.StudentName == code)
+        {
+            if(i.UcCode == olduc && i.ClassCode == oldclass)
+            {
+                continue;
+            }
+            else
+            {
+                classes.push_back(pair(i.UcCode,i.ClassCode));
+            }
+        }
+    }
+    for(pair<string, string> i : classes)
+    {
+        for(pair<string, vector<pair<string, pair<string, vector<float>>>>> ii : s.class_horarios_v2)
+        {
+            if(i.first == ii.first)
+            {
+                for(pair<string, pair<string, vector<float>>> iii : ii.second)
+                {
+                    if(iii.first == i.second)
+                    {
+                        bool yes = false;
+                        for(pair<string, vector<float>> iiii : horario)
+                        {
+                            if(iiii.first == iii.second.first)
+                            {
+                                yes = true;
+                                for(float z : iii.second.second)
+                                {
+                                    iiii.second.push_back(z);
+                                }
+                            }
+                            if(!yes)
+                            {
+                                horario.push_back(pair(iii.second));
+                            }
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+    }
+    for(pair<string, vector<pair<string, pair<string, vector<float>>>>> i : s.class_horarios_v2)
+    {
+        if(i.first == newuc)
+        {
+            for(pair<string, pair<string, vector<float>>> ii : i.second)
+            {
+                if(ii.first == newclass)
+                {
+                    for(pair<string, vector<float>> iii : horario)
+                    {
+                        if(iii.first == ii.second.first)
+                        {
+                            for(float z : iii.second)
+                            {
+                                for(float zz : ii.second.second)
+                                {
+                                    if(z == zz)
+                                    {
+                                        return false;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    return true;
+}
+
+bool Student::validaddhorario(string code, string newclass, string newuc)
+{
+    //vector<pair<string, vector<pair<string, pair<string, vector<float>>>>>> class_horarios_v2;
+    bool seen = false;
+    vector<pair<string, vector<float>>> horario;
+    vector<pair<string,string>> classes;
+    vector<pair<string, vector<float>>> student_horario;
+    for (students_classes i : s.students_classes_v)
+    {
+        if ((i.StudentCode != code && i.StudentName != code) && seen == true)
+        {
+            break;
+        }
+        if (i.StudentCode == code || i.StudentName == code)
         {
             classes.push_back(pair(i.UcCode,i.ClassCode));
         }
     }
     for(pair<string, string> i : classes)
     {
-        for(pair<string, pair<string, pair<string, vector<float>>>> ii : s.class_horarios_v2)
+        for(pair<string, vector<pair<string, pair<string, vector<float>>>>> ii : s.class_horarios_v2)
         {
             if(i.first == ii.first)
             {
-                for()
+                for(pair<string, pair<string, vector<float>>> iii : ii.second)
+                {
+                    if(iii.first == i.second)
+                    {
+                        bool yes = false;
+                        for(pair<string, vector<float>> iiii : horario)
+                        {
+                            if(iiii.first == iii.second.first)
+                            {
+                                yes = true;
+                                for(float z : iii.second.second)
+                                {
+                                    iiii.second.push_back(z);
+                                }
+                            }
+                            if(!yes)
+                            {
+                                horario.push_back(pair(iii.second));
+                            }
+                        }
+                        break;
+                    }
+                }
+                break;
             }
         }
     }
-    return 1;
+    for(pair<string, vector<pair<string, pair<string, vector<float>>>>> i : s.class_horarios_v2)
+    {
+        if(i.first == newuc)
+        {
+            for(pair<string, pair<string, vector<float>>> ii : i.second)
+            {
+                if(ii.first == newclass)
+                {
+                    for(pair<string, vector<float>> iii : horario)
+                    {
+                        if(iii.first == ii.second.first)
+                        {
+                            for(float z : iii.second)
+                            {
+                                for(float zz : ii.second.second)
+                                {
+                                    if(z == zz)
+                                    {
+                                        return false;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            break;
+        }
+    }
+    return true;
 }
-*/

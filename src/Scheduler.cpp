@@ -77,7 +77,7 @@ void Scheduler::initialize_class_horarios()
 
 void Scheduler::initialize_class_horarios2()
 {
-    string lastuc = "no";
+    string lastuc = "L.EIC001";
     // vector<pair<string, vector<pair<string, pair<string, vector<float>>>>>> class_horarios_v2;
     vector<pair<string, pair<string, vector<float>>>> current;
     for (classes i : classes_v)
