@@ -239,7 +239,7 @@ int main(int argc, char **argv)
                     cout << RED << "---\nInvalid UC / Class Combination." << RESET << endl;
                     continue;
                 }
-                if (s.change_class(code, uccode, newclass))
+                if (s.change_class(code, uccode, c[uccode],  newclass))
                 {
                     cout << GREEN << "---\nUC " << uccode << " changed to Class " << newclass << RESET << endl;
                     continue;

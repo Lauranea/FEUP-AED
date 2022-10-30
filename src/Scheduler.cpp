@@ -196,32 +196,20 @@ vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
 
 void Scheduler::initialize_ocupation()
 {
+    for (int i = 0; i < classes_per_uc_v.size(); i++)
+    {
+        ocupation_v[classes_per_uc_v[i].UcCode].push_back({classes_per_uc_v[i].ClassCode, 0});
+    }
     for (int i = 0; i < students_classes_v.size(); i++)
     {
-        bool a = true;
         for (int j = 0; j < ocupation_v[students_classes_v[i].UcCode].size(); j++)
         {
             if (ocupation_v[students_classes_v[i].UcCode][j].first == students_classes_v[i].ClassCode)
             {
                 ocupation_v[students_classes_v[i].UcCode][j].second++;
-                a = false;
             }
         }
-        if (a)
-        {
-            ocupation_v[students_classes_v[i].UcCode].push_back({students_classes_v[i].ClassCode, 1});
-        }
     }
-
-    // for (int i = 0; i < ocupation_v.size(); i++)
-    // {
-    //     sort(ocupation_v[i].second.begin(), ocupation_v[i].second.end());
-    //     cout << endl << ocupation_v[i].first << endl;
-    //     for (int j = 0; j < ocupation_v[i].second.size(); j++)
-    //     {
-    //         cout << ocupation_v[i].second[j].first << " - " << ocupation_v[i].second[j].second << endl;
-    //     }
-    // }
 }
 
 bool Scheduler::remove_uc_class(string studentcode, string uccode, string classcode)
@@ -328,7 +316,7 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
     return false;
 }
 
-bool Scheduler::change_class(string studentcode, string uccode, string newclasscode)
+bool Scheduler::change_class(string studentcode, string uccode, string classcode, string newclasscode)
 {
     if (!is_valid_uc_class(uccode, newclasscode) || !is_balanced(uccode, newclasscode))
     {
@@ -340,6 +328,17 @@ bool Scheduler::change_class(string studentcode, string uccode, string newclassc
         if (students_classes_v[i].UcCode == uccode)
         {
             students_classes_v[i].ClassCode = newclasscode;
+            for (int i = 0; i < ocupation_v[uccode].size(); i++)
+            {
+                if (ocupation_v[uccode][i].first == classcode)
+                {
+                    ocupation_v[uccode][i].second--;
+                }
+                if (ocupation_v[uccode][i].first == newclasscode)
+                {
+                    ocupation_v[uccode][i].second++;
+                }
+            }
             return true;
         }
     }
