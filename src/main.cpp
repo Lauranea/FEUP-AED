@@ -12,11 +12,18 @@
 #define VIMERR "\e[38;5;015m\e[48;2;255;0;0m"
 #define GREEN "\033[32m"
 #define BLUE "\033[34m"
+#define YELLOW "\033[33m"
 
 using namespace std;
 
+bool can_exit_clean = true;
+
 queue<request> process_requests(Scheduler &s, queue<request> q)
 {
+    if (!!q.empty())
+    {
+        can_exit_clean = false;
+    }
     queue<request> q_fail;
     while (!q.empty())
     {
@@ -84,8 +91,6 @@ int main(int argc, char **argv)
     Class class_(s);
 
     Write write(s);
-
-    bool can_exit_clean = true;
 
     while (true)
     {
@@ -324,6 +329,7 @@ int main(int argc, char **argv)
             else if (r == "2")
             {
                 process_requests(s, q);
+                std::queue<request>().swap(q);
             }
             else
             {
@@ -334,13 +340,26 @@ int main(int argc, char **argv)
         else if (r == ":w") // Write
         {
             can_exit_clean = true;
-            write.write();
-            cout << GREEN << "---\nSaved!" << RESET << endl;
+            if (write.write())
+            {
+                cout << GREEN << "---\nSaved!" << RESET << endl;
+            }
+            if (!q.empty())
+            {
+                cout << YELLOW << "\nThe queue is not empty. You should process the requests." << RESET << endl;
+            }
         }
         else if (r == ":wq") // Write and Quit
         {
-            write.write();
-            cout << GREEN << "---\nSaved!" << RESET << endl;
+            if (write.write())
+            {
+                cout << GREEN << "---\nSaved!" << RESET << endl;
+            }
+            if (!q.empty())
+            {
+                cout << VIMERR << "\nE69: Queue is not empty (add ! to override)" << RESET << endl;
+                continue;
+            }
             return 0;
         }
         else if (r == ":q") // Try to Quit
@@ -348,6 +367,11 @@ int main(int argc, char **argv)
             if (!can_exit_clean)
             {
                 cout << VIMERR << "\nE37: No write since last change (add ! to override)" << RESET << endl;
+                continue;
+            }
+            if (!q.empty())
+            {
+                cout << VIMERR << "\nE69: Queue is not empty (add ! to override)" << RESET << endl;
                 continue;
             }
             return 0;
