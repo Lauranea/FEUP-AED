@@ -25,9 +25,11 @@ int main(int argc, char **argv)
 
     Write write(s);
 
+    bool can_exit_clean = true;
+
     while (true)
     {
-        cout << BOLDWHITE << "\n\n1 - View\n2 - Edit\nq - Quit" << endl << endl;
+        cout << BOLDWHITE << "\n\n1 - View\n2 - Edit\n" << RESET << "\nTo Save / Quit, use vim-like commands" << BOLDWHITE << endl << endl;
         cin >> r;
         if (r == "1") // View
         {
@@ -156,7 +158,8 @@ int main(int argc, char **argv)
 
                 if (s.remove_uc_class(code, uccode, c[uccode]))
                 {
-                    cout << RESET << "\nRemoved student " << code << " from UC / Class  " << uccode << " / " << c[uccode] << endl;
+                    can_exit_clean = false;
+                    cout << GREEN << "\nRemoved student " << code << " from UC / Class  " << uccode << " / " << c[uccode] << endl;
                 }
                 else
                 {
@@ -178,7 +181,7 @@ int main(int argc, char **argv)
                 cout << "\n---\nClasses:" << endl;
                 for (int i = 0; i < s.classes_per_uc_v.size(); i++)
                 {
-                    if (s.classes_per_uc_v[i].UcCode == r)
+                    if (s.classes_per_uc_v[i].UcCode == r && s.is_balanced(s.classes_per_uc_v[i].UcCode, s.classes_per_uc_v[i].ClassCode))
                     {
                         cout << RESET << s.classes_per_uc_v[i].ClassCode << endl;
                     }
@@ -193,11 +196,12 @@ int main(int argc, char **argv)
                 }
                 if (s.add_to(code, r, rr))
                 {
-                    cout << RESET << "\nAdded student " << code << " to UC / Class  " << r << " / " << rr << endl;
+                    can_exit_clean = false;
+                    cout << GREEN << "\nAdded student " << code << " to UC / Class  " << r << " / " << rr << endl;
                 }
                 else
                 {
-                    cout << RED << "\nFailed to remove student " << code << " from UC / Class  " << r << " / " << rr << endl;
+                    cout << RED << "\nFailed to add student " << code << " to UC / Class  " << r << " / " << rr << endl;
                 }
             }
             else if (r == "3") // Change Student
@@ -229,7 +233,7 @@ int main(int argc, char **argv)
                 cout << "\n---\nClasses:" << endl;
                 for (int i = 0; i < s.classes_per_uc_v.size(); i++)
                 {
-                    if (s.classes_per_uc_v[i].UcCode == uccode)
+                    if (s.classes_per_uc_v[i].UcCode == uccode && s.is_balanced(s.classes_per_uc_v[i].UcCode, s.classes_per_uc_v[i].ClassCode))
                     {
                         cout << RESET << s.classes_per_uc_v[i].ClassCode << endl;
                     }
@@ -244,6 +248,7 @@ int main(int argc, char **argv)
                 }
                 if (s.change_class(code, uccode, c[uccode],  newclass))
                 {
+                    can_exit_clean = false;
                     cout << GREEN << "---\nUC " << uccode << " changed to Class " << newclass << RESET << endl;
                     continue;
                 }
@@ -259,9 +264,29 @@ int main(int argc, char **argv)
                 continue;
             }
         }
-        else if (r == "q") // Quit
+        else if (r == ":w") // Write
+        {
+            can_exit_clean = true;
+            write.write();
+            cout << GREEN << "---\nSaved!" << RESET << endl;
+        }
+        else if (r == ":wq") // Write and Quit
         {
             write.write();
+            cout << GREEN << "---\nSaved!" << RESET << endl;
+            return 0;
+        }
+        else if (r == ":q") // Try to Quit
+        {
+            if (!can_exit_clean)
+            {
+                cout << RED << "---\nE37: No write since last change (add ! to override)" << RESET << endl;
+                continue;
+            }
+            return 0;
+        }
+        else if (r == ":q!") // Quit
+        {
             return 0;
         }
         else

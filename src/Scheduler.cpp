@@ -262,8 +262,14 @@ bool Scheduler::is_balanced(string uccode, string classcode)
 
 bool Scheduler::add_to(string studentcode, string uccode, string classcode)
 {
-    if (!is_valid_uc_class(uccode, classcode) || !is_balanced(uccode, classcode))
+    if (!is_valid_uc_class(uccode, classcode))
     {
+        cout << RED << "\nInvalid UC / Class combination" << RESET << endl;
+        return false;
+    }
+    if (!is_balanced(uccode, classcode))
+    {
+        cout << RED << "\nClasses would be unbalanced" << RESET << endl;
         return false;
     }
 
@@ -276,15 +282,15 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
         {
             is_name = false;
             other_code = students_classes_v[i].StudentName;
+            if (students_classes_v[i].UcCode == uccode && students_classes_v[i].ClassCode == classcode)
+            {
+                can_add = false;
+            }
         }
         else if (students_classes_v[i].StudentName == studentcode)
         {
             is_name = true;
             other_code = students_classes_v[i].StudentCode;
-        }
-
-        if (other_code != "")
-        {
             if (students_classes_v[i].UcCode == uccode && students_classes_v[i].ClassCode == classcode)
             {
                 can_add = false;
