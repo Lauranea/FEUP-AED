@@ -368,21 +368,21 @@ bool Student::validaddhorario(string code, string newclass, string newuc)
             }
         }
     }
-    for(pair<string, vector<pair<string, pair<string, vector<float>>>>> i : s.class_horarios_v2)
+    for(pair<string, vector<pair<string, pair<string, vector<float>>>>> i : s.class_horarios_v2) //iterar pelas ucs, no maximo 15
     {
         if(i.first == newuc)
         {
-            for(pair<string, pair<string, vector<float>>> ii : i.second)
+            for(pair<string, pair<string, vector<float>>> ii : i.second) //iterar pelas classes no maximo 15?
             {
                 if(ii.first == newclass)
                 {
-                    for(pair<string, vector<float>> iii : horario)
+                    for(pair<string, vector<float>> iii : horario) //iterar pelos dias, no maximo 5?
                     {
                         if(iii.first == ii.second.first)
                         {
-                            for(float z : iii.second)
+                            for(float z : iii.second) //iterar pelas horas do horario do estudante
                             {
-                                for(float zz : ii.second.second)
+                                for(float zz : ii.second.second) // iterar pelas horas da aula
                                 {
                                     if(z == zz)
                                     {

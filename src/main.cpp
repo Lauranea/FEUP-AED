@@ -92,6 +92,11 @@ int main(int argc, char **argv)
 
     Write write(s);
 
+    cout << "Teste 1" << endl;
+    bool okes = student.validaddhorario("Ronaldo", "2LEIC11", "L.EIC011");
+    cout << okes << endl << "Fim Teste 1" << endl; 
+
+
     while (true)
     {
         cout << BOLDWHITE << "\n------\n1 - View\n2 - Request\n3 - Process Requests" << RESET << "\n\nTo Save / Quit, use vim-like commands" << BOLDWHITE << endl << endl;

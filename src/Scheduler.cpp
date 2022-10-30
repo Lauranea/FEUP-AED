@@ -75,6 +75,7 @@ void Scheduler::initialize_class_horarios()
 }
 */
 
+/*
 void Scheduler::initialize_class_horarios2()
 {
     string lastuc = "L.EIC001";
@@ -112,7 +113,46 @@ void Scheduler::initialize_class_horarios2()
                 duration -= 0.5;
                 start += 0.5;
             }
+            current.clear();
             current.push_back(pair(i.ClassCode, pair(i.Weekday, times)));
+        }
+    }
+}
+*/
+
+void Scheduler::initialize_class_horarios2()
+{
+    string lastuc = "L.EIC001";
+    for(int i = 0; i < classes_v.size(); i++)
+    {
+        vector<pair<string, pair<string, vector<float>>>> current;
+        while(classes_v[i].UcCode == lastuc)
+        {
+            if(classes_v[i].Type == "T")
+            {
+                i++;
+                continue;
+            }
+            float duration = atof(classes_v[i].Duration.c_str());
+            float start = atof(classes_v[i].StartHour.c_str());
+            vector<float> times;
+            while (duration > 0)
+            {
+                times.push_back(start);
+                duration -= 0.5;
+                start += 0.5;
+            }
+            current.push_back(pair(classes_v[i].ClassCode, pair(classes_v[i].Weekday, times)));
+            i++;
+        }
+        class_horarios_v2.push_back(pair(lastuc,current));
+        if(i < classes_v.size())
+        {
+            lastuc = classes_v[i].UcCode;
+        }
+        else
+        {
+            break;
         }
     }
 }
