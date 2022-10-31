@@ -52,52 +52,6 @@ void Scheduler::initialize_all_ucs_classes()
     }
 }
 
-void Scheduler::initialize_class_horarios2()
-{
-    string lastuc = "L.EIC001";
-    vector<pair<string, pair<string, vector<float>>>> current;
-    for (classes i : classes_v)
-    {
-        if (i.UcCode == lastuc)
-        {
-            if (i.Type == "T")
-            {
-                continue;
-            }
-            float duration = atof(i.Duration.c_str());
-            float start = atof(i.StartHour.c_str());
-            vector<float> times;
-            while (duration > 0)
-            {
-                times.push_back(start);
-                duration -= 0.5;
-                start += 0.5;
-            }
-            current.push_back(pair(i.ClassCode, pair(i.Weekday, times)));
-        }
-        else
-        {
-            class_horarios_v2.push_back(pair(lastuc, current));
-            current.clear();
-            lastuc = i.UcCode;
-            if (i.Type == "T")
-            {
-                continue;
-            }
-            float duration = atof(i.Duration.c_str());
-            float start = atof(i.StartHour.c_str());
-            vector<float> times;
-            while (duration > 0)
-            {
-                times.push_back(start);
-                duration -= 0.5;
-                start += 0.5;
-            }
-            current.push_back(pair(i.ClassCode, pair(i.Weekday, times)));
-        }
-    }
-}
-
 vector<pair<string, int>> c = {{"8", 0}, {"8.5", 2}, {"9", 4}, {"9.5", 6}, {"10", 8}, {"10.5", 10}, {"11", 12}, {"11.5", 14}, {"12", 16}, {"12.5", 18}, {"13", 20}, {"13.5", 22}, {"14", 24}, {"14.5", 26}, {"15", 28}, {"15.5", 30}, {"16", 32}, {"16.5", 34}, {"17", 36}, {"17.5", 38}, {"18", 40}, {"18.5", 42}, {"19", 44}, {"19.5", 46}};
 
 map<string, int> d = {{"Monday", 0}, {"Tuesday", 1}, {"Wednesday", 2}, {"Thursday", 3}, {"Friday", 4}};

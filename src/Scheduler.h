@@ -27,8 +27,6 @@ class Scheduler
   public:
     void initialize();
     void initialize_all_ucs_classes();
-    // void initialize_class_horarios();
-    void initialize_class_horarios2();
     void initialize_ocupation();
 
     bool remove_uc_class(string studentcode, string uccode, string classcode);
@@ -48,8 +46,6 @@ class Scheduler
     vector<students_classes> students_classes_v;
     vector<string> all_classes_v;
     vector<pair<string, vector<string>>> ucs_classes_v;
-    // vector<pair<pair<string, string>, pair<string, vector<float>>>> class_horarios_v;
-    vector<pair<string, vector<pair<string, pair<string, vector<float>>>>>> class_horarios_v2;
     map<string, vector<pair<string, int>>> ocupation_v;
 };
 
