@@ -74,13 +74,13 @@ vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
                                  "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           "}};
 
     // demasiada shit, mas pelo menos funciona
-    for (int i = 0; i < p.size(); i++)
+    for (int i = 0; i < p.size(); i++) // Prática
     {
         for (int j = 0; j < c.size(); j++)
         {
             if (p.at(i).at(3) == c.at(j).first)
             {
-                if (p.at(i).at(5).size() > 1) // Prática
+                if (p.at(i).at(5).size() > 1)
                 {
                     if (a.at(d[p.at(i).at(2)]).at(c.at(j).second) == "           ")
                     {
@@ -114,19 +114,37 @@ vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
                         a.at(d[p.at(i).at(2)]).at(c.at(j).second + 8) = "-----------";
                     }
                 }
-                else // Teorica
+            }
+        }
+    }
+    for (int i = 0; i < p.size(); i++) // Teórica
+    {
+        for (int j = 0; j < c.size(); j++)
+        {
+            if (p.at(i).at(3) == c.at(j).first)
+            {
+                if (p.at(i).at(5).size() == 1)
                 {
                     if (a.at(d[p.at(i).at(2)]).at(c.at(j).second) == "           ")
                     {
                         a.at(d[p.at(i).at(2)]).at(c.at(j).second) = "-----------";
                     }
 
+                    bool die = false;
+                    for (float k = 1; k < (stof(p.at(i).at(4)) * 4); k++)
+                    {
+                        if (a.at(d[p.at(i).at(2)]).at(c.at(j).second + k) != "           ")
+                        {
+                            die = true;
+                        }
+                    }
+                    if (die)
+                    {
+                        continue;
+                    }
+
                     if (p.at(i).at(4) == "1") // duration 1 hour
                     {
-                        for (int k = 1; k < 4; k++)
-                        {
-                            
-                        }
                         a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = " " + p.at(i).at(0) + "  ";
                         a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = " " + p.at(i).at(1) + "   ";
                         a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(5) + "         ";
