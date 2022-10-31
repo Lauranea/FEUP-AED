@@ -31,7 +31,7 @@ void Student::get_schedule(string studentcode)
     {
         if (s.classes_v.at(i).ClassCode == bigpp[s.classes_v.at(i).UcCode])
         {
-            p.push_back({s.classes_v.at(i).UcCode, s.classes_v.at(i).Weekday, s.classes_v.at(i).StartHour, s.classes_v.at(i).Duration, s.classes_v.at(i).Type});
+            p.push_back({s.classes_v.at(i).UcCode, s.classes_v.at(i).ClassCode, s.classes_v.at(i).Weekday, s.classes_v.at(i).StartHour, s.classes_v.at(i).Duration, s.classes_v.at(i).Type});
         }
     }
 
@@ -45,7 +45,7 @@ void Student::get_schedule(string studentcode)
 
     // Epic programming start here
 
-    cout << "///////////////| Monday    | Tuesday   | Wednesday | Thursday  | Friday    |" << endl;
+    cout << "///////////////|  Monday   |  Tuesday  | Wednesday | Thursday  |  Friday   |" << endl;
     cout << "---------------|-----------|-----------|-----------|-----------|-----------|" << endl;
     cout << " 08:00 - 08:30 |" << Monday.at(1) << "|" << Tuesday.at(1) << "|" << Wednesday.at(1) << "|" << Thursday.at(1) << "|" << Friday.at(1) << "|" << endl;
     cout << "---------------|" << Monday.at(2) << "|" << Tuesday.at(2) << "|" << Wednesday.at(2) << "|" << Thursday.at(2) << "|" << Friday.at(2) << "|" << endl;
@@ -95,69 +95,6 @@ void Student::get_schedule(string studentcode)
     cout << "---------------|" << Monday.at(46) << "|" << Tuesday.at(46) << "|" << Wednesday.at(46) << "|" << Thursday.at(46) << "|" << Friday.at(46) << "|" << endl;
 }
 
-bool Student::change_oneclass(string studentcode, string uccodeold, string classcodenew)
-{
-    Write write(s);
-    if (write.change_oneclass(studentcode, uccodeold, classcodenew))
-    {
-        return true;
-    }
-    return false;
-}
-
-bool Student::change_allclass(string studentcode, string classcodenew)
-{
-    Write write(s);
-    if (write.change_allclass(studentcode, classcodenew))
-    {
-        return true;
-    }
-    return false;
-}
-
-vector<pair<string, vector<string>>> Student::getucsclasses(vector<string> &classes3)
-{
-    ifstream fi;
-    set<string> classes;
-    vector<pair<string, vector<string>>> ucs;
-    fi.open("../classes_per_uc.csv");
-    if (!fi.is_open())
-    {
-        cout << "\nCould not open file" << endl;
-        return ucs;
-    }
-
-    string buffer;
-    getline(fi, buffer, '\n');
-    while (getline(fi, buffer, '\n'))
-    {
-        stringstream line(buffer);
-        string uc;
-        string class1;
-        getline(line, uc, ',');
-        getline(line, class1, '\r');
-        classes.insert(class1);
-        if (ucs.size() != 0 && ucs[ucs.size() - 1].first == uc)
-        {
-            ucs[ucs.size() - 1].second.push_back(class1);
-        }
-        else
-        {
-            vector<string> class2;
-            class2.push_back(class1);
-            ucs.push_back(pair(uc, class2));
-        }
-    }
-    for (string i : classes)
-    {
-        classes3.push_back(i);
-    }
-
-    fi.close();
-
-    return ucs;
-}
-
 bool Student::validuc(string uc, vector<pair<string, vector<string>>> ucs)
 {
     for (pair<string, vector<string>> i : ucs)
@@ -192,24 +129,6 @@ bool Student::validclass(string classer, string uc, vector<pair<string, vector<s
     return false;
 }
 
-bool Student::mytoupper(string &word)
-{
-    for (int i = 0; i < word.size() - 1; i++)
-    {
-        if (word[i] >= 97 && word[i] <= 122)
-        {
-            word[i] = word[i] - 32;
-        }
-    }
-    return 1;
-}
-
-vector<string> Student::getucs(string studentcode)
-{
-    Write write(s);
-    return write.getucs(studentcode);
-}
-
 bool Student::validclass2(string classer, vector<string> classes)
 {
     if (classer.size() != 7)
@@ -224,180 +143,4 @@ bool Student::validclass2(string classer, vector<string> classes)
         }
     }
     return false;
-}
-
-bool Student::validchangehorario(string code, string oldclass, string newclass, string newuc, string olduc)
-{
-    bool seen = false;
-    vector<pair<string, vector<float>>> horario;
-    vector<pair<string, string>> classes;
-    vector<pair<string, vector<float>>> student_horario;
-    for (students_classes i : s.students_classes_v)
-    {
-        if ((i.StudentCode != code && i.StudentName != code) && seen == true)
-        {
-            break;
-        }
-        if (i.StudentCode == code || i.StudentName == code)
-        {
-            if (i.UcCode == olduc && i.ClassCode == oldclass)
-            {
-                continue;
-            }
-            else
-            {
-                classes.push_back(pair(i.UcCode, i.ClassCode));
-            }
-        }
-    }
-    for (pair<string, string> i : classes)
-    {
-        for (pair<string, vector<pair<string, pair<string, vector<float>>>>> ii : s.class_horarios_v2)
-        {
-            if (i.first == ii.first)
-            {
-                for (pair<string, pair<string, vector<float>>> iii : ii.second)
-                {
-                    if (iii.first == i.second)
-                    {
-                        bool yes = false;
-                        for (pair<string, vector<float>> iiii : horario)
-                        {
-                            if (iiii.first == iii.second.first)
-                            {
-                                yes = true;
-                                for (float z : iii.second.second)
-                                {
-                                    iiii.second.push_back(z);
-                                }
-                            }
-                            if (!yes)
-                            {
-                                horario.push_back(pair(iii.second));
-                            }
-                        }
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-    }
-    for (pair<string, vector<pair<string, pair<string, vector<float>>>>> i : s.class_horarios_v2)
-    {
-        if (i.first == newuc)
-        {
-            for (pair<string, pair<string, vector<float>>> ii : i.second)
-            {
-                if (ii.first == newclass)
-                {
-                    for (pair<string, vector<float>> iii : horario)
-                    {
-                        if (iii.first == ii.second.first)
-                        {
-                            for (float z : iii.second)
-                            {
-                                for (float zz : ii.second.second)
-                                {
-                                    if (z == zz)
-                                    {
-                                        return false;
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-            break;
-        }
-    }
-    return true;
-}
-
-bool Student::validaddhorario(string code, string newclass, string newuc)
-{
-    // vector<pair<string, vector<pair<string, pair<string, vector<float>>>>>> class_horarios_v2;
-    bool seen = false;
-    vector<pair<string, vector<float>>> horario;
-    vector<pair<string, string>> classes;
-    vector<pair<string, vector<float>>> student_horario;
-    for (students_classes i : s.students_classes_v)
-    {
-        if ((i.StudentCode != code && i.StudentName != code) && seen == true)
-        {
-            break;
-        }
-        if (i.StudentCode == code || i.StudentName == code)
-        {
-            classes.push_back(pair(i.UcCode, i.ClassCode));
-        }
-    }
-    for (pair<string, string> i : classes)
-    {
-        for (pair<string, vector<pair<string, pair<string, vector<float>>>>> ii : s.class_horarios_v2)
-        {
-            if (i.first == ii.first)
-            {
-                for (pair<string, pair<string, vector<float>>> iii : ii.second)
-                {
-                    if (iii.first == i.second)
-                    {
-                        bool yes = false;
-                        for (pair<string, vector<float>> iiii : horario)
-                        {
-                            if (iiii.first == iii.second.first)
-                            {
-                                yes = true;
-                                for (float z : iii.second.second)
-                                {
-                                    iiii.second.push_back(z);
-                                }
-                            }
-                            if (!yes)
-                            {
-                                horario.push_back(pair(iii.second));
-                            }
-                        }
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-    }
-    for (pair<string, vector<pair<string, pair<string, vector<float>>>>> i : s.class_horarios_v2) // iterar pelas ucs, no maximo 15
-    {
-        if (i.first == newuc)
-        {
-            for (pair<string, pair<string, vector<float>>> ii : i.second) // iterar pelas classes no maximo 15?
-            {
-                if (ii.first == newclass)
-                {
-                    for (pair<string, vector<float>> iii : horario) // iterar pelos dias, no maximo 5?
-                    {
-                        if (iii.first == ii.second.first)
-                        {
-                            for (float z : iii.second) // iterar pelas horas do horario do estudante
-                            {
-                                for (float zz : ii.second.second) // iterar pelas horas da aula
-                                {
-                                    if (z == zz)
-                                    {
-                                        return false;
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-            break;
-        }
-    }
-    return true;
 }

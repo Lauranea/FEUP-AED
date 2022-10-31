@@ -82,7 +82,7 @@ void Class::get_schedule(string classcode)
     {
         if (tmp.at(i).ClassCode == classcode)
         {
-            p.push_back({tmp.at(i).UcCode, tmp.at(i).Weekday, tmp.at(i).StartHour, tmp.at(i).Duration, tmp.at(i).Type});
+            p.push_back({tmp.at(i).UcCode, tmp.at(i).ClassCode, tmp.at(i).Weekday, tmp.at(i).StartHour, tmp.at(i).Duration, tmp.at(i).Type});
         }
     }
 

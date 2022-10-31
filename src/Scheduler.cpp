@@ -52,113 +52,6 @@ void Scheduler::initialize_all_ucs_classes()
     }
 }
 
-/*
-void Scheduler::initialize_class_horarios()
-{
-    for (classes i : classes_v)
-    {
-        if (i.Type == "T")
-        {
-            continue;
-        }
-        float duration = stoi(i.Duration);
-        float start = stoi(i.StartHour);
-        vector<float> times;
-        while (duration > 0)
-        {
-            times.push_back(start);
-            duration -= 0.5;
-            start += 0.5;
-        }
-        class_horarios_v.push_back(pair(pair(i.UcCode, i.ClassCode), pair(i.Weekday, times)));
-    }
-}
-*/
-
-/*
-void Scheduler::initialize_class_horarios2()
-{
-    string lastuc = "L.EIC001";
-    // vector<pair<string, vector<pair<string, pair<string, vector<float>>>>>> class_horarios_v2;
-    vector<pair<string, pair<string, vector<float>>>> current;
-    for (classes i : classes_v)
-    {
-        if (i.Type == "T")
-        {
-            continue;
-        }
-        if(i.UcCode == lastuc)
-        {
-            float duration = stof(i.Duration);
-            float start = stof(i.StartHour);
-            vector<float> times;
-            while (duration > 0)
-            {
-                times.push_back(start);
-                duration -= 0.5;
-                start += 0.5;
-            }
-            current.push_back(pair(i.ClassCode, pair(i.Weekday, times)));
-        }
-        else
-        {
-            class_horarios_v2.push_back(pair(i.UcCode, current));
-            lastuc = i.UcCode;
-            float duration = stof(i.Duration);
-            float start = stof(i.StartHour);
-            vector<float> times;
-            while (duration > 0)
-            {
-                times.push_back(start);
-                duration -= 0.5;
-                start += 0.5;
-            }
-            current.clear();
-            current.push_back(pair(i.ClassCode, pair(i.Weekday, times)));
-        }
-    }
-}
-*/
-/*
-void Scheduler::initialize_class_horarios2()
-{
-    string lastuc = "L.EIC001";
-    vector<pair<string, pair<string, vector<float>>>> current;
-    for(int i = 0; i < classes_v.size(); i++)
-    {
-        current.clear();
-        while(classes_v[i].UcCode == lastuc)
-        {
-            if(classes_v[i].Type == "T")
-            {
-                i++;
-                continue;
-            }
-            float duration = stof(classes_v[i].Duration);
-            float start = stof(classes_v[i].StartHour);
-            vector<float> times;
-            while (duration > 0)
-            {
-                times.push_back(start);
-                duration -= 0.5;
-                start += 0.5;
-            }
-            current.push_back(pair(classes_v[i].ClassCode, pair(classes_v[i].Weekday, times)));
-            i++;
-        }
-        class_horarios_v2.push_back(pair(lastuc,current));
-        if(i < classes_v.size())
-        {
-            lastuc = classes_v[i].UcCode;
-        }
-        else
-        {
-            break;
-        }
-    }
-}
-*/
-
 void Scheduler::initialize_class_horarios2()
 {
     string lastuc = "L.EIC001";
@@ -227,54 +120,85 @@ vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
                                  "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ",
                                  "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           "}};
 
+    // demasiada shit, mas pelo menos funciona
     for (int i = 0; i < p.size(); i++)
     {
         for (int j = 0; j < c.size(); j++)
         {
-            if (p.at(i).at(2) == c.at(j).first)
+            if (p.at(i).at(3) == c.at(j).first)
             {
-                if (a.at(d[p.at(i).at(1)]).at(c.at(j).second) == "           ")
+                if (p.at(i).at(5).size() > 1) // Prática
                 {
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second) = "-----------";
+                    if (a.at(d[p.at(i).at(2)]).at(c.at(j).second) == "           ")
+                    {
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second) = "-----------";
+                    }
+                    if (p.at(i).at(4) == "1") // duration 1 hour
+                    {
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = " " + p.at(i).at(0) + "  ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = " " + p.at(i).at(1) + "   ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(5) + "        ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 4) = "-----------";
+                    }
+                    else if (p.at(i).at(4) == "1.5") // duration 1 hour and 30 minutes
+                    {
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = "           ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = " " + p.at(i).at(0) + "  ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(1) + "   ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 4) = " " + p.at(i).at(5) + "        ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 5) = "           ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 6) = "-----------";
+                    }
+                    else // duration 2 hours
+                    {
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = "           ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = "           ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(0) + "  ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 4) = " " + p.at(i).at(1) + "   ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 5) = " " + p.at(i).at(5) + "        ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 6) = "           ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 7) = "           ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 8) = "-----------";
+                    }
                 }
-                if (p.at(i).at(3) == "1") // duration 1 hour
+                else // Teorica
                 {
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 1) = " " + p.at(i).at(0) + "  ";
-                    if (p.at(i).at(4).length() == 1)
+                    if (a.at(d[p.at(i).at(2)]).at(c.at(j).second) == "           ")
                     {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 2) = " " + p.at(i).at(4) + "         ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second) = "-----------";
                     }
-                    else
+
+                    if (p.at(i).at(4) == "1") // duration 1 hour
                     {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 2) = " " + p.at(i).at(4) + "        ";
+                        for (int k = 1; k < 4; k++)
+                        {
+                            
+                        }
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = " " + p.at(i).at(0) + "  ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = " " + p.at(i).at(1) + "   ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(5) + "         ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 4) = "-----------";
                     }
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 4) = "-----------";
-                }
-                else if (p.at(i).at(3) == "1.5") // duration 1 hour and 30 minutes
-                {
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 2) = " " + p.at(i).at(0) + "  ";
-                    if (p.at(i).at(4).length() == 1)
+                    else if (p.at(i).at(4) == "1.5") // duration 1 hour and 30 minutes
                     {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 3) = " " + p.at(i).at(4) + "         ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = "           ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = " " + p.at(i).at(0) + "  ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(1) + "   ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 4) = " " + p.at(i).at(5) + "         ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 5) = "           ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 6) = "-----------";
                     }
-                    else
+                    else // duration 2 hours
                     {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 3) = " " + p.at(i).at(4) + "        ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = "           ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = "           ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(0) + "  ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 4) = " " + p.at(i).at(1) + "   ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 5) = " " + p.at(i).at(5) + "         ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 6) = "           ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 7) = "           ";
+                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 8) = "-----------";
                     }
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 6) = "-----------";
-                }
-                else // duration 2 hours
-                {
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 3) = " " + p.at(i).at(0) + "  ";
-                    if (p.at(i).at(4).length() == 1)
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 4) = " " + p.at(i).at(4) + "         ";
-                    }
-                    else
-                    {
-                        a.at(d[p.at(i).at(1)]).at(c.at(j).second + 4) = " " + p.at(i).at(4) + "        ";
-                    }
-                    a.at(d[p.at(i).at(1)]).at(c.at(j).second + 8) = "-----------";
                 }
             }
         }
@@ -288,6 +212,7 @@ void Scheduler::initialize_ocupation()
     {
         ocupation_v[classes_per_uc_v[i].UcCode].push_back({classes_per_uc_v[i].ClassCode, 0});
     }
+    
     for (int i = 0; i < students_classes_v.size(); i++)
     {
         for (int j = 0; j < ocupation_v[students_classes_v[i].UcCode].size(); j++)
@@ -459,7 +384,6 @@ void Scheduler::ocupation()
 {
     for (auto o : ocupation_v)
     {
-        sort(o.second.begin(), o.second.end());
         cout << BOLDWHITE << endl << o.first << RESET << endl;
         for (int j = 0; j < o.second.size(); j++)
         {
