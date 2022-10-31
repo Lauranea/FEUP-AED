@@ -186,6 +186,7 @@ void Scheduler::initialize_ocupation()
     
     for (int i = 0; i < students_classes_v.size(); i++)
     {
+        /*
         for (int j = 0; j < ocupation_v[students_classes_v[i].UcCode].size(); j++)
         {
             if (ocupation_v[students_classes_v[i].UcCode][j].first == students_classes_v[i].ClassCode)
@@ -193,6 +194,26 @@ void Scheduler::initialize_ocupation()
                 ocupation_v[students_classes_v[i].UcCode][j].second++;
             }
         }
+        */
+        int low = 0;
+        int high = ocupation_v[students_classes_v[i].UcCode].size() - 1;
+        while(low < high)
+        {
+            if (ocupation_v[students_classes_v[i].UcCode][ low + (high - low) / 2].first == students_classes_v[i].ClassCode)
+            {
+                break;
+            }
+            if (ocupation_v[students_classes_v[i].UcCode][low + (high - low) / 2].first > students_classes_v[i].ClassCode)
+            {
+                high = low + (high - low) / 2 - 1;
+            }
+            else
+            {
+                low = low + (high - low) / 2 + 1;
+            }
+        }
+        ocupation_v[students_classes_v[i].UcCode][low + (high - low)  /2].second++;
+        
     }
 }
 
