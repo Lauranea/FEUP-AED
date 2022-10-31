@@ -76,101 +76,91 @@ vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
     // demasiada shit, mas pelo menos funciona
     for (int i = 0; i < p.size(); i++) // Prática
     {
-        for (int j = 0; j < c.size(); j++)
+        int h = (stof(p.at(i).at(3)) - 8) * 4;
+        if (p.at(i).at(5).size() > 1)
         {
-            if (p.at(i).at(3) == c.at(j).first)
+            if (a.at(d[p.at(i).at(2)]).at(h) == "           ")
             {
-                if (p.at(i).at(5).size() > 1)
-                {
-                    if (a.at(d[p.at(i).at(2)]).at(c.at(j).second) == "           ")
-                    {
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second) = "-----------";
-                    }
-                    if (p.at(i).at(4) == "1") // duration 1 hour
-                    {
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = " " + p.at(i).at(0) + "  ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = " " + p.at(i).at(1) + "   ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(5) + "        ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 4) = "-----------";
-                    }
-                    else if (p.at(i).at(4) == "1.5") // duration 1 hour and 30 minutes
-                    {
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = "           ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = " " + p.at(i).at(0) + "  ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(1) + "   ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 4) = " " + p.at(i).at(5) + "        ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 5) = "           ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 6) = "-----------";
-                    }
-                    else // duration 2 hours
-                    {
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = "           ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = "           ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(0) + "  ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 4) = " " + p.at(i).at(1) + "   ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 5) = " " + p.at(i).at(5) + "        ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 6) = "           ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 7) = "           ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 8) = "-----------";
-                    }
-                }
+                a.at(d[p.at(i).at(2)]).at(h) = "-----------";
+            }
+            if (p.at(i).at(4) == "1") // duration 1 hour
+            {
+                a.at(d[p.at(i).at(2)]).at(h + 1) = " " + p.at(i).at(0) + "  ";
+                a.at(d[p.at(i).at(2)]).at(h + 2) = " " + p.at(i).at(1) + "   ";
+                a.at(d[p.at(i).at(2)]).at(h + 3) = " " + p.at(i).at(5) + "        ";
+                a.at(d[p.at(i).at(2)]).at(h + 4) = "-----------";
+            }
+            else if (p.at(i).at(4) == "1.5") // duration 1 hour and 30 minutes
+            {
+                a.at(d[p.at(i).at(2)]).at(h + 1) = "           ";
+                a.at(d[p.at(i).at(2)]).at(h + 2) = " " + p.at(i).at(0) + "  ";
+                a.at(d[p.at(i).at(2)]).at(h + 3) = " " + p.at(i).at(1) + "   ";
+                a.at(d[p.at(i).at(2)]).at(h + 4) = " " + p.at(i).at(5) + "        ";
+                a.at(d[p.at(i).at(2)]).at(h + 5) = "           ";
+                a.at(d[p.at(i).at(2)]).at(h + 6) = "-----------";
+            }
+            else // duration 2 hours
+            {
+                a.at(d[p.at(i).at(2)]).at(h + 1) = "           ";
+                a.at(d[p.at(i).at(2)]).at(h + 2) = "           ";
+                a.at(d[p.at(i).at(2)]).at(h + 3) = " " + p.at(i).at(0) + "  ";
+                a.at(d[p.at(i).at(2)]).at(h + 4) = " " + p.at(i).at(1) + "   ";
+                a.at(d[p.at(i).at(2)]).at(h + 5) = " " + p.at(i).at(5) + "        ";
+                a.at(d[p.at(i).at(2)]).at(h + 6) = "           ";
+                a.at(d[p.at(i).at(2)]).at(h + 7) = "           ";
+                a.at(d[p.at(i).at(2)]).at(h + 8) = "-----------";
             }
         }
     }
     for (int i = 0; i < p.size(); i++) // Teórica
     {
-        for (int j = 0; j < c.size(); j++)
+        int h = (stof(p.at(i).at(3)) - 8) * 4;
+        if (p.at(i).at(5).size() == 1)
         {
-            if (p.at(i).at(3) == c.at(j).first)
+            if (a.at(d[p.at(i).at(2)]).at(h) == "           ")
             {
-                if (p.at(i).at(5).size() == 1)
+                a.at(d[p.at(i).at(2)]).at(h) = "-----------";
+            }
+
+            bool die = false;
+            for (float k = 1; k < (stof(p.at(i).at(4)) * 4); k++)
+            {
+                if (a.at(d[p.at(i).at(2)]).at(h + k) != "           ")
                 {
-                    if (a.at(d[p.at(i).at(2)]).at(c.at(j).second) == "           ")
-                    {
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second) = "-----------";
-                    }
-
-                    bool die = false;
-                    for (float k = 1; k < (stof(p.at(i).at(4)) * 4); k++)
-                    {
-                        if (a.at(d[p.at(i).at(2)]).at(c.at(j).second + k) != "           ")
-                        {
-                            die = true;
-                        }
-                    }
-                    if (die)
-                    {
-                        continue;
-                    }
-
-                    if (p.at(i).at(4) == "1") // duration 1 hour
-                    {
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = " " + p.at(i).at(0) + "  ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = " " + p.at(i).at(1) + "   ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(5) + "         ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 4) = "-----------";
-                    }
-                    else if (p.at(i).at(4) == "1.5") // duration 1 hour and 30 minutes
-                    {
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = "           ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = " " + p.at(i).at(0) + "  ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(1) + "   ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 4) = " " + p.at(i).at(5) + "         ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 5) = "           ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 6) = "-----------";
-                    }
-                    else // duration 2 hours
-                    {
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 1) = "           ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 2) = "           ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 3) = " " + p.at(i).at(0) + "  ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 4) = " " + p.at(i).at(1) + "   ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 5) = " " + p.at(i).at(5) + "         ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 6) = "           ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 7) = "           ";
-                        a.at(d[p.at(i).at(2)]).at(c.at(j).second + 8) = "-----------";
-                    }
+                    die = true;
                 }
+            }
+            if (die)
+            {
+                continue;
+            }
+
+            if (p.at(i).at(4) == "1") // duration 1 hour
+            {
+                a.at(d[p.at(i).at(2)]).at(h + 1) = " " + p.at(i).at(0) + "  ";
+                a.at(d[p.at(i).at(2)]).at(h + 2) = " " + p.at(i).at(1) + "   ";
+                a.at(d[p.at(i).at(2)]).at(h + 3) = " " + p.at(i).at(5) + "         ";
+                a.at(d[p.at(i).at(2)]).at(h + 4) = "-----------";
+            }
+            else if (p.at(i).at(4) == "1.5") // duration 1 hour and 30 minutes
+            {
+                a.at(d[p.at(i).at(2)]).at(h + 1) = "           ";
+                a.at(d[p.at(i).at(2)]).at(h + 2) = " " + p.at(i).at(0) + "  ";
+                a.at(d[p.at(i).at(2)]).at(h + 3) = " " + p.at(i).at(1) + "   ";
+                a.at(d[p.at(i).at(2)]).at(h + 4) = " " + p.at(i).at(5) + "         ";
+                a.at(d[p.at(i).at(2)]).at(h + 5) = "           ";
+                a.at(d[p.at(i).at(2)]).at(h + 6) = "-----------";
+            }
+            else // duration 2 hours
+            {
+                a.at(d[p.at(i).at(2)]).at(h + 1) = "           ";
+                a.at(d[p.at(i).at(2)]).at(h + 2) = "           ";
+                a.at(d[p.at(i).at(2)]).at(h + 3) = " " + p.at(i).at(0) + "  ";
+                a.at(d[p.at(i).at(2)]).at(h + 4) = " " + p.at(i).at(1) + "   ";
+                a.at(d[p.at(i).at(2)]).at(h + 5) = " " + p.at(i).at(5) + "         ";
+                a.at(d[p.at(i).at(2)]).at(h + 6) = "           ";
+                a.at(d[p.at(i).at(2)]).at(h + 7) = "           ";
+                a.at(d[p.at(i).at(2)]).at(h + 8) = "-----------";
             }
         }
     }
