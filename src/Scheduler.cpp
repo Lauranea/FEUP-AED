@@ -17,7 +17,6 @@ void Scheduler::initialize()
     students_classes_v = read.read_students_classes();
 
     initialize_all_ucs_classes();
-    initialize_class_horarios2();
     initialize_ocupation();
 }
 
