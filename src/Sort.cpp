@@ -22,6 +22,7 @@ bool sortAlphabetically(pair<string, string> s1, pair<string, string> s2)
 /**
  * @brief
  * ordena por ordem dos códigos dos alunos
+ * complexidade: nlogn
  * @param s1 par composto de (nome do aluno, codigo do aluno)
  * @param s2
  * @return true se o código do aluno s1 for menor que o código do auno s2

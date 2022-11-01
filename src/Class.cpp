@@ -75,7 +75,7 @@ void Class::get_students(string classcode)
 /**
  * @brief
  * cria um vetor com o UCcode, o dia da semana, a que horas começa, quanto tempo dura, e o tipo;
- * cria vetores para os dias da semana, espaços vazios, separações, UCcode e o tipo;
+ * cria um vetor para cada dia da semana com: espaços vazios, "-", UCcode e o tipo;
  * Imprime no terminal o horario de uma class;
  * Complexidade: n
  * @param classcode

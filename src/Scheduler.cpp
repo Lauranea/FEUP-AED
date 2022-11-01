@@ -11,6 +11,10 @@
 
 int CAP = 30;
 
+/**
+ * @brief 
+ * inicializa vetores e cria vetores a partir da leitura de ficheiros  
+ */
 void Scheduler::initialize()
 {
     Read read;
@@ -22,6 +26,11 @@ void Scheduler::initialize()
     initialize_ocupation();
 }
 
+/**
+ * @brief 
+ * cria um vetor com todas as turmas
+ * Complexidade: n
+ */
 void Scheduler::initialize_all_ucs_classes()
 {
     int current_uc_index = -1;
@@ -159,6 +168,11 @@ vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
     return a;
 }
 
+/**
+ * @brief 
+ * inicializa o vetor ocupation com a ocupação das turmas por UC;
+ * Complexidade: n*nlogn
+ */
 void Scheduler::initialize_ocupation()
 {
     for (int i = 0; i < classes_per_uc_v.size(); i++)
@@ -199,6 +213,16 @@ void Scheduler::initialize_ocupation()
     }
 }
 
+/**
+ * @brief 
+ * Remove um aluno de uma UC;
+ * Complexidade: n*m
+ * @param studentcode 
+ * @param uccode 
+ * @param classcode 
+ * @return true remove um aluno de uma UC
+ * @return false nao conseguiu remover o aluno de uma UC
+ */
 bool Scheduler::remove_uc_class(string studentcode, string uccode, string classcode)
 {
     auto it = remove_if(students_classes_v.begin(), students_classes_v.end(), [uccode, classcode, studentcode](students_classes r) { return (r.UcCode == uccode && r.ClassCode == classcode && (r.StudentCode == studentcode || r.StudentName == studentcode)); });
@@ -218,6 +242,14 @@ bool Scheduler::remove_uc_class(string studentcode, string uccode, string classc
     return false;
 }
 
+/**
+ * @brief 
+ * 
+ * @param uccode 
+ * @param classcode 
+ * @return true 
+ * @return false 
+ */
 bool Scheduler::is_balanced(string uccode, string classcode)
 {
     auto o = ocupation_v[uccode];
@@ -308,6 +340,16 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
     return false;
 }
 
+/**
+ * @brief 
+ * 
+ * @param studentcode 
+ * @param uccode 
+ * @param classcode 
+ * @param newclasscode 
+ * @return true 
+ * @return false 
+ */
 bool Scheduler::change_class(string studentcode, string uccode, string classcode, string newclasscode)
 {
     if (!is_valid_uc_class(uccode, newclasscode))
@@ -348,6 +390,10 @@ bool Scheduler::change_class(string studentcode, string uccode, string classcode
     return false;
 }
 
+/**
+ * @brief 
+ * 
+ */
 void Scheduler::ocupation()
 {
     for (auto o : ocupation_v)
@@ -360,6 +406,14 @@ void Scheduler::ocupation()
     }
 }
 
+/**
+ * @brief 
+ * 
+ * @param uccode 
+ * @param classcode 
+ * @return true 
+ * @return false 
+ */
 bool Scheduler::is_valid_uc_class(string uccode, string classcode)
 {
     for (int i = 0; i < classes_per_uc_v.size(); i++)
@@ -372,6 +426,13 @@ bool Scheduler::is_valid_uc_class(string uccode, string classcode)
     return false;
 }
 
+/**
+ * @brief 
+ * 
+ * @param uccode 
+ * @return true 
+ * @return false 
+ */
 bool Scheduler::is_valid_uc(string uccode)
 {
     for (int i = 0; i < ucs_classes_v.size(); i++)
@@ -384,6 +445,13 @@ bool Scheduler::is_valid_uc(string uccode)
     return false;
 }
 
+/**
+ * @brief 
+ * 
+ * @param classcode 
+ * @return true 
+ * @return false 
+ */
 bool Scheduler::is_valid_class(string classcode)
 {
     if (all_classes_v.find(classcode) != all_classes_v.end())
@@ -393,6 +461,16 @@ bool Scheduler::is_valid_class(string classcode)
     return false;
 }
 
+/**
+ * @brief 
+ * 
+ * @param studentcode 
+ * @param uc 
+ * @param oldclass 
+ * @param newclass 
+ * @return true 
+ * @return false 
+ */
 bool Scheduler::is_valid_schedule_change(string studentcode, string uc, string oldclass, string newclass)
 {
     vector<pair<string, string>> student_ucs_classes_v;

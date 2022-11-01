@@ -19,6 +19,13 @@ Write::Write(Scheduler &new_s) : s(new_s)
 {
 }
 
+/**
+ * @brief 
+ * Abre o ficheiro se ele existir, escreve num ficheiro novo o vetor com nome do estudante, codigo,UC e class. Apaga o ficheiro antereior e da rename ao novo com o mesmo nome;
+ * Complexidade: n
+ * @return true 
+ * @return false se o ficheiro nao existir
+ */
 bool Write::write()
 {
     ofstream fo;
