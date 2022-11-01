@@ -478,7 +478,7 @@ bool Scheduler::is_valid_uc(string uccode)
 /**
  * @brief 
  * Verifica se a turma existe:
- * Complexidade: 1
+ * Complexidade: logn
  * @param classcode 
  * @return true se a turma existe
  * @return false se a turma não existe
