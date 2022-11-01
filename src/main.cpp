@@ -90,6 +90,8 @@ void test(Scheduler &s, bool keep)
     queue<request> t;
 
     // "add/remove/change", "student name/code", "UC", "Class", "New class (only for changing)"
+    cout << BOLDWHITE << "ADD TESTS" << endl;
+
     t.push({"add", "Iara", "L.EIC001", "1LEIC01", ""}); //Failed add (Overlap)
     t.push({"add", "Ronaldo", "L.EIC011", "2LEIC11", ""}); //Failed add (Unbalanced)
     t.push({"add", "Ronaldo", "L.EIC001", "1LEIC01", ""}); //Successful add name
@@ -97,10 +99,20 @@ void test(Scheduler &s, bool keep)
     t.push({"add", "202044867", "L.EIC003", "1LEIC06", ""}); //Failed add (Overlap) 2LEIC05,L.EIC015
     t.push({"add", "202044782", "L.EIC005", "1LEIC12", ""}); //Successful add code 
     t.push({"add", "Telmo", "L.EIC005", "1LEIC15", ""}); //Successful add name
+    process_requests(s, t);
+    queue<request>().swap(t);
+
+    cout << BOLDWHITE << endl << "CHANGE TESTS" << endl;
+
     t.push({"change", "202044017", "L.EIC014", "2LEIC05", "2LEIC11"}); //Failed change (Not in class)
     t.push({"change", "Telmo", "L.EIC012","2LEIC03","2LEIC05"}); //Failed change (Overlap) L.EIC011,2LEIC03
     t.push({"change", "202044017", "L.EIC014", "2LEIC03", "2LEIC07"}); //Failed change (Unbalanced)
     t.push({"change", "202044017", "L.EIC014", "2LEIC03", "2LEIC11"}); //Sucessful change code
+    process_requests(s, t);
+    queue<request>().swap(t);
+
+    cout << BOLDWHITE << endl << "REMOVE TESTS" << endl;
+
     t.push({"remove", "Ronaldo", "L.EIC014","2LEIC15", ""}); //Sucessful remove name
     t.push({"remove", "202028972","L.EIC012","2LEIC12",""}); //Sucessful remove code
     t.push({"remove", "Rosario", "L.EIC014", "2LEIC09", ""}); //Failed remove (wrong class)
