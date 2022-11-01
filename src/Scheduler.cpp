@@ -303,6 +303,7 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
             if (students_classes_v[i].UcCode == uccode && students_classes_v[i].ClassCode == classcode)
             {
                 can_add = false;
+                break;
             }
         }
         else if (students_classes_v[i].StudentName == studentcode)
@@ -312,6 +313,7 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
             if (students_classes_v[i].UcCode == uccode && students_classes_v[i].ClassCode == classcode)
             {
                 can_add = false;
+                break;
             }
         }
     }
