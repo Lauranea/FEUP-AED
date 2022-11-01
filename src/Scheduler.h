@@ -44,7 +44,7 @@ class Scheduler
     vector<classes_per_uc> classes_per_uc_v;
     vector<classes> classes_v;
     vector<students_classes> students_classes_v;
-    vector<string> all_classes_v;
+    set<string> all_classes_v;
     vector<pair<string, vector<string>>> ucs_classes_v;
     map<string, vector<pair<string, int>>> ocupation_v;
 };

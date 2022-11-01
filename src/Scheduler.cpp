@@ -36,18 +36,8 @@ void Scheduler::initialize_all_ucs_classes()
         {
             ucs_classes_v[current_uc_index].second.push_back(classes_per_uc_v[i].ClassCode);
         }
-        bool add = true;
-        for (int j = 0; j < all_classes_v.size(); j++)
-        {
-            if (classes_per_uc_v[i].ClassCode == all_classes_v[j])
-            {
-                add = false;
-            }
-        }
-        if (add)
-        {
-            all_classes_v.push_back(classes_per_uc_v[i].ClassCode);
-        }
+        
+        all_classes_v.insert(classes_per_uc_v[i].ClassCode);
     }
 }
 
@@ -400,12 +390,9 @@ bool Scheduler::is_valid_uc(string uccode)
 
 bool Scheduler::is_valid_class(string classcode)
 {
-    for (int i = 0; i < all_classes_v.size(); i++)
+    if (all_classes_v.find(classcode) != all_classes_v.end())
     {
-        if (all_classes_v[i] == classcode)
-        {
-            return true;
-        }
+        return true;
     }
     return false;
 }
