@@ -77,6 +77,15 @@ queue<request> process_requests(Scheduler &s, queue<request> q)
     return q_fail;
 }
 
+void test(Scheduler &s)
+{
+    cout << "\nTesting..." << endl << endl;
+    queue<request> t;
+    t.push({"add", "Ronaldo", "L.EIC011", "", "2LEIC11"});
+
+    process_requests(s, t);
+}
+
 int main(int argc, char **argv)
 {
     Scheduler s;
@@ -91,10 +100,6 @@ int main(int argc, char **argv)
     Class class_(s);
 
     Write write(s);
-
-    cout << "Teste 1" << endl;
-    bool okes = s.is_valid_schedule_change("Ronaldo", "L.EIC011", "", "2LEIC11");
-    cout << okes << endl << "Fim Teste 1" << endl;
 
     while (true)
     {
@@ -383,6 +388,10 @@ int main(int argc, char **argv)
         else if (r == ":q!") // Quit
         {
             return 0;
+        }
+        else if (r == ":t") // Quit
+        {
+            test(s);
         }
         else
         {
