@@ -82,7 +82,7 @@ queue<request> process_requests(Scheduler &s, queue<request> q)
     return q_fail;
 }
 
-void test(Scheduler &s)
+void test(Scheduler &s, bool keep)
 {
     vector<students_classes> tmp = s.students_classes_v;
     
@@ -93,9 +93,13 @@ void test(Scheduler &s)
     t.push({"add", "Iara", "L.EIC001", "1LEIC01", ""});
     t.push({"add", "Ronaldo", "L.EIC011", "2LEIC11", ""});
     t.push({"add", "Ronaldo", "L.EIC001", "1LEIC01", ""});
+    t.push({"remove", "Ronaldo", "L.EIC014", "2LEIC15", ""});
 
     process_requests(s, t);
-    s.students_classes_v = tmp;
+    if (!keep)
+    {
+        s.students_classes_v = tmp;
+    }
 }
 
 int main(int argc, char **argv)
@@ -401,9 +405,13 @@ int main(int argc, char **argv)
         {
             return 0;
         }
-        else if (r == ":test") // Quit
+        else if (r == ":test") // Test
         {
-            test(s);
+            test(s, false);
+        }
+        else if (r == ":testkeep") // Test and Keep
+        {
+            test(s, true);
         }
         else
         {
