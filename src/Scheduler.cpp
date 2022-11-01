@@ -56,6 +56,12 @@ vector<pair<string, int>> c = {{"8", 0}, {"8.5", 2}, {"9", 4}, {"9.5", 6}, {"10"
 
 map<string, int> d = {{"Monday", 0}, {"Tuesday", 1}, {"Wednesday", 2}, {"Thursday", 3}, {"Friday", 4}};
 
+/**
+ * @brief 
+ * 
+ * @param p 
+ * @return vector<vector<string>> 
+ */
 vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
 {
     vector<vector<string>> a = {{"           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ", "           ",
@@ -220,7 +226,7 @@ void Scheduler::initialize_ocupation()
  * @param studentcode 
  * @param uccode 
  * @param classcode 
- * @return true remove um aluno de uma UC
+ * @return true remove um aluno de uma UC e turma 
  * @return false nao conseguiu remover o aluno de uma UC
  */
 bool Scheduler::remove_uc_class(string studentcode, string uccode, string classcode)
@@ -244,11 +250,12 @@ bool Scheduler::remove_uc_class(string studentcode, string uccode, string classc
 
 /**
  * @brief 
- * 
+ * verifica se as turmas ficam equilibradas com a troca pedida;
+ * Complexidade: n
  * @param uccode 
  * @param classcode 
- * @return true 
- * @return false 
+ * @return true permite a troca de turma
+ * @return false nao permite a troca de turma
  */
 bool Scheduler::is_balanced(string uccode, string classcode)
 {
@@ -273,6 +280,17 @@ bool Scheduler::is_balanced(string uccode, string classcode)
     return true;
 }
 
+/**
+ * @brief 
+ * verifica se a uc e valida, se a troca de turma nao provoca desiquilibrios e se não se sobrepõem aulas no horario do aluno;
+ * verifica se e possivel adicionar(se já nao pertence a turma);
+ * Complexidade: n
+ * @param studentcode 
+ * @param uccode 
+ * @param classcode 
+ * @return adiciona um aluno a uma UC e turma  
+ * @return false ou a uc nao e valida, ou a troca prova desiquilibrio, ou iria ter aulas sobrepostas ou 
+ */
 bool Scheduler::add_to(string studentcode, string uccode, string classcode)
 {
     if (!is_valid_uc_class(uccode, classcode))
@@ -372,7 +390,7 @@ bool Scheduler::change_class(string studentcode, string uccode, string classcode
 
     for (int i = 0; i < students_classes_v.size(); i++)
     {
-        if (students_classes_v[i].UcCode == uccode && (students_classes_v[i].StudentCode == studentcode || students_classes_v[i].StudentName == studentcode) && students_classes_v[i].ClassCode == classcode)
+        if (students_classes_v[i].UcCode == uccode && (students_classes_v[i].StudentCode == studentcode || students_classes_v[i].StudentName == studentcode))
         {
             students_classes_v[i].ClassCode = newclasscode;
             for (int i = 0; i < ocupation_v[uccode].size(); i++)
