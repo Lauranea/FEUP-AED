@@ -113,7 +113,7 @@ int main(int argc, char **argv)
                     cout << "---\nUC Code (ex: L.EIC001):" << endl << endl;
                     string code;
                     cin >> code;
-                    while (!student.validuc(code, s.ucs_classes_v))
+                    while (!s.is_valid_uc(code))
                     {
                         cout << RED << "---\nInvalid UC Code." << RESET << endl;
                         cin >> code;
@@ -135,7 +135,7 @@ int main(int argc, char **argv)
                     cout << "---\nUC Code (ex: L.EIC001):" << endl << endl;
                     string code;
                     cin >> code;
-                    while (!student.validuc(code, s.ucs_classes_v))
+                    while (!s.is_valid_uc(code))
                     {
                         cout << RED << "---\nInvalid UC Code." << RESET << endl;
                         cin >> code;
@@ -147,7 +147,7 @@ int main(int argc, char **argv)
                     cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
                     string code;
                     cin >> code;
-                    while (!student.validclass2(code, s.all_classes_v))
+                    while (!s.is_valid_class(code))
                     {
                         cout << RED << "---\nInvalid Class Code." << RESET << endl;
                         cin >> code;
@@ -169,7 +169,7 @@ int main(int argc, char **argv)
                     cout << "---\nClass Code (ex: 1LEIC01):" << endl << endl;
                     string code;
                     cin >> code;
-                    while (!student.validclass2(code, s.all_classes_v))
+                    while (!s.is_valid_class(code))
                     {
                         cout << RED << "---\nInvalid Class Code." << RESET << endl;
                         cin >> code;

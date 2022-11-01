@@ -26,9 +26,6 @@ class Student
   public:
     Student(Scheduler &s);
     void get_schedule(string studentcode);
-    bool validclass(string classer, string uc, vector<pair<string, vector<string>>> classes);
-    bool validuc(string uc, vector<pair<string, vector<string>>> ucs);
-    bool validclass2(string classer, vector<string> classes);
 };
 
 #endif
