@@ -11,10 +11,24 @@
 
 list<string> jpvds;
 
+/**
+ * @brief 
+ * Construtor de new Student:: Student object
+ * 
+ * @param new_s referência do scheduler
+ */
 Student::Student(Scheduler &new_s) : s(new_s)
 {
 }
 
+/**
+ * @brief 
+ * cria um vetor com o UCcode, o dia da semana, a que horas começa, quanto tempo dura, e o tipo;
+ * cria vetores para os dias da semana, espaços vazios, separações, UCcode e o tipo;
+ * Imprime no terminal o horario de um aluno;
+ * Complexidade: n
+ * @param studentcode 
+ */
 void Student::get_schedule(string studentcode)
 {
     cout << RESET << "---\nSchedule from Student " << studentcode << ":" << endl << endl;

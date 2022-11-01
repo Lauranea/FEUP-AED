@@ -1,6 +1,6 @@
 /**
  * @file Write.cpp
- * {COMPLETAR}
+ * Funções para reescrever ficheiros
  */
 
 #include "Write.h"
@@ -9,6 +9,12 @@
 #define RESET "\033[0m"
 #define RED "\033[31m"
 
+/**
+ * @brief 
+ * Construtor de new Write:: Write object
+ * 
+ * @param new_s referência do scheduler
+ */
 Write::Write(Scheduler &new_s) : s(new_s)
 {
 }

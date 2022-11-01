@@ -1,3 +1,8 @@
+/**
+ * @file main.cpp
+ * Inicializa todas as classes, da end do input e do output e processa os pedidos de trocas de turma
+ */
+
 #include <iostream>
 
 #include "Class.h"

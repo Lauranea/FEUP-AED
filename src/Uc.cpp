@@ -9,6 +9,12 @@
 
 using namespace std;
 
+/**
+ * @brief 
+ * Construtor de new Uc:: Uc object
+ * 
+ * @param new_s referência do scheduler
+ */
 Uc::Uc(Scheduler &new_s) : s(new_s)
 {
 }
