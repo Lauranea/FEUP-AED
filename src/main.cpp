@@ -83,8 +83,11 @@ void test(Scheduler &s)
     
     cout << "\nTesting..." << endl << endl;
     queue<request> t;
-    
-    t.push({"add", "Ronaldo", "L.EIC011", "", "2LEIC11"});
+
+    // "add/remove/change", "student name/code", "UC", "Class", "New class (only for changing)"
+    t.push({"add", "Iara", "L.EIC001", "1LEIC01", ""});
+    t.push({"add", "Ronaldo", "L.EIC011", "2LEIC11", ""});
+    t.push({"add", "Ronaldo", "L.EIC001", "1LEIC01", ""});
 
     process_requests(s, t);
     s.students_classes_v = tmp;
