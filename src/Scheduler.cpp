@@ -312,17 +312,17 @@ bool Scheduler::change_class(string studentcode, string uccode, string classcode
 {
     if (!is_valid_uc_class(uccode, newclasscode))
     {
-        cout << RED << "\nInvalid UC / Class combination" << RESET << endl;
+        cout << RED << "Invalid UC / Class combination - ";
         return false;
     }
     if (!is_balanced(uccode, newclasscode))
     {
-        cout << RED << "\nClasses would be unbalanced" << RESET << endl;
+        cout << RED << "Classes would be unbalanced - ";
         return false;
     }
     if (!is_valid_schedule_change(studentcode, uccode, classcode, newclasscode))
     {
-        cout << RED << "\nOverlapping classes" << RESET << endl;
+        cout << RED << "Overlapping classes - ";
         return false;
     }
 
