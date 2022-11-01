@@ -178,7 +178,7 @@ vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
 /**
  * @brief 
  * inicializa o vetor ocupation com a ocupação das turmas por UC;
- * Complexidade: n*nlogn
+ * Complexidade: n*nlogn (nlogn vem da binary search)
  */
 void Scheduler::initialize_ocupation()
 {
@@ -223,7 +223,7 @@ void Scheduler::initialize_ocupation()
 /**
  * @brief 
  * Remove um aluno de uma UC;
- * Complexidade: n*m
+ * Complexidade: n(remove_if)*m
  * @param studentcode 
  * @param uccode 
  * @param classcode 
@@ -413,7 +413,8 @@ bool Scheduler::change_class(string studentcode, string uccode, string classcode
 
 /**
  * @brief 
- * 
+ * Da cout da ocupação;
+ * Complexidade: n * m
  */
 void Scheduler::ocupation()
 {
@@ -429,11 +430,12 @@ void Scheduler::ocupation()
 
 /**
  * @brief 
- * 
+ * Verifica se turma existe dentro da UC;
+ * Complexidade: n
  * @param uccode 
  * @param classcode 
- * @return true 
- * @return false 
+ * @return true a turma existe 
+ * @return false a turma não existe
  */
 bool Scheduler::is_valid_uc_class(string uccode, string classcode)
 {
@@ -449,10 +451,11 @@ bool Scheduler::is_valid_uc_class(string uccode, string classcode)
 
 /**
  * @brief 
- * 
+ * Verifica se a UC existe;
+ * Complexidade: n
  * @param uccode 
- * @return true 
- * @return false 
+ * @return true se a UC existe
+ * @return false se a UC não existe
  */
 bool Scheduler::is_valid_uc(string uccode)
 {
@@ -468,10 +471,11 @@ bool Scheduler::is_valid_uc(string uccode)
 
 /**
  * @brief 
- * 
+ * Verifica se a turma existe:
+ * Complexidade: 1
  * @param classcode 
- * @return true 
- * @return false 
+ * @return true se a turma existe
+ * @return false se a turma não existe
  */
 bool Scheduler::is_valid_class(string classcode)
 {
@@ -484,13 +488,14 @@ bool Scheduler::is_valid_class(string classcode)
 
 /**
  * @brief 
- * 
+ * Verifica se há para sobreposições com a troca de turma de aulas que não sejam do tipo T;
+ * Complexidade: n* m
  * @param studentcode 
  * @param uc 
  * @param oldclass 
  * @param newclass 
- * @return true 
- * @return false 
+ * @return true nao há sobreposiçôes, ou as sobreposiçôes for entre uma aula do tipo T e outra
+ * @return false há sobreposiçôes
  */
 bool Scheduler::is_valid_schedule_change(string studentcode, string uc, string oldclass, string newclass)
 {
