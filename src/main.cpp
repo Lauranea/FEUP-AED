@@ -79,11 +79,15 @@ queue<request> process_requests(Scheduler &s, queue<request> q)
 
 void test(Scheduler &s)
 {
+    vector<students_classes> tmp = s.students_classes_v;
+    
     cout << "\nTesting..." << endl << endl;
     queue<request> t;
+    
     t.push({"add", "Ronaldo", "L.EIC011", "", "2LEIC11"});
 
     process_requests(s, t);
+    s.students_classes_v = tmp;
 }
 
 int main(int argc, char **argv)
@@ -389,7 +393,7 @@ int main(int argc, char **argv)
         {
             return 0;
         }
-        else if (r == ":t") // Quit
+        else if (r == ":test") // Quit
         {
             test(s);
         }
