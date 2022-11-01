@@ -9,6 +9,8 @@
 #define BOLDWHITE "\033[1m\033[37m"
 #define RED "\033[31m"
 
+int CAP = 30;
+
 void Scheduler::initialize()
 {
     Read read;
@@ -218,29 +220,23 @@ bool Scheduler::remove_uc_class(string studentcode, string uccode, string classc
 
 bool Scheduler::is_balanced(string uccode, string classcode)
 {
-    for (auto o : ocupation_v)
+    auto o = ocupation_v[uccode];
+    int min = INT_MAX;
+    int cur = 0;
+    for (int j = 0; j < o.size(); j++)
     {
-        if (o.first == uccode)
+        if (o[j].second < min)
         {
-            int min = INT_MAX;
-            int cur = 0;
-            for (int j = 0; j < o.second.size(); j++)
-            {
-                if (o.second[j].second < min)
-                {
-                    min = o.second[j].second;
-                }
-                if (o.second[j].first == classcode)
-                {
-                    cur = o.second[j].second;
-                }
-            }
-            if (cur + 1 - min >= 4)
-            {
-                return false;
-            }
-            break;
+            min = o[j].second;
         }
+        if (o[j].first == classcode)
+        {
+            cur = o[j].second;
+        }
+    }
+    if (cur + 1 - min >= 4 && cur < CAP)
+    {
+        return false;
     }
     return true;
 }
