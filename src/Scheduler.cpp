@@ -418,12 +418,18 @@ bool Scheduler::change_class(string studentcode, string uccode, string classcode
  */
 void Scheduler::ocupation()
 {
+    cout << BOLDWHITE << endl << "All UCs: all\nSpecific UC: L.EIC___" << endl << endl;
+    string ci;
+    cin >> ci;
     for (auto o : ocupation_v)
     {
-        cout << BOLDWHITE << endl << o.first << RESET << endl;
-        for (int j = 0; j < o.second.size(); j++)
+        if (ci == "all" || ci == o.first)
         {
-            cout << o.second[j].first << " - " << o.second[j].second << endl;
+            cout << BOLDWHITE << endl << o.first << RESET << endl;
+            for (int j = 0; j < o.second.size(); j++)
+            {
+                cout << o.second[j].first << " - " << o.second[j].second << endl;
+            }
         }
     }
 }
