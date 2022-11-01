@@ -201,7 +201,7 @@ int main(int argc, char **argv)
         }
         else if (r == "2") // Request
         {
-            cout << "---\n1 - Remove Student\n2 - Add Student\n3 - Change Student" << endl << endl;
+            cout << "---\n1 - Remove Student from UC\n2 - Add Student to UC\n3 - Change Student's Class" << endl << endl;
             cin >> r;
             if (r == "1") // Remove student
             {
