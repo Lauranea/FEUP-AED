@@ -413,7 +413,7 @@ bool Scheduler::change_class(string studentcode, string uccode, string classcode
 
 /**
  * @brief 
- * Da cout da ocupação;
+ * Da cout da ocupação de alunos de todas as turmas ou de todas as UCs ou de uma UC;
  * Complexidade: n * m
  */
 void Scheduler::ocupation()
