@@ -90,10 +90,22 @@ void test(Scheduler &s, bool keep)
     queue<request> t;
 
     // "add/remove/change", "student name/code", "UC", "Class", "New class (only for changing)"
+<<<<<<< Updated upstream
     t.push({"add", "Iara", "L.EIC001", "1LEIC01", ""});
     t.push({"add", "Ronaldo", "L.EIC011", "2LEIC11", ""});
     t.push({"add", "Ronaldo", "L.EIC001", "1LEIC01", ""});
     t.push({"remove", "Ronaldo", "L.EIC014", "2LEIC15", ""});
+=======
+    t.push({"add", "Iara", "L.EIC001", "1LEIC01", ""}); //Failed add (Overlap)
+    t.push({"add", "Ronaldo", "L.EIC011", "2LEIC11", ""}); //Failed add (Unbalanced)
+    t.push({"add", "Ronaldo", "L.EIC001", "1LEIC01", ""}); //Successful add name
+    t.push({"add", "Ronaldo", "L.EIC024", "3LEIC03", ""}); //Failed add (Unbalanced)
+    t.push({"add", "202044867", "L.EIC003", "1LEIC06", ""}); //Failed add (Overlap) 2LEIC05,L.EIC015
+    t.push({"add", "202044782", "L.EIC005", "1LEIC12", ""}); //Successful add code
+    t.push({"add", "Telmo", "L.EIC005", "1LEIC15", ""}); //Successful add name
+    t.push({"change", "Telmo", "L.EIC012","2LEIC03","2LEIC05"}); //Sucessful change name
+    //t.push({"change"})
+>>>>>>> Stashed changes
 
     process_requests(s, t);
     if (!keep)
