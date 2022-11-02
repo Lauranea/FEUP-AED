@@ -58,8 +58,9 @@ map<string, int> d = {{"Monday", 0}, {"Tuesday", 1}, {"Wednesday", 2}, {"Thursda
 
 /**
  * @brief 
- * 
- * @param p 
+ * cria um vetor que vai ser modificado com separadores de acordo com a duração da aula e quando começa, o UCcode, a Class, e o tipo;
+ * Complexidade: n *m(aonde m é ou 3 ou 5 ou 7)
+ * @param p vetor com a UCcode, a turma, o dia da semana, a hora a que começa, a duração e o tipo
  * @return vector<vector<string>> 
  */
 vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
@@ -177,7 +178,7 @@ vector<vector<string>> Scheduler::schedule(vector<vector<string>> p)
 /**
  * @brief 
  * inicializa o vetor ocupation com a ocupação das turmas por UC;
- * Complexidade: n*nlogn
+ * Complexidade: n*nlogn (nlogn vem da binary search)
  */
 void Scheduler::initialize_ocupation()
 {
@@ -222,7 +223,7 @@ void Scheduler::initialize_ocupation()
 /**
  * @brief 
  * Remove um aluno de uma UC;
- * Complexidade: n*m
+ * Complexidade: n(remove_if)*m
  * @param studentcode 
  * @param uccode 
  * @param classcode 
@@ -282,14 +283,14 @@ bool Scheduler::is_balanced(string uccode, string classcode)
 
 /**
  * @brief 
- * verifica se a uc e valida, se a troca de turma nao provoca desiquilibrios e se não se sobrepõem aulas no horario do aluno;
+ * verifica se a uc e valida, se a de turma nao provoca desiquilibrios e se não se sobrepõem aulas no horario do aluno;
  * verifica se e possivel adicionar(se já nao pertence a turma);
  * Complexidade: n
  * @param studentcode 
  * @param uccode 
  * @param classcode 
  * @return adiciona um aluno a uma UC e turma  
- * @return false ou a uc nao e valida, ou a troca prova desiquilibrio, ou iria ter aulas sobrepostas ou 
+ * @return false ou a uc nao e valida, ou a adição prova desiquilibrio, ou iria ter aulas sobrepostas ou 
  */
 bool Scheduler::add_to(string studentcode, string uccode, string classcode)
 {
@@ -321,7 +322,6 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
             if (students_classes_v[i].UcCode == uccode && students_classes_v[i].ClassCode == classcode)
             {
                 can_add = false;
-                break;
             }
         }
         else if (students_classes_v[i].StudentName == studentcode)
@@ -331,7 +331,6 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
             if (students_classes_v[i].UcCode == uccode && students_classes_v[i].ClassCode == classcode)
             {
                 can_add = false;
-                break;
             }
         }
     }
@@ -362,13 +361,15 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
 
 /**
  * @brief 
- * 
+ * verifica se a uc e valida, se a troca de turma nao provoca desiquilibrios e se não se sobrepõem aulas no horario do aluno;
+ * troca o aluno de turma;
+ * Complexidade: n*m
  * @param studentcode 
  * @param uccode 
- * @param classcode 
- * @param newclasscode 
- * @return true 
- * @return false 
+ * @param classcode turma aonde o aluno está inscrito
+ * @param newclasscode turma para que o aluno quer mudar
+ * @return true troca o aluno de turma
+ * @return false nao foi possível trocar o aluno de turma
  */
 bool Scheduler::change_class(string studentcode, string uccode, string classcode, string newclasscode)
 {
@@ -413,27 +414,35 @@ bool Scheduler::change_class(string studentcode, string uccode, string classcode
 
 /**
  * @brief 
- * 
+ * Da cout da ocupação de alunos de todas as turmas ou de todas as UCs ou de uma UC;
+ * Complexidade: n * m
  */
 void Scheduler::ocupation()
 {
+    cout << BOLDWHITE << endl << "All UCs: all\nSpecific UC: L.EIC___" << endl << endl;
+    string ci;
+    cin >> ci;
     for (auto o : ocupation_v)
     {
-        cout << BOLDWHITE << endl << o.first << RESET << endl;
-        for (int j = 0; j < o.second.size(); j++)
+        if (ci == "all" || ci == o.first)
         {
-            cout << o.second[j].first << " - " << o.second[j].second << endl;
+            cout << BOLDWHITE << endl << o.first << RESET << endl;
+            for (int j = 0; j < o.second.size(); j++)
+            {
+                cout << o.second[j].first << " - " << o.second[j].second << endl;
+            }
         }
     }
 }
 
 /**
  * @brief 
- * 
+ * Verifica se turma existe dentro da UC;
+ * Complexidade: n
  * @param uccode 
  * @param classcode 
- * @return true 
- * @return false 
+ * @return true a turma existe 
+ * @return false a turma não existe
  */
 bool Scheduler::is_valid_uc_class(string uccode, string classcode)
 {
@@ -449,10 +458,11 @@ bool Scheduler::is_valid_uc_class(string uccode, string classcode)
 
 /**
  * @brief 
- * 
+ * Verifica se a UC existe;
+ * Complexidade: n
  * @param uccode 
- * @return true 
- * @return false 
+ * @return true se a UC existe
+ * @return false se a UC não existe
  */
 bool Scheduler::is_valid_uc(string uccode)
 {
@@ -468,10 +478,11 @@ bool Scheduler::is_valid_uc(string uccode)
 
 /**
  * @brief 
- * 
+ * Verifica se a turma existe:
+ * Complexidade: logn
  * @param classcode 
- * @return true 
- * @return false 
+ * @return true se a turma existe
+ * @return false se a turma não existe
  */
 bool Scheduler::is_valid_class(string classcode)
 {
@@ -484,13 +495,14 @@ bool Scheduler::is_valid_class(string classcode)
 
 /**
  * @brief 
- * 
+ * Verifica se há para sobreposições com a troca de turma de aulas que não sejam do tipo T;
+ * Complexidade: n* m
  * @param studentcode 
  * @param uc 
  * @param oldclass 
  * @param newclass 
- * @return true 
- * @return false 
+ * @return true nao há sobreposiçôes, ou as sobreposiçôes for entre uma aula do tipo T e outra
+ * @return false há sobreposiçôes
  */
 bool Scheduler::is_valid_schedule_change(string studentcode, string uc, string oldclass, string newclass)
 {

@@ -23,6 +23,15 @@ using namespace std;
 
 bool can_exit_clean = true;
 
+/**
+ * @brief 
+ * Adiciona os pedidos de troca, adição e remoção de uma turma ou UC a uma queue;
+ * Efetua as mudanças se possível, caso não seja possível adiciona a outra queue;
+ * Complexidade: n(tamanho da queue)
+ * @param s referência do scheduler
+ * @param q queue com os pedidos
+ * @return queue<request> 
+ */
 queue<request> process_requests(Scheduler &s, queue<request> q)
 {
     if (!q.empty())
@@ -82,6 +91,12 @@ queue<request> process_requests(Scheduler &s, queue<request> q)
     return q_fail;
 }
 
+/**
+ * @brief 
+ * Testes para verificação e demostração do programa;
+ * @param s 
+ * @param keep 
+ */
 void test(Scheduler &s, bool keep)
 {
     vector<students_classes> tmp = s.students_classes_v;
@@ -129,6 +144,19 @@ void test(Scheduler &s, bool keep)
     }
 }
 
+/**
+ * @brief 
+ * Imprime as opções para o utilizador escolher( view, request, process request);
+ * Utiliza comandos vim para guardar e sair;
+ * Lê o input colocado do utilizador, e dependendo dele, imprime mais opções para o utilizador escolher o que pretender;
+ * No view, possibilita a visualização de forma ordenada de turmas, de alunos, da ocupação em UCs e dos horários quer do aluno, quer da Turma;
+ * Em Requests, adiciona os pedidos de remoção, adição ou troca de turma de um aluno a uma queue;
+ * Em Process requests, da para ou ver os pedidos, ou processar(aonde processa os requests possiveis, e mantem numa queue os que nao foram possiveis);
+ * Complexidade: m(entre 1 (se o utilizador der logo quit) e infinito (se o utilizador continuar a usar o programa))* n
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char **argv)
 {
     Scheduler s;
