@@ -546,27 +546,52 @@ bool Scheduler::is_valid_schedule_change(string studentcode, string uc, string o
     return true;
 }
 
-string Scheduler::unbalanced_changes_checkup(vector<request>& unbalanced_changes_v)
+vector<pair<request, request>> Scheduler::unbalanced_changes_checkup(vector<request>& unbalanced_changes_v)
 {
-    for(int i = 0; i < unbalanced_changes_v.size(); i++)
+    vector<pair<request, request>> answer;
+    while(unbalanced_changes_v.size() > 1)
     {
-        auto it = remove_if(unbalanced_changes_v.begin(), unbalanced_changes_v.end(), [](request r) {return r.uccode})
-        for(int j = 0; j < unbalanced_changes_v.size(); j++)
-        {
-            if(i == j)
+        for(int j = 1; j < unbalanced_changes_v.size(); j++)
+        {   
+            if(unbalanced_changes_v[0].uccode == unbalanced_changes_v[j].uccode)
             {
-                continue;
-            }
-
-            if(unbalanced_changes_v[i].uccode == unbalanced_changes_v[j].uccode)
-            {
-                if(unbalanced_changes_v[i].classcode == unbalanced_changes_v[j].newclasscode || unbalanced_changes_v[i].newclasscode == unbalanced_changes_v[j].classcode)
+                if(unbalanced_changes_v[0].classcode == unbalanced_changes_v[j].newclasscode && unbalanced_changes_v[0].newclasscode == unbalanced_changes_v[j].classcode)
                 {
-                    uncondicional_change_student(unbalanced_changes_v[i], unbalanced_changes_v[j]);
-                    
-                    unbalanced_changes_v
+                    uncondicional_change_student(unbalanced_changes_v[0], unbalanced_changes_v[j]);
+                    unbalanced_changes_v.erase(next(unbalanced_changes_v.begin(), j));
+                    answer.push_back(pair(unbalanced_changes_v[0], unbalanced_changes_v[j]));
+                    break;
                 }
-            }
+            }   
+        }
+        unbalanced_changes_v.erase(unbalanced_changes_v.begin());
+    }
+    if(unbalanced_changes_v.size() == 1)
+    {
+        unbalanced_changes_v.clear();
+    }
+    return answer;
+}
+
+void Scheduler::uncondicional_change_student(request r1, request r2)
+{
+    bool check1 = false;
+    bool check2 = false;
+    for (int i = 0; i < students_classes_v.size(); i++)
+    {
+        if(check1 && check2)
+        {
+            break;
+        }
+        if (students_classes_v[i].StudentCode == r1.student || students_classes_v[i].StudentName == r1.student)
+        {
+            students_classes_v[i].ClassCode = r2.classcode;
+            check1 = true;
+        }
+        else if(students_classes_v[i].StudentCode == r2.student || students_classes_v[i].StudentName == r2.student)
+        {
+            students_classes_v[i].ClassCode = r1.classcode;
+            check2 = true;
         }
     }
 }
