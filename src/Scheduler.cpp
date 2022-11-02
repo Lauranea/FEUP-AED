@@ -380,6 +380,7 @@ bool Scheduler::change_class(string studentcode, string uccode, string classcode
     if (!is_balanced(uccode, newclasscode))
     {
         cout << RED << "Classes would be unbalanced - ";
+        unbalanced_changes_v.push_back({"change", studentcode,uccode ,classcode, newclasscode});
         return false;
     }
     if (!is_valid_schedule_change(studentcode, uccode, classcode, newclasscode))
@@ -531,4 +532,29 @@ bool Scheduler::is_valid_schedule_change(string studentcode, string uc, string o
         }
     }
     return true;
+}
+
+string Scheduler::unbalanced_changes_checkup(vector<request>& unbalanced_changes_v)
+{
+    for(int i = 0; i < unbalanced_changes_v.size(); i++)
+    {
+        auto it = remove_if(unbalanced_changes_v.begin(), unbalanced_changes_v.end(), [](request r) {return r.uccode})
+        for(int j = 0; j < unbalanced_changes_v.size(); j++)
+        {
+            if(i == j)
+            {
+                continue;
+            }
+
+            if(unbalanced_changes_v[i].uccode == unbalanced_changes_v[j].uccode)
+            {
+                if(unbalanced_changes_v[i].classcode == unbalanced_changes_v[j].newclasscode || unbalanced_changes_v[i].newclasscode == unbalanced_changes_v[j].classcode)
+                {
+                    uncondicional_change_student(unbalanced_changes_v[i], unbalanced_changes_v[j]);
+                    
+                    unbalanced_changes_v
+                }
+            }
+        }
+    }
 }

@@ -38,6 +38,8 @@ class Scheduler
     bool is_valid_uc(string uccode);
     bool is_valid_class(string classcode);
     bool is_valid_schedule_change(string studentcode, string uc, string oldclass, string newclass);
+    string unbalanced_changes_checkup(vector<request>& unbalanced_changes_v);
+    void uncondicional_change_student(request r1, request r2);
 
     vector<vector<string>> schedule(vector<vector<string>> p);
 
@@ -47,6 +49,7 @@ class Scheduler
     set<string> all_classes_v;
     vector<pair<string, vector<string>>> ucs_classes_v;
     map<string, vector<pair<string, int>>> ocupation_v;
+    vector<vector<string>> unbalanced_changes_v;
 };
 
 #endif
