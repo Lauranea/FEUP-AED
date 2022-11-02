@@ -371,23 +371,22 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
  * @return true troca o aluno de turma
  * @return false nao foi possível trocar o aluno de turma
  */
-bool Scheduler::change_class(string studentcode, string uccode, string classcode, string newclasscode)
+int Scheduler::change_class(string studentcode, string uccode, string classcode, string newclasscode)
 {
     if (!is_valid_uc_class(uccode, newclasscode))
     {
         cout << RED << "Invalid UC / Class combination - ";
-        return false;
+        return 0;
     }
     if (!is_balanced(uccode, newclasscode))
     {
-        cout << RED << "Classes would be unbalanced - ";
         unbalanced_changes_v.push_back({"change", studentcode,uccode ,classcode, newclasscode});
-        return false;
+        return 2;
     }
     if (!is_valid_schedule_change(studentcode, uccode, classcode, newclasscode))
     {
         cout << RED << "Overlapping classes - ";
-        return false;
+        return 0;
     }
 
     for (int i = 0; i < students_classes_v.size(); i++)
@@ -406,10 +405,10 @@ bool Scheduler::change_class(string studentcode, string uccode, string classcode
                     ocupation_v[uccode][i].second++;
                 }
             }
-            return true;
+            return 1;
         }
     }
-    return false;
+    return 0;
 }
 
 /**
@@ -546,11 +545,12 @@ bool Scheduler::is_valid_schedule_change(string studentcode, string uc, string o
     return true;
 }
 
-vector<pair<request, request>> Scheduler::unbalanced_changes_checkup(vector<request>& unbalanced_changes_v)
+vector<pair<request, request>> Scheduler::unbalanced_changes_checkup(vector<request>& failed)
 {
     vector<pair<request, request>> answer;
     while(unbalanced_changes_v.size() > 1)
     {
+        bool yes = false;
         for(int j = 1; j < unbalanced_changes_v.size(); j++)
         {   
             if(unbalanced_changes_v[0].uccode == unbalanced_changes_v[j].uccode)
@@ -560,14 +560,20 @@ vector<pair<request, request>> Scheduler::unbalanced_changes_checkup(vector<requ
                     uncondicional_change_student(unbalanced_changes_v[0], unbalanced_changes_v[j]);
                     unbalanced_changes_v.erase(next(unbalanced_changes_v.begin(), j));
                     answer.push_back(pair(unbalanced_changes_v[0], unbalanced_changes_v[j]));
+                    yes = true;
                     break;
                 }
-            }   
+            }
+        }
+        if(!yes)
+        {
+            failed.push_back(unbalanced_changes_v[0]);
         }
         unbalanced_changes_v.erase(unbalanced_changes_v.begin());
     }
     if(unbalanced_changes_v.size() == 1)
     {
+        failed.push_back(unbalanced_changes_v[0]);
         unbalanced_changes_v.clear();
     }
     return answer;

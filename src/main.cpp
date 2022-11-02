@@ -70,16 +70,21 @@ queue<request> process_requests(Scheduler &s, queue<request> q)
             }
         }
         else if (q.front().type == "change")
-        {
-            if (s.change_class(q.front().student, q.front().uccode, q.front().classcode, q.front().newclasscode))
+        { 
+            int answer = s.change_class(q.front().student, q.front().uccode, q.front().classcode, q.front().newclasscode);
+            if (answer == 1)
             {
                 cout << GREEN << "Changed student " << q.front().student << " on UC:" << q.front().uccode << " to Class:" << q.front().newclasscode << endl;
                 q.pop();
             }
-            else
+            else if(answer == 0)
             {
                 cout << RED << "Failed to change student " << q.front().student << " on UC:" << q.front().uccode << " to Class:" << q.front().newclasscode << endl;
                 q_fail.push(q.front());
+                q.pop();
+            }
+            else
+            {
                 q.pop();
             }
         }
@@ -87,6 +92,17 @@ queue<request> process_requests(Scheduler &s, queue<request> q)
         {
             q.pop();
         }
+    }
+    vector<request> failed;
+    vector<pair<request, request>> changed = s.unbalanced_changes_checkup(failed);
+    for(auto i : failed)
+    {
+        q_fail.push(i);
+        cout << RED << "Failed to change student " << i.student << " on UC:" << i.uccode << " to Class:" << i.newclasscode << "Classes would be unbalanced" << endl;
+    }
+    for(auto i : changed)
+    {
+        cout << GREEN << "Swapped students " << i.first.student << ", " << i.second.student << "; " << i.first.newclasscode << ", " << i.second.newclasscode << endl;
     }
     return q_fail;
 }
@@ -121,12 +137,13 @@ void test(Scheduler &s, bool keep)
 
     t.push({"change", "202044017", "L.EIC014", "2LEIC05", "2LEIC11"}); //Failed change (Not in class)
     t.push({"change", "Telmo", "L.EIC012","2LEIC03","2LEIC05"}); //Failed change (Overlap) L.EIC011,2LEIC03
-    t.push({"change", "202044017", "L.EIC014", "2LEIC03", "2LEIC07"}); //Failed change (Unbalanced)
+    t.push({"change", "202044017", "L.EIC014", "2LEIC03", "2LEIC07"}); //Successful change (Swapped with Fatima)
     t.push({"change", "202044017", "L.EIC014", "2LEIC03", "2LEIC11"}); //Successful change code
     t.push({"change", "Ronaldo", "L.EIC011", "2LEIC15", "2LEIC04"}); //Successful change name
     t.push({"change", "Ludovico", "L.EIC021","3LEIC04", "3LEIC01"}); //Failed change (Overlap)
     t.push({"change", "202071557", "L.EIC022", "3LEIC02", "3LEIC11"}); //Failed change (Class doesn´t exist)
     t.push({"change", "202071557", "L.EIC022", "3LEIC02", "3LEIC05"}); //Failed change (Unbalanced)
+    t.push({"change", "Fatima", "L.EIC014", "2LEIC07", "2LEIC03"}); //Successful change (Swapped with 202044017)
     process_requests(s, t);
     queue<request>().swap(t);
 
@@ -136,6 +153,7 @@ void test(Scheduler &s, bool keep)
     t.push({"remove", "202028972","L.EIC012","2LEIC12",""}); //Successful remove code
     t.push({"remove", "Rosario", "L.EIC014", "2LEIC09", ""}); //Failed remove (wrong class)
     t.push({"remove", "Rosaria", "L.EIC014", "2LEIC10", ""}); //Failed remove (wrong name)
+    t.push({"remove", "202108717", "L.EIC014", "2LEIC10", ""}); //Failed remove (wrong code)
 
     process_requests(s, t);
     if (!keep)
