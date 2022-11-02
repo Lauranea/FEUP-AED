@@ -557,11 +557,17 @@ vector<pair<request, request>> Scheduler::unbalanced_changes_checkup(vector<requ
             {
                 if(unbalanced_changes_v[0].classcode == unbalanced_changes_v[j].newclasscode && unbalanced_changes_v[0].newclasscode == unbalanced_changes_v[j].classcode)
                 {
-                    uncondicional_change_student(unbalanced_changes_v[0], unbalanced_changes_v[j]);
-                    unbalanced_changes_v.erase(next(unbalanced_changes_v.begin(), j));
-                    answer.push_back(pair(unbalanced_changes_v[0], unbalanced_changes_v[j]));
-                    yes = true;
-                    break;
+                    if(is_valid_uc_class(unbalanced_changes_v[0].uccode, unbalanced_changes_v[0].classcode) && is_valid_uc_class(unbalanced_changes_v[0].uccode, unbalanced_changes_v[0].newclasscode))
+                    {
+                        if(is_valid_schedule_change(unbalanced_changes_v[0].student, unbalanced_changes_v[0].uccode, unbalanced_changes_v[0].classcode, unbalanced_changes_v[0].newclasscode))
+                        {
+                            uncondicional_change_student(unbalanced_changes_v[0], unbalanced_changes_v[j]);
+                            unbalanced_changes_v.erase(next(unbalanced_changes_v.begin(), j));
+                            answer.push_back(pair(unbalanced_changes_v[0], unbalanced_changes_v[j]));
+                            yes = true;
+                            break;
+                        }
+                    }
                 }
             }
         }

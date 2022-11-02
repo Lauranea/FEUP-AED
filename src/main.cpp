@@ -98,11 +98,11 @@ queue<request> process_requests(Scheduler &s, queue<request> q)
     for(auto i : failed)
     {
         q_fail.push(i);
-        cout << RED << "Failed to change student " << i.student << " on UC:" << i.uccode << " to Class:" << i.newclasscode << "Classes would be unbalanced" << endl;
+        cout << RED << "Classes would be unbalanced - " << "Failed to change student " << i.student << " on UC:" << i.uccode << " to Class:" << i.newclasscode << endl;
     }
     for(auto i : changed)
     {
-        cout << GREEN << "Swapped students " << i.first.student << ", " << i.second.student << "; " << i.first.newclasscode << ", " << i.second.newclasscode << endl;
+        cout << GREEN << "Swapped students " << i.first.student << ", " << i.second.student << ": " << "from uc: " << i.first.uccode << " and classes: " <<  i.first.newclasscode << ", " << i.second.newclasscode << endl;
     }
     return q_fail;
 }
