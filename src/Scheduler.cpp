@@ -319,7 +319,7 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
         {
             is_name = false;
             other_code = students_classes_v[i].StudentName;
-            if (students_classes_v[i].UcCode == uccode && students_classes_v[i].ClassCode == classcode)
+            if (students_classes_v[i].UcCode == uccode)
             {
                 can_add = false;
             }
@@ -328,7 +328,7 @@ bool Scheduler::add_to(string studentcode, string uccode, string classcode)
         {
             is_name = true;
             other_code = students_classes_v[i].StudentCode;
-            if (students_classes_v[i].UcCode == uccode && students_classes_v[i].ClassCode == classcode)
+            if (students_classes_v[i].UcCode == uccode)
             {
                 can_add = false;
             }
