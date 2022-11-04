@@ -378,17 +378,16 @@ int Scheduler::change_class(string studentcode, string uccode, string classcode,
         cout << RED << "Invalid UC / Class combination - ";
         return 0;
     }
-    if (!is_balanced(uccode, newclasscode))
-    {
-        unbalanced_changes_v.push_back({"change", studentcode,uccode ,classcode, newclasscode});
-        return 2;
-    }
     if (!is_valid_schedule_change(studentcode, uccode, classcode, newclasscode))
     {
         cout << RED << "Overlapping classes - ";
         return 0;
     }
-
+    if (!is_balanced(uccode, newclasscode))
+    {
+        unbalanced_changes_v.push_back({"change", studentcode,uccode ,classcode, newclasscode});
+        return 2;
+    }
     for (int i = 0; i < students_classes_v.size(); i++)
     {
         if (students_classes_v[i].UcCode == uccode && (students_classes_v[i].StudentCode == studentcode || students_classes_v[i].StudentName == studentcode))
@@ -557,17 +556,11 @@ vector<pair<request, request>> Scheduler::unbalanced_changes_checkup(vector<requ
             {
                 if(unbalanced_changes_v[0].classcode == unbalanced_changes_v[j].newclasscode && unbalanced_changes_v[0].newclasscode == unbalanced_changes_v[j].classcode)
                 {
-                    if(is_valid_uc_class(unbalanced_changes_v[0].uccode, unbalanced_changes_v[0].classcode) && is_valid_uc_class(unbalanced_changes_v[0].uccode, unbalanced_changes_v[0].newclasscode))
-                    {
-                        if(is_valid_schedule_change(unbalanced_changes_v[0].student, unbalanced_changes_v[0].uccode, unbalanced_changes_v[0].classcode, unbalanced_changes_v[0].newclasscode))
-                        {
-                            uncondicional_change_student(unbalanced_changes_v[0], unbalanced_changes_v[j]);
-                            unbalanced_changes_v.erase(next(unbalanced_changes_v.begin(), j));
-                            answer.push_back(pair(unbalanced_changes_v[0], unbalanced_changes_v[j]));
-                            yes = true;
-                            break;
-                        }
-                    }
+                    uncondicional_change_student(unbalanced_changes_v[0], unbalanced_changes_v[j]);
+                    unbalanced_changes_v.erase(next(unbalanced_changes_v.begin(), j));
+                    answer.push_back(pair(unbalanced_changes_v[0], unbalanced_changes_v[j]));
+                    yes = true;
+                    break;
                 }
             }
         }
