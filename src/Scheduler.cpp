@@ -544,6 +544,13 @@ bool Scheduler::is_valid_schedule_change(string studentcode, string uc, string o
     return true;
 }
 
+/**
+ * @brief 
+ * verifica se existem pedidos que se anulem de forma a manter as turmas equilibradas;
+ * Complexidade: n*n
+ * @param failed adiciona a queue se nao for possível mudar 
+ * @return vector<pair<request, request>> vetor de pares que contém os alunos que conseguem trocar um com o outro
+ */
 vector<pair<request, request>> Scheduler::unbalanced_changes_checkup(vector<request>& failed)
 {
     vector<pair<request, request>> answer;
@@ -578,6 +585,13 @@ vector<pair<request, request>> Scheduler::unbalanced_changes_checkup(vector<requ
     return answer;
 }
 
+/**
+ * @brief 
+ * troca os alunos que os pedidos de turma se anulem de forma a manter as turmas equilibradas;
+ * Complexidade: n
+ * @param r1 pedido de troca de um aluno
+ * @param r2 
+ */
 void Scheduler::uncondicional_change_student(request r1, request r2)
 {
     bool check1 = false;
