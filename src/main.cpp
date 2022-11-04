@@ -171,6 +171,7 @@ int main(int argc, char **argv)
     string r;
 
     queue<request> q;
+    queue<request> q_fail;
 
     Student student(s);
     Uc uc(s);
@@ -395,7 +396,7 @@ int main(int argc, char **argv)
         }
         else if (r == "3") // Process Requests
         {
-            cout << "---\n1 - View Requests\n2 - Process Requests" << endl << endl;
+            cout << "---\n1 - View Requests\n2 - Process Requests\n3 - Process Failed Requests" << endl << endl;
             cin >> r;
             if (r == "1")
             {
@@ -414,8 +415,12 @@ int main(int argc, char **argv)
             }
             else if (r == "2")
             {
-                process_requests(s, q);
+                q_fail = process_requests(s, q);
                 std::queue<request>().swap(q);
+            }
+            else if (r == "3")
+            {
+                q_fail = process_requests(s, q_fail);
             }
             else
             {
