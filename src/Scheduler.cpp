@@ -289,7 +289,7 @@ bool Scheduler::is_balanced(string uccode, string classcode)
  * @param studentcode 
  * @param uccode 
  * @param classcode 
- * @return adiciona um aluno a uma UC e turma  
+ * @return true adiciona um aluno a uma UC e turma  
  * @return false ou a uc nao e valida, ou a adição prova desiquilibrio, ou iria ter aulas sobrepostas ou 
  */
 bool Scheduler::add_to(string studentcode, string uccode, string classcode)
