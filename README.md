@@ -2,4 +2,4 @@
 
 Projeto de AED
 
-Pedro, Silva, Sofia
+Pedro Beirão, João Dias da Silva, Maria Sofia Minnemann
